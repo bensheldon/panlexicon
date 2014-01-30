@@ -11,7 +11,7 @@ guard 'livereload' do
 end
 
 guard :rspec,
-      cmd: 'spring rspec --color --format documentation',
+      cmd: 'rspec --color --format documentation',
       all_after_pass: false,
       all_on_start: false,
       failed_mode: :none do
