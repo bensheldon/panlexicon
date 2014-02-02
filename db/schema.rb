@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140129221933) do
+ActiveRecord::Schema.define(version: 20140130031003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "groupings", id: false, force: true do |t|
+    t.integer "group_id", null: false
+    t.integer "term_id",  null: false
+  end
+
+  add_index "groupings", ["group_id"], name: "index_groupings_on_group_id", using: :btree
+  add_index "groupings", ["term_id"], name: "index_groupings_on_term_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.integer "key_term_id", null: false

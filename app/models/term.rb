@@ -1,3 +1,3 @@
 class Term < ActiveRecord::Base
-  has_many :relationships
+  has_and_belongs_to_many :groups, join_table: 'groupings'
 end
