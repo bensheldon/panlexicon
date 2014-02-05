@@ -6,6 +6,7 @@ gem 'thin'
 
 # Databases
 gem 'pg'
+gem 'squeel'
 
 gem 'haml-rails'
 
@@ -43,6 +44,8 @@ group :development do
 
   gem 'rack-livereload'
   gem 'guard-livereload', require: false
+
+  gem 'pry-rails'
 
   gem 'better_errors'
   gem 'binding_of_caller'
