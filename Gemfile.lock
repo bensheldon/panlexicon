@@ -26,7 +26,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
-    arel (4.0.1)
+    arel (4.0.2)
     arrayfields (4.9.0)
     atomic (1.1.14)
     awesome_print (1.2.0)
@@ -97,7 +97,7 @@ GEM
       ruby_parser (~> 3.1, > 3.1.0)
       sexp_processor (~> 4.4)
     formatador (0.2.4)
-    guard (2.3.0)
+    guard (2.4.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
       lumberjack (~> 1.0)
@@ -121,7 +121,6 @@ GEM
     hirb (0.7.1)
     http_parser.rb (0.5.3)
     i18n (0.6.9)
-    inflecto (0.0.2)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -202,13 +201,13 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.2)
       sprockets-rails (~> 2.0.0)
-    rails_best_practices (1.15.0)
+    rails_best_practices (1.15.1)
+      activesupport
       awesome_print
       code_analyzer (>= 0.4.3)
       colored
       erubis
       i18n
-      inflecto
       require_all
       ruby-progressbar
     railties (4.0.2)
