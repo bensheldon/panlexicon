@@ -41,6 +41,7 @@ group :development do
   gem 'terminal-notifier-guard', require: false
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/
 
   gem 'rack-livereload'
   gem 'guard-livereload', require: false

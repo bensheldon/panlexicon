@@ -331,6 +331,7 @@ DEPENDENCIES
   quiet_assets
   rack-livereload
   rails (= 4.0.2)
+  rb-fsevent
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc
