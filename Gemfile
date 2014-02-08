@@ -7,6 +7,7 @@ gem 'thin'
 # Databases
 gem 'pg'
 gem 'squeel'
+gem 'annotate'
 
 gem 'haml-rails'
 

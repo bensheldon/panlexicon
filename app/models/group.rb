@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id          :integer          not null, primary key
+#  key_term_id :integer          not null
+#
+
 class Group < ActiveRecord::Base
   belongs_to :key_term, class_name: "Term"
 

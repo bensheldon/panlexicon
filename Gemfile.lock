@@ -26,6 +26,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    annotate (2.6.1)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (4.0.2)
     arrayfields (4.9.0)
     atomic (1.1.14)
@@ -311,6 +314,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   better_errors
   binding_of_caller
   capybara
