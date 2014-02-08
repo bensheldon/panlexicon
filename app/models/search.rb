@@ -10,7 +10,10 @@ class Search
   end
 
   # Step 1
-  def intersect_groups
+  def intersect_gids
+    terms.map{|t| t.groups.pluck(:id) }.inject(:&)
+
+
     # Get the list of groups which are shared (exclusive) by the terms
   end
 
@@ -31,7 +34,7 @@ class Search
       SELECT term.id, term.name, grouping.count
         FROM (
           SELECT term_id, COUNT(*) as count FROM groupings
-          WHERE group_id IN (#{term_ids.join %q|'| })
+          WHERE group_id IN (#{intersect_gids.join %q|'| })
           GROUP BY term_id ORDER BY count DESC LIMIT #{max_terms}
         ) grouping
         LEFT JOIN terms term ON term.id = grouping.term_id;
