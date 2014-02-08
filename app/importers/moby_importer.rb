@@ -1,8 +1,12 @@
 class MobyImporter
   attr_reader :file
 
-  def initialize(file)
+  def initialize(file, options={})
     @file = file
+    @options = {
+      print_log: true
+    }.merge(options)
+
   end
 
   def import
@@ -20,6 +24,10 @@ class MobyImporter
     group = Group.new key_term: key_term
     group.terms += terms
 
-    puts "ERROR #{group.errors.full_messages}: #{string}" unless group.save
+    log "ERROR #{group.errors.full_messages}: #{string}" unless group.save
+  end
+
+  def log(message)
+    puts message if @options[:print_log]
   end
 end
