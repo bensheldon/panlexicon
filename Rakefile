@@ -4,3 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 
 Panlexicon::Application.load_tasks
+
+task :setup do
+  `rake db:setup`
+end
