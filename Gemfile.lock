@@ -356,6 +356,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   shoulda-matchers
+  simplecov
   spring
   spring-commands-rspec
   squeel

@@ -62,6 +62,7 @@ group :development, :test do
   gem 'faker'
 
   gem 'metric_fu'
+  gem 'simplecov'
   gem 'coveralls', require: false
 end
 

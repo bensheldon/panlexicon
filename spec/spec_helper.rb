@@ -1,7 +1,14 @@
+require 'simplecov'
 if ENV.has_key? 'TRAVIS'
   require 'coveralls'
-  Coveralls.wear!
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+else
+  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
 end
+SimpleCov.start
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
