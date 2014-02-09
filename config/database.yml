@@ -6,12 +6,10 @@ defaults: &defaults
 
 development:
   database: panlexicon_development
-  host: localhost
   <<: *defaults
 
 test:
   database: panlexicon_test
-  host: localhost
   min_messages: WARNING
   <<: *defaults
 
