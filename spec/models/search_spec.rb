@@ -4,9 +4,9 @@ describe Search do
 
   uses_moby_data
 
-  let(:cat) { Term.find_by(name: 'cat') }
-  let(:dog) { Term.find_by(name: 'dog') }
-  let(:cat_group) { Group.find_by(key_term: cat)}
+  let(:cat) { Word.find_by(name: 'cat') }
+  let(:dog) { Word.find_by(name: 'dog') }
+  let(:cat_group) { Group.find_by(key_word: cat)}
   let(:search) { Search.new [cat, dog] }
 
   describe "#intersect_gids" do

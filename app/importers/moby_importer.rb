@@ -16,13 +16,13 @@ class MobyImporter
   end
 
   def import_string(string)
-    terms = string.split(',').map{ |name| Term.find_or_create_by(name: name) }
-    return unless terms.size > 0
+    words = string.split(',').map{ |name| Word.find_or_create_by(name: name) }
+    return unless words.size > 0
 
-    key_term = terms[0]
+    key_word = words[0]
 
-    group = Group.new key_term: key_term
-    group.terms += terms
+    group = Group.new key_word: key_word
+    group.words += words
 
     log "ERROR #{group.errors.full_messages}: #{string}" unless group.save
   end

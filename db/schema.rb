@@ -18,22 +18,22 @@ ActiveRecord::Schema.define(version: 20140130031003) do
 
   create_table "groupings", id: false, force: true do |t|
     t.integer "group_id", null: false
-    t.integer "term_id",  null: false
+    t.integer "word_id",  null: false
   end
 
   add_index "groupings", ["group_id"], name: "index_groupings_on_group_id", using: :btree
-  add_index "groupings", ["term_id"], name: "index_groupings_on_term_id", using: :btree
+  add_index "groupings", ["word_id"], name: "index_groupings_on_word_id", using: :btree
 
   create_table "groups", force: true do |t|
-    t.integer "key_term_id", null: false
+    t.integer "key_word_id", null: false
   end
 
-  add_index "groups", ["key_term_id"], name: "index_groups_on_key_term_id", unique: true, using: :btree
+  add_index "groups", ["key_word_id"], name: "index_groups_on_key_word_id", unique: true, using: :btree
 
-  create_table "terms", force: true do |t|
+  create_table "words", force: true do |t|
     t.string "name", null: false
   end
 
-  add_index "terms", ["name"], name: "index_terms_on_name", unique: true, using: :btree
+  add_index "words", ["name"], name: "index_words_on_name", unique: true, using: :btree
 
 end

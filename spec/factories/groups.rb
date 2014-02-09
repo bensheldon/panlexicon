@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :group do
-    key_term { FactoryGirl.create :term }
+    key_word { FactoryGirl.create :word }
   end
 end

@@ -8,16 +8,16 @@ describe Group do
     expect(group).to be_valid
   end
 
-  it "requires a key_term" do
-    group = FactoryGirl.build :group, key_term: nil
+  it "requires a key_word" do
+    group = FactoryGirl.build :group, key_word: nil
     expect(group).to_not be_valid
   end
 
-  it "has many terms" do
-    term_1 = FactoryGirl.create :term
-    term_2 = FactoryGirl.create :term
+  it "has many words" do
+    word_1 = FactoryGirl.create :word
+    word_2 = FactoryGirl.create :word
 
-    group.terms += [term_1, term_2]
+    group.words += [word_1, word_2]
   end
 
 end

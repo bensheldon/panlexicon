@@ -8,13 +8,13 @@ describe MobyImporter do
     expect(txt.exist?).to be_true
   end
 
-  it "imports terms" do
-    expect{moby_importer.import}.to change{Term.count}.from(0).to(7)
+  it "imports words" do
+    expect{moby_importer.import}.to change{Word.count}.from(0).to(7)
   end
 
   it "is idempotent" do
     moby_importer.import # Do it once first
-    expect{moby_importer.import}.to_not change{Term.count}
+    expect{moby_importer.import}.to_not change{Word.count}
   end
 
 end

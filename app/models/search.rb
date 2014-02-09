@@ -1,43 +1,43 @@
 
 class Search
-  attr_reader :terms
+  attr_reader :words
 
-  MAX_TERMS = 80
+  MAX_WORDS = 80
 
-  def initialize(terms)
-    @terms = Array(terms)
-    @max_terms = MAX_TERMS
+  def initialize(words)
+    @words = Array(words)
+    @max_words = MAX_WORDS
   end
 
   # Step 1
   def intersect_gids
-    terms.map{|t| t.groups.pluck(:id) }.inject(:&)
+    words.map{|t| t.groups.pluck(:id) }.inject(:&)
 
 
-    # Get the list of groups which are shared (exclusive) by the terms
+    # Get the list of groups which are shared (exclusive) by the words
   end
 
   # Step 2
-  def count_termsl
+  def count_words
     # From PHP
     #   $sql =
-    #    "SELECT Term.id, Term.term, GroupRelation.count
+    #    "SELECT Word.id, Word.word, GroupRelation.count
     #     FROM (
-    #      SELECT term_id, COUNT(*) as count FROM `group_relations`
+    #      SELECT word_id, COUNT(*) as count FROM `group_relations`
     #      WHERE group_id IN (" . implode(',', $groups_intersect) . ")
-    #      GROUP BY term_id ORDER BY count DESC LIMIT " . $max_related_terms . "
+    #      GROUP BY word_id ORDER BY count DESC LIMIT " . $max_related_words . "
     #     ) GroupRelation
-    #     LEFT JOIN `terms` Term ON Term.id = GroupRelation.term_id;";
-    # $results = $this->Term->query($sql);
+    #     LEFT JOIN `words` Word ON Word.id = GroupRelation.word_id;";
+    # $results = $this->Word->query($sql);
 
     ActiveRecord::Base.connection.execute("
-      SELECT term.id, term.name, grouping.count
+      SELECT word.id, word.name, grouping.count
         FROM (
-          SELECT term_id, COUNT(*) as count FROM groupings
+          SELECT word_id, COUNT(*) as count FROM groupings
           WHERE group_id IN (#{intersect_gids.join %q|'| })
-          GROUP BY term_id ORDER BY count DESC LIMIT #{max_terms}
+          GROUP BY word_id ORDER BY count DESC LIMIT #{max_words}
         ) grouping
-        LEFT JOIN terms term ON term.id = grouping.term_id;
+        LEFT JOIN words word ON word.id = grouping.word_id;
     ")
 
   end
