@@ -7,7 +7,6 @@ gem 'thin'
 # Databases
 gem 'pg'
 gem 'squeel'
-gem 'annotate'
 
 gem 'haml-rails'
 
@@ -52,6 +51,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request' # for use with RailsPanel Chrome Extension
+  gem 'annotate'
 
   gem 'quiet_assets'
 end
