@@ -1,7 +1,6 @@
+---
+before_install: gem update bundler
+bundler_args: --without production
 language: ruby
 rvm:
   - 2.1.0
-cache: bundler
-bundler_args: --without development
-before_script:
-  - rake setup
