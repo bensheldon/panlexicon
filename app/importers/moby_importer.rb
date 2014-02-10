@@ -16,7 +16,7 @@ class MobyImporter
   end
 
   def import_string(string)
-    words = string.split(',').map{ |name| Word.find_or_create_by(name: name) }
+    words = string.split(',').map{ |name| Word.find_or_create_by(name: name.strip) }
     return unless words.size > 0
 
     key_word = words[0]

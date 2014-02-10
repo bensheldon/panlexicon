@@ -9,7 +9,7 @@ describe MobyImporter do
   end
 
   it "imports words" do
-    expect{moby_importer.import}.to change{Word.count}.from(0).to(7)
+    expect{moby_importer.import}.to change{Word.count}.from(0).to(6)
   end
 
   it "is idempotent" do
