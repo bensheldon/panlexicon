@@ -10,7 +10,9 @@ class MobyImporter
   end
 
   def import
-    file.each_line do |line|
+    total_lines = file.readlines.size
+    file.each_line.with_index do |line, i|
+      puts "Importing line #{i+1}/#{total_lines}" if i % 25 == 0
       import_string line
     end
   end

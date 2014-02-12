@@ -3,7 +3,7 @@ require 'pathname'
 namespace :import do
   desc "Import comma-separated values from Moby Thesaurus"
   task :moby, [:file_path] => :environment do |t, args|
-    args.with_defaults :file_path => 'moby_thesaurus.txt'
+    args.with_defaults :file_path => 'mthesaur.txt'
 
     filepath = Pathname(args[:file_path])
     if filepath.exist?
