@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/bensheldon/panlexicon-rails/badge.png)](https://coveralls.io/r/bensheldon/panlexicon-rails)
 [![Dependency Status](https://gemnasium.com/bensheldon/panlexicon-rails.png)](https://gemnasium.com/bensheldon/panlexicon-rails)
 [![Code Climate](https://codeclimate.com/github/bensheldon/panlexicon-rails.png)](https://codeclimate.com/github/bensheldon/panlexicon-rails)
-
+[![Panlexicon](http://img.shields.io/badge/words-103,256-blue.png)](http://panlexicon.com)
 
 # Importing Moby Thesaurus
 
