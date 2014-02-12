@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Search do
 
-  uses_moby_data
+  use_moby_cats
 
-  let(:cat) { Word.find_by(name: 'cat') }
-  let(:dog) { Word.find_by(name: 'dog') }
-  let(:cat_group) { Group.find_by(key_word: cat)}
-  let(:search) { Search.new [cat, dog] }
+  let(:lion) { Word.find_by(name: 'lion') }
+  let(:tiger) { Word.find_by(name: 'tiger') }
+  let(:tiger_group) { Group.find_by(key_word: tiger)}
+  let(:search) { Search.new [lion, tiger] }
 
   describe '#intersect_gids' do
     it 'returns an array of integers' do
@@ -15,7 +15,7 @@ describe Search do
     end
 
     it 'returns the correct value' do
-      expect(search.intersect_gids).to include cat_group.id
+      expect(search.intersect_gids).to include tiger_group.id
     end
   end
 

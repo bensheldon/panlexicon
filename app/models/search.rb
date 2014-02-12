@@ -27,7 +27,7 @@ class Search
              ntile(#{buckets}) OVER (ORDER BY grouping.group_count) AS search_bucket
         FROM (
           SELECT word_id, COUNT(*) as group_count FROM groupings
-          WHERE group_id IN (#{group_ids.join %q|'| })
+          WHERE group_id IN (#{group_ids.join %q|,| })
           GROUP BY word_id ORDER BY group_count DESC LIMIT #{max_words}
         ) grouping
         LEFT JOIN words word ON word.id = grouping.word_id;
