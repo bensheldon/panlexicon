@@ -15,4 +15,8 @@
 /log/*.log
 /tmp
 
+# Simplecov report
 /coverage
+
+# Moby Thesaurus filename
+mthesaur.txt
