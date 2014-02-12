@@ -16,15 +16,17 @@ class MobyImporter
   end
 
   def import_string(string)
-    words = string.split(',').map{ |name| Word.find_or_create_by(name: name.strip) }
-    return unless words.size > 0
+    ActiveRecord::Base.transaction do
+      words = string.split(',').map{ |name| Word.find_or_create_by(name: name.strip) }
+      return unless words.size > 0
 
-    key_word = words[0]
+      key_word = words[0]
 
-    group = Group.new key_word: key_word
-    group.words += words
+      group = Group.find_or_create_by(key_word: key_word)
+      group.words += words
 
-    log "ERROR #{group.errors.full_messages}: #{string}" unless group.save
+      log "ERROR #{group.errors.full_messages}: #{string}" unless group.save
+    end
   end
 
   def log(message)
