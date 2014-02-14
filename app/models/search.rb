@@ -1,5 +1,9 @@
 class Search
+  include ActiveModel::Model
   attr_reader :string, :words, :max_words, :buckets
+
+  validates :string, presence: true
+  validate :words_have_intersecting_groups
 
   MAX_WORDS = 80
   BUCKETS = 8
@@ -10,7 +14,7 @@ class Search
   end
 
   def intersect_group_ids
-    words.map{|t| t.groups.pluck(:id) }.inject(:&)
+    Array words.map{|t| t.groups.pluck(:id) }.inject(:&)
   end
 
   def weight_related_words
@@ -39,6 +43,12 @@ class Search
 
   def split_string
     string.split(',').map(&:strip)
+  end
+
+  def words_have_intersecting_groups
+    if intersect_group_ids.size == 0
+      errors.add(:string, "no commonality can be found between words")
+    end
   end
 
 end

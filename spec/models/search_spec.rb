@@ -44,4 +44,29 @@ describe Search do
       search.weight_related_words
     end
   end
+
+  describe "validations" do
+    describe "presence_of :string"
+      it "validates in presence of string" do
+        search = Search.new('lion')
+        expect(search.valid?).to be_true
+      end
+
+      it "invalidates when string is empty" do
+        search = Search.new('')
+        expect(search.valid?).to be_false
+      end
+
+    describe ":words_have_intersecting_groups" do
+      it "validates if groups intersect" do
+        search = Search.new('lion, tiger')
+        expect(search.valid?).to be_true
+      end
+
+      it "invalidates if groups do not intersect" do
+        search = Search.new('cat, platypus')
+        expect(search.valid?).to be_false
+      end
+    end
+  end
 end
