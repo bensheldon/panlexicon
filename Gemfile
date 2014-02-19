@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.1.0"
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 gem 'thin'
 
 # Databases
@@ -29,7 +29,7 @@ gem 'jquery-rails'
 # gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
