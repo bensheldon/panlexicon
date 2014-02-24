@@ -49,23 +49,23 @@ describe Search do
     describe "presence_of :string"
       it "validates in presence of string" do
         search = Search.new('lion')
-        expect(search.valid?).to be_true
+        expect(search.valid?).to be true
       end
 
       it "invalidates when string is empty" do
         search = Search.new('')
-        expect(search.valid?).to be_false
+        expect(search.valid?).to be false
       end
 
     describe ":words_have_intersecting_groups" do
       it "validates if groups intersect" do
         search = Search.new('lion, tiger')
-        expect(search.valid?).to be_true
+        expect(search.valid?).to be true
       end
 
       it "invalidates if groups do not intersect" do
         search = Search.new('cat, platypus')
-        expect(search.valid?).to be_false
+        expect(search.valid?).to be false
       end
     end
   end

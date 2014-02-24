@@ -5,7 +5,7 @@ describe MobyImporter do
   let(:moby_importer) { MobyImporter.new(txt, print_log: false) }
 
   it "has a valid fixture" do
-    expect(txt.exist?).to be_true
+    expect(txt.exist?).to be true
   end
 
   it "imports words" do
