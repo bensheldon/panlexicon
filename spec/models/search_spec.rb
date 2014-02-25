@@ -9,13 +9,13 @@ describe Search do
   let(:tiger_group) { Group.find_by(key_word: tiger)}
   let(:search) { Search.new 'lion, tiger' }
 
-  describe '#intersect_gids' do
+  describe '#group_ids' do
     it 'returns an array of integers' do
-      expect(search.intersect_group_ids[0]).to be_an Integer
+      expect(search.group_ids[0]).to be_an Integer
     end
 
     it 'returns the correct value' do
-      expect(search.intersect_group_ids).to include tiger_group.id
+      expect(search.group_ids).to include tiger_group.id
     end
   end
 
@@ -46,24 +46,37 @@ describe Search do
   end
 
   describe "validations" do
-    describe "presence_of :string"
-      it "validates in presence of string" do
+    describe "presence_of :string" do
+      it "valid in presence of string" do
         search = Search.new('lion')
         expect(search.valid?).to be true
       end
 
-      it "invalidates when string is empty" do
+      it "invalid when string is empty" do
         search = Search.new('')
         expect(search.valid?).to be false
       end
+    end
+
+    describe ":words_exist" do
+      it "valid if words are in dictionary" do
+        search = Search.new('cat, lion')
+        expect(search.valid?).to be true
+      end
+
+      it "invalid when string is empty" do
+        search = Search.new('cat, numberwang')
+        expect(search.valid?).to be false
+      end
+    end
 
     describe ":words_have_intersecting_groups" do
-      it "validates if groups intersect" do
+      it "valid if groups intersect" do
         search = Search.new('lion, tiger')
         expect(search.valid?).to be true
       end
 
-      it "invalidates if groups do not intersect" do
+      it "invalid if groups do not intersect" do
         search = Search.new('cat, platypus')
         expect(search.valid?).to be false
       end

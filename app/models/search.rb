@@ -3,6 +3,7 @@ class Search
   attr_reader :string, :words, :max_words, :buckets
 
   validates :string, presence: true
+  validate :words_exist
   validate :words_have_intersecting_groups
 
   MAX_WORDS = 80
@@ -10,16 +11,23 @@ class Search
 
   def initialize(string)
     @string = string
-    @words = load_words
   end
 
-  def intersect_group_ids
-    Array words.map{|t| t.groups.pluck(:id) }.inject(:&)
+  def words
+    @words ||= split_string.map do |name|
+      Word.find_by name: name
+    end.compact
+  end
+
+  def results
+    @results ||= weight_related_words
+  end
+
+  def group_ids
+    @group_ids ||= Array( words.map{|t| t.groups.pluck(:id) }.inject(:&) )
   end
 
   def weight_related_words
-    group_ids = intersect_group_ids
-
     ActiveRecord::Base.connection.execute("
       SELECT word.id,
              word.name,
@@ -35,19 +43,21 @@ class Search
   end
 
   private
-  def load_words
-    split_string.map do |name|
-      Word.find_by name: name
-    end
-  end
-
   def split_string
     string.split(',').map(&:strip)
   end
 
+  def words_exist
+    missing_words = split_string - words.map(&:name)
+
+    if missing_words.size > 0
+      errors.add(:string, "The #{'word'.pluralize(missing_words.size)} #{missing_words.join(', ')} are not in our dictionary.")
+    end
+  end
+
   def words_have_intersecting_groups
-    if intersect_group_ids.size == 0
-      errors.add(:string, "no commonality can be found between words")
+    if group_ids.size == 0
+      errors.add(:string, "No commonality can be found between words")
     end
   end
 
