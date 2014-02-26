@@ -35,7 +35,7 @@ describe Search do
       stub_const('WeightedWord', weighted_word_class)
 
       expect(weighted_word_class).to receive(:new).with({
-        'id' => '#{lion.id}',
+        'id' => "#{lion.id}",
         'name' => 'lion',
         'groups_count' => '7',
         'bucket' => '8'
