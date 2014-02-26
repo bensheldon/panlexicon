@@ -32,10 +32,10 @@ describe Search do
     it 'calls WeightedWord.new with a hash' do
       # necessary because WeightedWord.new is called multiple times
       weighted_word_class = double().as_null_object
-      stub_const("WeightedWord", weighted_word_class)
+      stub_const('WeightedWord', weighted_word_class)
 
       expect(weighted_word_class).to receive(:new).with({
-        'id' => "#{lion.id}",
+        'id' => '#{lion.id}',
         'name' => 'lion',
         'groups_count' => '7',
         'bucket' => '8'
@@ -45,38 +45,38 @@ describe Search do
     end
   end
 
-  describe "validations" do
-    describe "presence_of :string" do
-      it "valid in presence of string" do
+  describe 'validations' do
+    describe 'presence_of :string' do
+      it 'valid in presence of string' do
         search = Search.new('lion')
         expect(search.valid?).to be true
       end
 
-      it "invalid when string is empty" do
+      it 'invalid when string is empty' do
         search = Search.new('')
         expect(search.valid?).to be false
       end
     end
 
-    describe ":words_exist" do
-      it "valid if words are in dictionary" do
+    describe ':words_exist' do
+      it 'valid if words are in dictionary' do
         search = Search.new('cat, lion')
         expect(search.valid?).to be true
       end
 
-      it "invalid when string is empty" do
+      it 'invalid when string is empty' do
         search = Search.new('cat, numberwang')
         expect(search.valid?).to be false
       end
     end
 
-    describe ":words_have_intersecting_groups" do
-      it "valid if groups intersect" do
+    describe ':words_have_intersecting_groups' do
+      it 'valid if groups intersect' do
         search = Search.new('lion, tiger')
         expect(search.valid?).to be true
       end
 
-      it "invalid if groups do not intersect" do
+      it 'invalid if groups do not intersect' do
         search = Search.new('cat, platypus')
         expect(search.valid?).to be false
       end
