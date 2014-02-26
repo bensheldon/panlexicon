@@ -35,7 +35,7 @@ describe SearchController do
 
     it 'POST creates a new Search using :query' do
       post :show, query: 'lion, tiger'
-      expect(response).to redirect_to(action: 'show', query: "lion, tiger")
+      expect(response).to redirect_to(action: 'show', query: 'lion, tiger')
     end
 
   end

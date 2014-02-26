@@ -11,7 +11,7 @@
 # if you're sharing your code publicly.
 Panlexicon::Application.config.secret_key_base = ENV.fetch('SECRET_TOKEN') do
   if ENV['RAILS_ENV'] == 'production'
-    fail "You must set a SECRET_TOKEN !!!"
+    fail 'You must set a SECRET_TOKEN !!!'
   else
     '12345luggage'
   end
