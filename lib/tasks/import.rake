@@ -8,6 +8,8 @@ namespace :import do
     filepath = Pathname(args[:file_path])
     if filepath.exist?
       importer = MobyImporter.new(filepath)
+      importer.logger.level = Logger::INFO
+
       importer.import
     else
       abort "Cannot find file: #{filepath.realpath}"
