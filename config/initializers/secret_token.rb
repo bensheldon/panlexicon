@@ -9,4 +9,10 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Panlexicon::Application.config.secret_key_base = '2f75ce54f37fd49bf829449e896134a6afe0432971f31221f1848e57c53d6747f32c6085e08325c54f6eb13c31d1ebb7de50aa5a5e7d7d95b621533fca2b1fee'
+Panlexicon::Application.config.secret_key_base = ENV.fetch('SECRET_TOKEN') do
+  if ENV['RAILS_ENV'] == 'production'
+    fail "You must set a SECRET_TOKEN !!!"
+  else
+    '12345luggage'
+  end
+end
