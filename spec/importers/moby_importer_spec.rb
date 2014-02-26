@@ -9,12 +9,12 @@ describe MobyImporter do
   end
 
   it "imports words" do
-    expect{moby_importer.import}.to change{Word.count}.from(0).to(10)
+    expect { moby_importer.import }.to change{Word.count}.from(0).to(10)
   end
 
   it "is idempotent" do
     moby_importer.import # Do it once first
-    expect{moby_importer.import}.to_not change{Word.count}
+    expect { moby_importer.import }.to_not change{Word.count}
   end
 
   describe "moby bug with 'cackle' keyword duplication" do

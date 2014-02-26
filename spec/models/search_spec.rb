@@ -6,7 +6,7 @@ describe Search do
 
   let(:lion) { Word.find_by(name: 'lion') }
   let(:tiger) { Word.find_by(name: 'tiger') }
-  let(:tiger_group) { Group.find_by(key_word: tiger)}
+  let(:tiger_group) { Group.find_by(key_word: tiger) }
   let(:search) { Search.new 'lion, tiger' }
 
   describe '#group_ids' do

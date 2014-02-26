@@ -24,7 +24,7 @@ class Search
   end
 
   def group_ids
-    @group_ids ||= Array( words.map{|t| t.groups.pluck(:id) }.inject(:&) )
+    @group_ids ||= Array(words.map { |t| t.groups.pluck(:id) }.inject(:&))
   end
 
   def weight_related_words
@@ -39,7 +39,7 @@ class Search
           GROUP BY word_id ORDER BY groups_count DESC LIMIT #{MAX_WORDS}
         ) grouping
         LEFT JOIN words word ON word.id = grouping.word_id;
-    ").map{ |row| WeightedWord.new(row) }
+    ").map { |row| WeightedWord.new(row) }
   end
 
   private
@@ -57,8 +57,7 @@ class Search
 
   def words_have_intersecting_groups
     if group_ids.size == 0
-      errors.add(:string, "No commonality can be found between words")
+      errors.add(:string, 'No commonality can be found between words"')
     end
   end
-
 end
