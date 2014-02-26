@@ -36,6 +36,28 @@ describe Search do
     end
   end
 
+  describe '[private]#weight_related_words' do
+    it 'calls WeightedWord.new for every returned word' do
+      expect(WeightedWord).to receive(:new).exactly(9).times
+      search.send :weight_related_words
+    end
+
+    it 'calls WeightedWord.new with a hash' do
+      # necessary because WeightedWord.new is called multiple times
+      weighted_word_class = double().as_null_object
+      stub_const('WeightedWord', weighted_word_class)
+
+      expect(weighted_word_class).to receive(:new).with({
+        'id' => "#{lion.id}",
+        'name' => 'lion',
+        'groups_count' => '7',
+        'weight' => '8'
+      })
+
+      search.send :weight_related_words
+    end
+  end
+
   describe 'validations' do
     describe 'presence_of :string' do
       it 'valid in presence of string' do
