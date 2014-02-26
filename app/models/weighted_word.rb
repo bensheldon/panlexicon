@@ -1,7 +1,7 @@
 class WeightedWord
   extend Forwardable
 
-  attr_reader :word, :groups_count, :bucket
+  attr_reader :word, :groups_count, :weight
   def_delegators :@word, :id, :name
 
   def initialize(attributes = {})
@@ -9,6 +9,6 @@ class WeightedWord
 
     @word = Word.instantiate attributes
     @groups_count = attributes[:groups_count].to_i
-    @bucket = attributes[:bucket].to_i
+    @weight = attributes[:weight].to_i
   end
 end

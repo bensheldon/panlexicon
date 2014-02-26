@@ -19,29 +19,20 @@ describe Search do
     end
   end
 
-  describe '#weighted_words' do
+  describe '#results' do
     it 'returns an array of WeightedWords' do
-      expect(search.weight_related_words.first).to be_a WeightedWord
+      expect(search.results.first).to be_a WeightedWord
     end
 
-    it 'calls WeightedWord.new for every returned word' do
-      expect(WeightedWord).to receive(:new).exactly(9).times
-      search.weight_related_words
+    it 'returns the correct number of results' do
+      expect(search.results.size).to eq 9
     end
 
-    it 'calls WeightedWord.new with a hash' do
-      # necessary because WeightedWord.new is called multiple times
-      weighted_word_class = double().as_null_object
-      stub_const('WeightedWord', weighted_word_class)
+    it 'returns results between 1 and MAX_WEIGHT' do
+      results = search.results
 
-      expect(weighted_word_class).to receive(:new).with({
-        'id' => "#{lion.id}",
-        'name' => 'lion',
-        'groups_count' => '7',
-        'bucket' => '8'
-      })
-
-      search.weight_related_words
+      expect(results.min_by(&:weight).weight).to eq 1
+      expect(results.max_by(&:weight).weight).to eq Search::MAX_WEIGHT
     end
   end
 

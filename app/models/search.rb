@@ -1,20 +1,20 @@
 class Search
   include ActiveModel::Model
-  attr_reader :string, :words, :max_words, :buckets
+  attr_reader :string, :words
 
   validates :string, presence: true
   validate :words_exist
   validate :words_have_intersecting_groups
 
   MAX_WORDS = 80
-  BUCKETS = 8
+  MAX_WEIGHT = 8
 
   def initialize(string)
     @string = string
   end
 
-  def words
-    @words ||= split_string.map do |name|
+  def searched_words
+    @searched_words ||= split_string.map do |name|
       Word.find_by name: name
     end.compact
   end
@@ -24,7 +24,16 @@ class Search
   end
 
   def group_ids
-    @group_ids ||= Array(words.map { |t| t.groups.pluck(:id) }.inject(:&))
+    @group_ids ||= Array(searched_words.map { |t| t.groups.pluck(:id) }.inject(:&))
+  end
+
+  def missing_words
+    @mising_words ||= split_string - searched_words.map(&:name)
+  end
+
+  private
+  def split_string
+    string.split(',').map(&:strip)
   end
 
   def weight_related_words
@@ -32,7 +41,7 @@ class Search
       SELECT word.id,
              word.name,
              grouping.groups_count AS groups_count,
-             ntile(#{BUCKETS}) OVER (ORDER BY grouping.groups_count) AS bucket
+             ntile(#{MAX_WEIGHT}) OVER (ORDER BY grouping.groups_count) AS weight
         FROM (
           SELECT word_id, COUNT(*) as groups_count FROM groupings
           WHERE group_id IN (#{group_ids.join %q|,| })
@@ -42,14 +51,7 @@ class Search
     ").map { |row| WeightedWord.new(row) }
   end
 
-  private
-  def split_string
-    string.split(',').map(&:strip)
-  end
-
   def words_exist
-    missing_words = split_string - words.map(&:name)
-
     if missing_words.size > 0
       errors.add(:string, "The #{'word'.pluralize(missing_words.size)} #{missing_words.join(', ')} are not in our dictionary.")
     end
