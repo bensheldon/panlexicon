@@ -12,6 +12,7 @@ gem 'haml-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
+gem 'foundation-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -39,21 +40,23 @@ end
 group :development do
   gem 'guard-rspec', require: false
   gem 'terminal-notifier-guard', require: false
-  gem 'spring'
-  gem 'spring-commands-rspec'
   gem 'rb-fsevent'
 
   gem 'rack-livereload'
   gem 'guard-livereload', require: false
+
+  gem 'spring'
+  gem 'spring-commands-rspec'
 
   gem 'pry-rails'
 
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request' # for use with RailsPanel Chrome Extension
-  gem 'annotate'
-
   gem 'quiet_assets'
+
+  gem 'annotate'
+  gem 'rails_layout'
 end
 
 group :development, :test do
