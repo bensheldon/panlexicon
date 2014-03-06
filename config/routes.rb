@@ -1,6 +1,6 @@
 Panlexicon::Application.routes.draw do
 
-  root 'search#show'
+  root 'search#panlexicon'
 
   get 'search/:query' => 'search#show'
   get 'search' => 'search#show'
