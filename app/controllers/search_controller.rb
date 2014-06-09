@@ -1,5 +1,4 @@
 class SearchController < ApplicationController
-
   def show
     return panlexicon unless search_query
     return redirect_to(action: 'show', query: search_query) if request.post?
@@ -26,7 +25,7 @@ class SearchController < ApplicationController
   def panlexicon
     @search = Search.new('thesaurus')
 
-    render "show"
+    render 'show'
   end
 
   private
