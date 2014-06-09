@@ -4,8 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/bensheldon/panlexicon-rails/badge.png?branch=master)](https://coveralls.io/r/bensheldon/panlexicon-rails?branch=master)
 [![Dependency Status](https://gemnasium.com/bensheldon/panlexicon-rails.png)](https://gemnasium.com/bensheldon/panlexicon-rails)
 [![Code Climate](https://codeclimate.com/github/bensheldon/panlexicon-rails.png)](https://codeclimate.com/github/bensheldon/panlexicon-rails)
-[![PullReview](http://img.shields.io/badge/pullreview-improved-yellowgreen.png)](https://www.pullreview.com/bensheldon/panlexicon-rails/reviews/master)
 [![Panlexicon](http://img.shields.io/badge/words-103,256-blue.png)](http://panlexicon.com)
+
+[![PullReview stats](https://www.pullreview.com/github/bensheldon/panlexicon-rails/badges/master.svg?type=full)](https://www.pullreview.com/github/bensheldon/panlexicon-rails/reviews/master)
 
 # Importing Moby Thesaurus
 
