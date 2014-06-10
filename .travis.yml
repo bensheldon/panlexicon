@@ -4,5 +4,6 @@ rvm:
   - 2.1.1
 before_script:
   - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database panlexicon_test;' -U postgres
 before_install: gem update bundler
 bundler_args: --without production
