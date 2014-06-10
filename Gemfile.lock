@@ -36,6 +36,11 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
+    bourbon (3.2.3)
+      sass (~> 3.2)
+      thor
     builder (3.1.4)
     callsite (0.0.11)
     capybara (2.2.1)
@@ -85,9 +90,6 @@ GEM
       i18n (~> 0.5)
     ffi (1.9.3)
     formatador (0.2.4)
-    foundation-rails (5.2.1.0)
-      railties (>= 3.1.0)
-      sass (>= 3.2.0)
     guard (2.5.1)
       formatador (>= 0.2.4)
       listen (~> 2.6)
@@ -277,13 +279,14 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
+  bootstrap-sass
+  bourbon (~> 3.2.3)
   capybara
   coffee-rails (~> 4.0.0)
   coveralls
   database_cleaner
   factory_girl_rails
   faker
-  foundation-rails
   guard-livereload
   guard-rspec
   haml-rails

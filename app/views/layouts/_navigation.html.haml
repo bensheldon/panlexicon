@@ -1,12 +1,13 @@
--# navigation styled for Zurb Foundation 5
--# the syntax for data-topbar may need to change for Zurb Foundation 5
-%nav.top-bar{"data-topbar" => true}
-  %ul.title-area
-    %li.name
-      %h1= link_to 'Panlexicon', root_path
-    %li.toggle-topbar.menu-icon
-      %a{:href => "#"}
-        Menu
-  .top-bar-section
-    %ul
-      = render 'layouts/navigation_links'
+-# navigation styled for Bootstrap 3.0
+%nav.navbar.navbar-default
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to 'Panlexicon', root_path, class: 'navbar-brand'
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        = render 'layouts/navigation_links'

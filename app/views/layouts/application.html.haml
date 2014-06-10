@@ -5,13 +5,12 @@
     %title= content_for?(:title) ? yield(:title) : 'Panlexicon'
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Panlexicon'}"}
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    -# Modernizr is required for Zurb Foundation
-    = javascript_include_tag "vendor/modernizr"
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
     %header
       = render 'layouts/navigation'
     %main{:role => "main"}
-      = render 'layouts/messages'
-      = yield
+      .container
+        = render 'layouts/messages'
+        = yield
