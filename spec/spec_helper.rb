@@ -1,20 +1,13 @@
-require 'simplecov'
 if ENV.has_key? 'TRAVIS'
   require 'coveralls'
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-  ]
-else
-  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
+  Coveralls.wear!('rails')
 end
-SimpleCov.start
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
+ENV['RACK_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'factory_girl'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

@@ -32,6 +32,7 @@ class SearchController < ApplicationController
     def search_query
       params.permit(:query, :q)
 
+      # First try :query, then try :q
       params.fetch :query do
         params.fetch :q do
           ''

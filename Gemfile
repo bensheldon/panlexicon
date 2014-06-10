@@ -63,10 +63,6 @@ group :development, :test do
   gem 'rspec-rails', "~> 3.0.0.beta2"
   gem 'factory_girl_rails'
   gem 'faker'
-
-  gem 'metric_fu'
-  gem 'simplecov'
-  gem 'coveralls', require: false
 end
 
 group :test do
@@ -76,6 +72,9 @@ group :test do
   gem 'webmock'
   gem 'shoulda-matchers'
   gem 'timecop'
+
+  gem 'simplecov', '0.7.1' # see https://github.com/colszowka/simplecov/issues/281
+  gem 'coveralls', require: false
 end
 
 # Use ActiveModel has_secure_password
