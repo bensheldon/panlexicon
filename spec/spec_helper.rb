@@ -32,6 +32,10 @@ RSpec.configure do |config|
     FactoryGirl.reload
   end
 
+  # rspec-rails 3 will no longer automatically infer an example
+  # group's spec type from the file location.
+  config.infer_spec_type_from_file_location!
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
