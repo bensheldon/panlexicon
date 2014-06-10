@@ -35,7 +35,7 @@ class SearchController < ApplicationController
       # First try :query, then try :q
       params.fetch :query do
         params.fetch :q do
-          ''
+          nil
         end
       end
     end
