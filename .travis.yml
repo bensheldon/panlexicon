@@ -3,12 +3,11 @@ language: ruby
 rvm:
   - 2.1.1
 bundler_args: --without production
-before_install: 
+before_install:
   - gem update bundler
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database panlexicon_test;' -U postgres
-script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
+script:
   - bundle exec rake
