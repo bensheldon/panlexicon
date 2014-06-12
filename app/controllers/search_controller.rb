@@ -3,7 +3,8 @@ class SearchController < ApplicationController
     return panlexicon unless search_query
     return redirect_to(action: 'show', query: search_query) if request.post?
 
-    @search = Search.new(search_query)
+    @search_query = search_query
+    @search = Search.new(@search_query)
 
     # if @search.valid?
 

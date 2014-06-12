@@ -1,13 +1,23 @@
 -# navigation styled for Bootstrap 3.0
+
+- search_query = content_for?(:search_query) ? yield(:search_query) : ''
+
 %nav.navbar.navbar-default
   .container
     .navbar-header
-      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+      %button.navbar-toggle{ type: 'button', data: { target: '.navbar-collapse', toggle: 'collapse' } }
         %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
+
       = link_to 'Panlexicon', root_path, class: 'navbar-brand'
+      .pull-right
+        %form.navbar-form.navbar-right{ role: 'search', method: 'GET', action: '/' }
+          .form-group
+            %input.form-control{ name: 'q', value: search_query, placeholder: 'Search', type: 'text' }
+            %button.btn.btn-default{ type: 'submit' } Search
+
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         = render 'layouts/navigation_links'
