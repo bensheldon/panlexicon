@@ -44,6 +44,7 @@ group :development do
 
   gem 'rack-livereload'
   gem 'guard-livereload', require: false
+  gem 'guard-rubocop', require: false
 
   gem 'spring'
   gem 'spring-commands-rspec'

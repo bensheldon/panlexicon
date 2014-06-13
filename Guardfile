@@ -5,6 +5,7 @@ guard :rspec,
       cmd: 'spring rspec --color --format documentation',
       all_after_pass: false,
       all_on_start: false,
+      halt_on_fail: true,
       failed_mode: :none do
 
   watch(%r{^spec/.+_spec\.rb$})
@@ -25,6 +26,15 @@ guard :rspec,
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
+end
+
+# included in rspec group for halt_on_fail:
+guard :rubocop,
+      all_on_start: false,
+      all_after_pass: false,
+      cli: ['--format', 'clang', '--rails'] do
+  watch(%r{.+\.rb$})
+  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
 end
 
 guard 'livereload' do
