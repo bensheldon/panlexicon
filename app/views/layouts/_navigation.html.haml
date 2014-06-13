@@ -13,14 +13,12 @@
 
       = link_to 'Panlexicon', root_path, class: 'navbar-brand hidden-xs'
 
-    .collapse.navbar-collapse.navbar-left
-      %ul.nav.navbar-nav
-        %li
-          %a{ href: '#' } About
-
-
-    -# .search-box
     %form.navbar-form.navbar-right{ role: 'search', method: 'GET', action: '/' }
       .form-group
         %input.form-control{ name: 'q', value: search_query, placeholder: 'Search Panlexicon', type: 'text' }
         %button.btn.btn-default.hidden-xs{ type: 'submit' } Search
+
+    .collapse.navbar-collapse.navbar-left
+      %ul.nav.navbar-nav
+        %li
+          %a{ href: '#' } About
