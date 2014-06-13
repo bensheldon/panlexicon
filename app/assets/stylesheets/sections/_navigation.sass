@@ -1,3 +1,17 @@
 nav.top-bar
   h1
     text-transform: capitalize
+
+.navbar-toggle
+  float: left
+  margin-left: 15px
+
+.navbar
+  form[role=search]
+    @media (min-width: $screen-md)
+      padding-right: 0
+    @media (max-width: $screen-sm)
+      border: none
+      display: block
+      margin: -52px -15px 0 45px
+      padding-bottom: 0
