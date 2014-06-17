@@ -41,19 +41,19 @@ class Search
       SELECT word.id,
              word.name,
              grouping.groups_count AS groups_count,
-             ntile(#{MAX_WEIGHT}) OVER (ORDER BY grouping.groups_count) AS weight
+             ntile(#{ MAX_WEIGHT }) OVER (ORDER BY grouping.groups_count) AS weight
         FROM (
           SELECT word_id, COUNT(*) as groups_count FROM groupings
-          WHERE group_id IN (#{group_ids.join %q|,| })
-          GROUP BY word_id ORDER BY groups_count DESC LIMIT #{MAX_WORDS}
+          WHERE group_id IN (#{ group_ids.join(',') })
+          GROUP BY word_id ORDER BY groups_count DESC LIMIT #{ MAX_WORDS }
         ) grouping
         LEFT JOIN words word ON word.id = grouping.word_id;
-    ").map { |row| WeightedWord.new(row) }
+    ").map { |row| WeightedWord.new(row, search: self) }
   end
 
   def words_exist
     if missing_words.size > 0
-      errors.add(:string, "The #{'word'.pluralize(missing_words.size)} #{missing_words.join(', ')} are not in our dictionary.")
+      errors.add(:string, "The #{ 'word'.pluralize(missing_words.size) } #{ missing_words.join(', ') } #{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary.")
     end
   end
 
