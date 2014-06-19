@@ -10,6 +10,6 @@ class WeightedWordDecorator < Draper::Decorator
   end
 
   def remove_from_search_param
-    object.search.searched_words.filter { |w| w.id == object.id }.map { |w| w.name }.join(',')
+    object.search.searched_words.reject { |w| w.id == object.id }.map { |w| w.name }.join(',')
   end
 end
