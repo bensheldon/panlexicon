@@ -32,6 +32,7 @@ class Search
   end
 
   private
+
   def split_string
     string.split(',').map(&:strip)
   end
@@ -47,19 +48,19 @@ class Search
           WHERE group_id IN (#{ group_ids.join(',') })
           GROUP BY word_id ORDER BY groups_count DESC LIMIT #{ MAX_WORDS }
         ) grouping
-        LEFT JOIN words word ON word.id = grouping.word_id;
+        LEFT JOIN words word ON word.id = grouping.word_id
+        ORDER BY word.name;
     ").map { |row| WeightedWord.new(row, search: self) }
   end
 
   def words_exist
-    if missing_words.size > 0
-      errors.add(:string, "The #{ 'word'.pluralize(missing_words.size) } #{ missing_words.join(', ') } #{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary.")
-    end
+    return unless missing_words.size > 0
+    errors.add :string, "The #{ 'word'.pluralize(missing_words.size) } #{ missing_words.join(', ') } "\
+                        "#{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary."
   end
 
   def words_have_intersecting_groups
-    if group_ids.size == 0
-      errors.add(:string, 'No commonality can be found between words"')
-    end
+    return unless group_ids.size == 0
+    errors.add(:string, 'No commonality can be found between words"')
   end
 end
