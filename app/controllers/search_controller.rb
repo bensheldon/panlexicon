@@ -30,14 +30,15 @@ class SearchController < ApplicationController
   end
 
   private
-    def search_query
-      params.permit(:query, :q)
 
-      # First try :query, then try :q
-      params.fetch :query do
-        params.fetch :q do
-          nil
-        end
+  def search_query
+    params.permit(:query, :q)
+
+    # First try :query, then try :q
+    params.fetch :query do
+      params.fetch :q do
+        nil
       end
     end
+  end
 end
