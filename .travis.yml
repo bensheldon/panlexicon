@@ -1,8 +1,7 @@
----
 language: ruby
 rvm:
   - 2.1.1
-bundler_args: --without production
+bundler_args: "--without production"
 before_install:
   - gem update bundler
 before_script:
@@ -11,3 +10,11 @@ before_script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
 script:
   - bundle exec rake
+deploy:
+  api_key:
+    provider: heroku
+    secure: pnpdy3VOB7hvtitD39L2HLD0Sa+3PfCBWC2dZ5gGPCpPPZTTMRBEx1cwbw4/R8LDnSLyO8xvsSMmJeh1UoYgvXJWnmkgpVQ4b0YY5PoSU9O4aApzXEU8GTh+oXTsjVLO/hBfHqcjADlgrH6ZjWMR9voytUvuR8wXFTI3lKoBH2g=
+    app:
+      master: panlexicon
+    run:
+      - "rake db:migrate"
