@@ -11,10 +11,10 @@ before_script:
 script:
   - bundle exec rake
 deploy:
+  provider: heroku
   api_key:
-    provider: heroku
     secure: pnpdy3VOB7hvtitD39L2HLD0Sa+3PfCBWC2dZ5gGPCpPPZTTMRBEx1cwbw4/R8LDnSLyO8xvsSMmJeh1UoYgvXJWnmkgpVQ4b0YY5PoSU9O4aApzXEU8GTh+oXTsjVLO/hBfHqcjADlgrH6ZjWMR9voytUvuR8wXFTI3lKoBH2g=
-    app:
-      master: panlexicon
-    run:
-      - "rake db:migrate"
+  app:
+    master: panlexicon
+  run:
+    - "rake db:migrate"
