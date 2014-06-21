@@ -1,5 +1,8 @@
 - content_for :search_query, @search_query
 
 %ul.search-results
-  - @search.results.each do |word|
-    = render 'weighted_word', word: WeightedWordDecorator.new(word)
+  - @search.results.each do |weighted_word|
+    - if @is_panlexicon && weighted_word.name == 'palaver'
+      %li.word.word-panlexicon panlexicon
+    = render 'weighted_word', word: WeightedWordDecorator.new(weighted_word,
+        context: { search: @search, is_panlexicon: @is_panlexicon })

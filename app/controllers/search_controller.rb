@@ -14,6 +14,7 @@ class SearchController < ApplicationController
 
   def panlexicon
     @search = Search.new('thesaurus')
+    @is_panlexicon = true
 
     render 'show'
   end
