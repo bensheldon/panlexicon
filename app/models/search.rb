@@ -50,7 +50,7 @@ class Search
         ) grouping
         LEFT JOIN words word ON word.id = grouping.word_id
         ORDER BY word.name;
-    ").map { |row| WeightedWord.new(row, search: self) }
+    ").map { |row| WeightedWord.new(row) }
   end
 
   def words_exist

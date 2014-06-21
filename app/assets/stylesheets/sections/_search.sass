@@ -3,15 +3,24 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 ul.search-results
-  font-family: Georgia
   clear: both
-  // background-image: url("img/lined.png");
+  font-family: Georgia, "Times New Roman", Serif
+  font-size: 18px
+  line-height: 2.125
   margin: 0
   padding: 0
-  font-size: 14px
-  line-height: 2.125
-  vertical-align: center
   text-align: justify
+  vertical-align: center
+  word-spacing: .1em
+
+  a
+    color: #555
+    &:hover
+      color: #005eff
+    &.active
+      color: #FF006F
+      &:hover
+        color: #5100FF
 
   li.word
     display: inline
@@ -19,20 +28,16 @@ ul.search-results
     padding: 0
     text-indent: 0
     text-decoration: none
-    color: #444
 
-    &.weight-1
-      font-size: 1em
-      color: #444
-
-    &.weight-2
-      font-size: 1em
+    &.weight-6
+      font-size: 1.5em
+      line-height: 1.307692307692308
       font-weight: bold
-      color: #444
+      color: #333
 
-    &.weight-3
-      font-size: 1.22222222em
-      line-height: 1.545454545454545
+    &.weight-5
+      font-size: 1.5em
+      line-height: 1.307692307692308
       color: #333
 
     &.weight-4
@@ -41,30 +46,38 @@ ul.search-results
       font-weight: bold
       color: #444
 
-    &.weight-5
-      font-size: 1.5em
-      line-height: 1.307692307692308
+    &.weight-3
+      font-size: 1.22222222em
+      line-height: 1.545454545454545
       color: #333
 
-    &.searched, &.weight-6
-      font-size: 1.5em
-      line-height: 1.307692307692308
+    &.weight-2
+      font-size: 1em
       font-weight: bold
-      color: #333
+      color: #444
 
-    &:hover
-      color: #ff5555
-      text-decoration: underline
+    &.weight-1
+      font-size: 1em
+      color: #444
 
-    &.searched
-      color: #ff5555
+    a
+      color: #444
       &:hover
-        color: #333 !important
+        color: #ff5555
+        text-decoration: underline
+      &.active
+        color: #ff5555
+        font-size: 1.5em
+        font-weight: bold
+        line-height: 1.307692307692308
+        &:hover
+          color: #5100FF
 
-    &#term-panlexicon
+    &.word-panlexicon
       color: #ff5555
-      font-size: 2em
-      text-transform: capitalize
-      font-weight: normal
-      &:hover
-        text-decoration: none
+      font-size: 1.5em
+      font-weight: bold
+      line-height: 1.307692307692308
+      font-style: italic
+      // font-size: 2em
+      // text-transform: capitalize
