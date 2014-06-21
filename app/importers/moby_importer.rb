@@ -5,6 +5,7 @@ class MobyImporter
 
   def initialize(file, options = {})
     @file = file
+    @options = options
 
     @logger = Logger.new(STDOUT)
     @logger.level = Logger::WARN

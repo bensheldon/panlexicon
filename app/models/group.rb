@@ -9,8 +9,9 @@
 class Group < ActiveRecord::Base
   belongs_to :key_word, class_name: 'Word'
 
-  has_and_belongs_to_many :words, join_table: 'groupings'
+  has_many :groupings
+  has_many :words, through: :groupings
 
-  validates_presence_of :key_word_id
-  validates_uniqueness_of :key_word_id
+  validates :key_word_id, presence: true
+  validates :key_word_id, uniqueness: true
 end

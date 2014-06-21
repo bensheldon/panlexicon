@@ -1,4 +1,4 @@
-if ENV.has_key? 'TRAVIS'
+if ENV.key? 'TRAVIS'
   require 'coveralls'
   Coveralls.wear!('rails')
 end
@@ -56,8 +56,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   # Allow local connections for Poltergeist; disable for Sauce Labs
-  WebMock.disable_net_connect! allow_localhost: true,
-    allow: /saucelabs\.com/
+  WebMock.disable_net_connect! allow_localhost: true
 
   Capybara.default_wait_time = 2
   poltergist_timeout = 30
