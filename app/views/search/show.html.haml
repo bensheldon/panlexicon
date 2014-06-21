@@ -2,4 +2,4 @@
 
 %ul.search-results
   - @search.results.each do |word|
-    = render 'weighted_word', word: word
+    = render 'weighted_word', word: WeightedWordDecorator.new(word)

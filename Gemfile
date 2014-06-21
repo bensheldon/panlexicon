@@ -26,6 +26,10 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+# Pull Draper from `master` because of rspec 3 deprecation warnings
+# https://github.com/drapergem/draper/pull/623
+gem 'draper', :git => 'git://github.com/drapergem/draper.git'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 

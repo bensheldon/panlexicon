@@ -1,4 +1,4 @@
-if ENV.has_key? 'TRAVIS'
+if ENV.key? 'TRAVIS'
   require 'coveralls'
   Coveralls.wear!('rails')
 end
@@ -9,6 +9,8 @@ ENV['RACK_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'factory_girl'
+require 'capybara/rspec'
+require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -52,4 +54,23 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  # Allow local connections for Poltergeist; disable for Sauce Labs
+  WebMock.disable_net_connect! allow_localhost: true
+
+  Capybara.default_wait_time = 2
+  poltergist_timeout = 30
+
+  # Configure Poltergeist
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, timeout: poltergist_timeout.seconds)
+  end
+
+  # For debugging call `page.driver.debug` to open a browser
+  Capybara.register_driver :poltergeist_debug do |app|
+    Capybara::Poltergeist::Driver.new(app, timeout: poltergist_timeout.seconds, inspector: true)
+  end
+
+  Capybara.default_driver = :poltergeist_debug
+  Capybara.javascript_driver = :poltergeist_debug
 end

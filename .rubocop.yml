@@ -1,6 +1,14 @@
 #
 # https://github.com/bbatsov/rubocop/blob/master/config/default.yml
 #
+AllCops:
+  Include:
+    - Rakefile
+    - config.ru
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - config/**/*
 
 Style/LineLength:
   Max: 150

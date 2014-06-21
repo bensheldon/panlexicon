@@ -7,5 +7,6 @@
 #
 
 class Word < ActiveRecord::Base
-  has_and_belongs_to_many :groups, join_table: 'groupings'
+  has_many :groupings
+  has_many :groups, through: :groupings
 end

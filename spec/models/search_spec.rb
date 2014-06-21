@@ -44,15 +44,14 @@ describe Search do
 
     it 'calls WeightedWord.new with a hash' do
       # necessary because WeightedWord.new is called multiple times
-      weighted_word_class = double().as_null_object
+      weighted_word_class = double.as_null_object
       stub_const('WeightedWord', weighted_word_class)
 
-      expect(weighted_word_class).to receive(:new).with({
-        'id' => "#{lion.id}",
-        'name' => 'lion',
-        'groups_count' => '7',
-        'weight' => '8'
-      })
+      expect(weighted_word_class).to receive(:new).with({ 'id' => "#{ lion.id }",
+                                                          'name' => 'lion',
+                                                          'groups_count' => '7',
+                                                          'weight' => '8'
+                                                        }, search: search)
 
       search.send :weight_related_words
     end
