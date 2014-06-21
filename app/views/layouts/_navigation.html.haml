@@ -15,7 +15,8 @@
 
     %form.navbar-form.navbar-right{ role: 'search', method: 'GET', action: '/' }
       .form-group
-        %input.form-control{ name: 'q', value: search_query, placeholder: 'Search Panlexicon', type: 'text' }
+        %label.sr-only{ for: 'search' } Search
+        %input#search.form-control{ name: 'q', value: search_query, placeholder: 'Search Panlexicon', type: 'text' }
         %button.btn.btn-default.hidden-xs{ type: 'submit' } Search
 
     .collapse.navbar-collapse.navbar-left

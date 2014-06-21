@@ -4,23 +4,12 @@ class SearchController < ApplicationController
     return redirect_to(action: 'show', query: search_query) if request.post?
 
     @search_query = search_query
-    @search = Search.new(@search_query)
 
-    # if @search.valid?
-
-    # else
-
-    # end
-
-    # respond_to do |format|
-    #   if @search.save
-    #     format.html { redirect_to @search, notice: 'Search was successfully created.' }
-    #     format.json { render action: 'show', status: :created, location: @search }
-    #   else
-    #     format.html { render action: 'new' }
-    #     format.json { render json: @search.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    if @search_query
+      @search = Search.new(@search_query)
+    else
+      panlexicon
+    end
   end
 
   def panlexicon
@@ -35,10 +24,10 @@ class SearchController < ApplicationController
     params.permit(:query, :q)
 
     # First try :query, then try :q
-    params.fetch :query do
-      params.fetch :q do
-        nil
-      end
-    end
+    query = params.fetch(:query, nil)
+    query = params.fetch(:q, nil) if query.nil?
+    query = nil if query == ''
+
+    query
   end
 end
