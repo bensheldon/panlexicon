@@ -20,22 +20,22 @@ require 'spec_helper'
 
 describe SearchController do
 
-  describe '#show' do
+  describe '#search' do
     let(:search_query) { 'lion, tiger' }
 
     it 'GET creates a new Search using :query' do
-      get :show, query: 'lion, tiger'
+      get :search, query: 'lion, tiger'
       expect(assigns(:search).string).to eq(search_query)
     end
 
     it 'GET creates a new Search using :q' do
-      get :show, q: 'lion, tiger'
+      get :search, q: 'lion, tiger'
       expect(assigns(:search).string).to eq(search_query)
     end
 
     it 'POST creates a new Search using :query' do
-      post :show, query: 'lion, tiger'
-      expect(response).to redirect_to(action: 'show', query: 'lion, tiger')
+      post :search, query: 'lion, tiger'
+      expect(response).to redirect_to(action: 'search', query: 'lion, tiger')
     end
 
   end

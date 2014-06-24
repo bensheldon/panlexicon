@@ -1,22 +1,15 @@
 class SearchController < ApplicationController
-  def show
+  def search
     return panlexicon unless search_query
-    return redirect_to(action: 'show', query: search_query) if request.post?
+    return redirect_to(action: 'search', query: search_query) if request.post?
 
-    @search_query = search_query
-
-    if @search_query
-      @search = Search.new(@search_query)
-    else
-      panlexicon
-    end
+    @search = Search.new(search_query)
+    render 'search'
   end
 
   def panlexicon
     @search = Search.new('thesaurus')
-    @is_panlexicon = true
-
-    render 'show'
+    render 'panlexicon'
   end
 
   private
