@@ -66,7 +66,6 @@ class Search
     errors.add :groups, "#{ sadness_synonym.titleize }. "\
                         'No commonality can be found between '\
                         "<strong>#{ string }</strong>."\
-
   end
 
   def sadness_synonym
