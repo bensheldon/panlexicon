@@ -75,7 +75,7 @@ describe Search do
         expect(search.valid?).to be true
       end
 
-      it 'invalid when string is empty' do
+      it 'invalid when words are not in dictionary' do
         search = Search.new('cat, numberwang')
         expect(search.valid?).to be false
       end

@@ -5,6 +5,7 @@
 [![Dependency Status](https://gemnasium.com/bensheldon/panlexicon-rails.png)](https://gemnasium.com/bensheldon/panlexicon-rails)
 [![Code Climate](https://codeclimate.com/github/bensheldon/panlexicon-rails.png)](https://codeclimate.com/github/bensheldon/panlexicon-rails)
 [![Panlexicon](http://img.shields.io/badge/words-103,256-blue.png)](http://panlexicon.com)
+[![Inline docs](http://inch-ci.org/github/bensheldon/panlexicon-rails.png?branch=master)](http://inch-ci.org/github/bensheldon/panlexicon-rails)
 
 [![PullReview stats](https://www.pullreview.com/github/bensheldon/panlexicon-rails/badges/master.svg?type=full)](https://www.pullreview.com/github/bensheldon/panlexicon-rails/reviews/master)
 

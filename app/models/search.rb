@@ -55,12 +55,20 @@ class Search
 
   def words_exist
     return unless missing_words.size > 0
-    errors.add :string, "The #{ 'word'.pluralize(missing_words.size) } #{ missing_words.join(', ') } "\
+    errors.add :string, "#{ sadness_synonym.titleize }. "\
+                        "The #{ 'word'.pluralize(missing_words.size) } "\
+                        "<strong>#{ missing_words.join(', ') }</strong> "\
                         "#{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary."
   end
 
   def words_have_intersecting_groups
     return unless group_ids.size == 0
-    errors.add(:string, 'No commonality can be found between words"')
+    errors.add :groups, "#{ sadness_synonym.titleize }. "\
+                        'No commonality can be found between '\
+                        "<strong>#{ string }</strong>."\
+  end
+
+  def sadness_synonym
+    %w[sadness despair woe anguish ache distress].sample
   end
 end

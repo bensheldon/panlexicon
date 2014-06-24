@@ -1,10 +1,10 @@
 Panlexicon::Application.routes.draw do
 
-  root 'search#show'
+  root 'search#search'
 
-  get 'search/:query' => 'search#show'
-  get 'search' => 'search#show'
-  post 'search' => 'search#show'
+  get 'search/:query' => 'search#search'
+  get 'search' => 'search#search'
+  post 'search' => 'search#search'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

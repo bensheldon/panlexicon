@@ -31,7 +31,7 @@ describe MobyImporter do
     it "combines cackle's words into a single group" do
       moby_importer.import
       words_names = Group.first.words.pluck(:name)
-      expect(words_names).to eq %w[cackle laugh guffaw]
+      expect(words_names).to match_array %w[cackle laugh guffaw]
     end
   end
 end
