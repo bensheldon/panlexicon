@@ -9,9 +9,12 @@
     = csrf_meta_tags
     = render 'shared/google_analytics'
   %body
-    %header
-      = render 'layouts/navigation'
-    %main{:role => "main"}
-      .container
-        = render 'layouts/messages'
-        = yield
+    #wrap
+      %header
+        = render 'layouts/navigation'
+      .main{:role => "main"}
+        .container
+          = render 'layouts/messages'
+          = yield
+    %footer#footer
+      = render 'layouts/footer'
