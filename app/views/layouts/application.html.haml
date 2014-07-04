@@ -4,14 +4,18 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %title= content_for?(:title) ? yield(:title) : 'Panlexicon'
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Panlexicon'}"}
+    %link{:href => '/favicon.ico', :rel => 'shortcut icon', :type => 'image/vnd.microsoft.icon'}
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     = render 'shared/google_analytics'
   %body
-    %header
-      = render 'layouts/navigation'
-    %main{:role => "main"}
-      .container
-        = render 'layouts/messages'
-        = yield
+    #wrap
+      %header
+        = render 'layouts/navigation'
+      .main{:role => "main"}
+        .container
+          = render 'layouts/messages'
+          = yield
+    %footer#footer
+      = render 'layouts/footer'
