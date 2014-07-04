@@ -311,7 +311,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   haml-rails
-  jbuilder (~> 2.0)
+  jbuilder (~> 2.1.1)
   jquery-rails
   meta_request
   pg
