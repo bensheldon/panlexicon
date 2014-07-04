@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.1.1"
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.4'
 gem 'thin'
 
 # Databases
@@ -30,7 +30,7 @@ gem 'jquery-rails'
 
 # Pull Draper from `master` because of rspec 3 deprecation warnings
 # https://github.com/drapergem/draper/pull/623
-gem 'draper', :git => 'git://github.com/drapergem/draper.git'
+gem 'draper', '~> 1.3.1'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
