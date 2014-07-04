@@ -22,6 +22,14 @@ feature 'Searching words', js: true do
     expect(page).to have_link 'cat'
   end
 
+  scenario 'Searching with improper capitalizations' do
+    visit root_path
+    search_for 'BoBcAt'
+
+    expect(page).to have_link 'bobcat'
+    expect(page).to have_link 'cat'
+  end
+
   scenario 'Entering 2 comma-separated words in searchbar' do
     visit root_path
     search_for 'wordhoard, dictionary'
@@ -44,6 +52,7 @@ feature 'Searching words', js: true do
 
     expect(page).to have_content 'the orm is not in our dictionary'
   end
+
 
   scenario 'Searching words without common synonyms' do
     visit root_path
