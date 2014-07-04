@@ -84,6 +84,12 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'heroku-deflater'
+
+  # Instrumentation
+  gem 'sentry-raven'
+  gem 'lograge'
+  gem 'newrelic_rpm'
 end
 
 # Use ActiveModel has_secure_password
