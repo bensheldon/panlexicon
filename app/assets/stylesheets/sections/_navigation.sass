@@ -19,12 +19,13 @@ a.navbar-brand
 
 .navbar
   form[role=search]
-    @media (max-width: $screen-sm)
+    @media (max-width: $screen-xs-max)
       border: none
       display: block
       margin: -52px -15px 0 45px
       padding-bottom: 0
-    @media (min-width: $screen-sm)
+    @media (min-width: $screen-sm-min)
+      margin: 8px 0
       padding-right: 0
       input#search
         width: 280px
