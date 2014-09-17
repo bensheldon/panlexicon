@@ -341,7 +341,6 @@ DEPENDENCIES
   rails (= 4.1.4)
   rails_12factor
   rails_layout
-  rb-fsevent
   redcarpet
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.0)

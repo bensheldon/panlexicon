@@ -42,11 +42,10 @@ group :doc do
 end
 
 group :development do
-  gem 'guard-rspec', require: false
   gem 'terminal-notifier-guard', require: false
-  gem 'rb-fsevent'
 
   gem 'rack-livereload'
+  gem 'guard-rspec', require: false
   gem 'guard-livereload', require: false
   gem 'guard-rubocop', require: false
 
