@@ -1,4 +1,5 @@
 $footer-height: 120px
+$footer-padding: 20px
 
 html,
 body
@@ -7,9 +8,9 @@ body
 @media (min-width: $screen-sm)
   #wrap
     height: auto
-    margin-bottom: -$footer-height
+    margin-bottom: -($footer-height + $footer-padding)
     min-height: 100%
-    padding-bottom: $footer-height + 20px
+    padding-bottom: $footer-height + $footer-padding
 
   #footer
     height: $footer-height

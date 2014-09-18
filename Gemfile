@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.1.1"
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.4'
 gem 'thin'
 
 # Databases
@@ -28,15 +28,13 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# Pull Draper from `master` because of rspec 3 deprecation warnings
-# https://github.com/drapergem/draper/pull/623
-gem 'draper', :git => 'git://github.com/drapergem/draper.git'
+gem 'draper', '~> 1.3.1'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.1.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -44,11 +42,10 @@ group :doc do
 end
 
 group :development do
-  gem 'guard-rspec', require: false
   gem 'terminal-notifier-guard', require: false
-  gem 'rb-fsevent'
 
   gem 'rack-livereload'
+  gem 'guard-rspec', require: false
   gem 'guard-livereload', require: false
   gem 'guard-rubocop', require: false
 
@@ -86,6 +83,12 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'heroku-deflater'
+
+  # Instrumentation
+  gem 'sentry-raven'
+  gem 'lograge'
+  gem 'newrelic_rpm'
 end
 
 # Use ActiveModel has_secure_password
