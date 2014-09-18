@@ -15,7 +15,8 @@ class Search
 
   def searched_words
     @searched_words ||= split_string.map do |name|
-      Word.find_by name: name
+      # TODO: put an index on this in the database
+      Word.where('LOWER(name) = ?', name.downcase).first
     end.compact
   end
 
@@ -28,7 +29,7 @@ class Search
   end
 
   def missing_words
-    @mising_words ||= split_string - searched_words.map(&:name)
+    @mising_words ||= split_string.map(&:downcase) - searched_words.map(&:name).map(&:downcase)
   end
 
   private
