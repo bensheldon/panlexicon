@@ -4,7 +4,7 @@ feature 'Searching words', js: true do
   use_moby_thesaurus
   use_moby_cats
 
-  scenario 'Clicks through a word on front page' do
+  scenario 'Clicks through a word on front page', focus: true do
     visit root_path
     click_link 'wordhoard'
 
@@ -17,6 +17,14 @@ feature 'Searching words', js: true do
   scenario 'Entering a word in searchbar' do
     visit root_path
     search_for 'bobcat'
+
+    expect(page).to have_link 'bobcat'
+    expect(page).to have_link 'cat'
+  end
+
+  scenario 'Searching with improper capitalizations' do
+    visit root_path
+    search_for 'Bobcat'
 
     expect(page).to have_link 'bobcat'
     expect(page).to have_link 'cat'
