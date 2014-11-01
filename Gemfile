@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.1.4"
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.7'
 gem 'thin'
 
 # Databases
@@ -11,7 +11,7 @@ gem 'haml-rails'
 gem 'redcarpet'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 gem 'bourbon', '~> 3.2.3'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
@@ -28,7 +28,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-gem 'draper', '~> 1.3.1'
+gem 'draper'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
@@ -64,7 +64,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', "~> 3.0.0"
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
 end
