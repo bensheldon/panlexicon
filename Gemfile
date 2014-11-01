@@ -74,7 +74,6 @@ group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'webmock'
-  gem 'shoulda-matchers'
   gem 'timecop'
 
   gem 'simplecov', '0.7.1' # see https://github.com/colszowka/simplecov/issues/281
