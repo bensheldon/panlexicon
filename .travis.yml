@@ -11,6 +11,8 @@ before_script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
 script:
   - bundle exec rake
+after_script:
+  - git checkout config/database.yml
 deploy:
   provider: heroku
   api_key:
