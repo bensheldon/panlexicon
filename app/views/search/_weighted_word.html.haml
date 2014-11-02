@@ -1,5 +1,5 @@
 %li{ class: "word weight-#{word.weight}"}<
   - if word.in_search?
-    = link_to word.name.strip, "/?q=#{ word.remove_from_search_param }"
+    = link_to word.name.strip, "/?q=#{ word.remove_from_search_param }", class: 'active'
   - else
     = link_to word.name.strip, "/?q=#{ word.add_to_search_param }"

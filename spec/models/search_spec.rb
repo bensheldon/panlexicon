@@ -47,11 +47,10 @@ describe Search do
       weighted_word_class = double.as_null_object
       stub_const('WeightedWord', weighted_word_class)
 
-      expect(weighted_word_class).to receive(:new).with({ 'id' => "#{ lion.id }",
-                                                          'name' => 'lion',
-                                                          'groups_count' => '7',
-                                                          'weight' => '8'
-                                                        }, search: search)
+      expect(weighted_word_class).to receive(:new).with 'id' => "#{ lion.id }",
+                                                        'name' => 'lion',
+                                                        'groups_count' => '7',
+                                                        'weight' => '8'
 
       search.send :weight_related_words
     end
@@ -76,7 +75,7 @@ describe Search do
         expect(search.valid?).to be true
       end
 
-      it 'invalid when string is empty' do
+      it 'invalid when words are not in dictionary' do
         search = Search.new('cat, numberwang')
         expect(search.valid?).to be false
       end

@@ -1,18 +1,20 @@
 source 'https://rubygems.org'
-ruby "2.1.1"
+ruby "2.1.4"
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.7'
 gem 'thin'
 
 # Databases
 gem 'pg'
 
 gem 'haml-rails'
+gem 'redcarpet'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 gem 'bourbon', '~> 3.2.3'
 gem 'bootstrap-sass'
+gem 'font-awesome-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -26,15 +28,13 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# Pull Draper from `master` because of rspec 3 deprecation warnings
-# https://github.com/drapergem/draper/pull/623
-gem 'draper', :git => 'git://github.com/drapergem/draper.git'
+gem 'draper'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.1.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -42,11 +42,10 @@ group :doc do
 end
 
 group :development do
-  gem 'guard-rspec', require: false
   gem 'terminal-notifier-guard', require: false
-  gem 'rb-fsevent'
 
   gem 'rack-livereload'
+  gem 'guard-rspec', require: false
   gem 'guard-livereload', require: false
   gem 'guard-rubocop', require: false
 
@@ -65,7 +64,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', "~> 3.0.0"
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
 end
@@ -75,11 +74,20 @@ group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'webmock'
-  gem 'shoulda-matchers'
   gem 'timecop'
 
   gem 'simplecov', '0.7.1' # see https://github.com/colszowka/simplecov/issues/281
   gem 'coveralls', require: false
+end
+
+group :production do
+  gem 'rails_12factor'
+  gem 'heroku-deflater'
+
+  # Instrumentation
+  gem 'sentry-raven'
+  gem 'lograge'
+  gem 'newrelic_rpm'
 end
 
 # Use ActiveModel has_secure_password

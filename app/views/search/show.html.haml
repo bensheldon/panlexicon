@@ -1,5 +1,0 @@
-- content_for :search_query, @search_query
-
-%ul.search-results
-  - @search.results.each do |word|
-    = render 'weighted_word', word: WeightedWordDecorator.new(word)

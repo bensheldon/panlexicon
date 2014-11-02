@@ -15,7 +15,8 @@ class Search
 
   def searched_words
     @searched_words ||= split_string.map do |name|
-      Word.find_by name: name
+      # TODO: put an index on this in the database
+      Word.where('LOWER(name) = ?', name.downcase).first
     end.compact
   end
 
@@ -28,7 +29,7 @@ class Search
   end
 
   def missing_words
-    @mising_words ||= split_string - searched_words.map(&:name)
+    @mising_words ||= split_string.map(&:downcase) - searched_words.map(&:name).map(&:downcase)
   end
 
   private
@@ -50,17 +51,25 @@ class Search
         ) grouping
         LEFT JOIN words word ON word.id = grouping.word_id
         ORDER BY word.name;
-    ").map { |row| WeightedWord.new(row, search: self) }
+    ").map { |row| WeightedWord.new(row) }
   end
 
   def words_exist
     return unless missing_words.size > 0
-    errors.add :string, "The #{ 'word'.pluralize(missing_words.size) } #{ missing_words.join(', ') } "\
+    errors.add :string, "#{ sadness_synonym.titleize }. "\
+                        "The #{ 'word'.pluralize(missing_words.size) } "\
+                        "<strong>#{ missing_words.join(', ') }</strong> "\
                         "#{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary."
   end
 
   def words_have_intersecting_groups
     return unless group_ids.size == 0
-    errors.add(:string, 'No commonality can be found between words"')
+    errors.add :groups, "#{ sadness_synonym.titleize }. "\
+                        'No commonality can be found between '\
+                        "<strong>#{ string }</strong>."\
+  end
+
+  def sadness_synonym
+    %w[sadness despair woe anguish ache distress].sample
   end
 end

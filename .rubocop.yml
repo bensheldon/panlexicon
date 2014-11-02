@@ -10,15 +10,22 @@ AllCops:
     - db/**/*
     - config/**/*
 
-Style/LineLength:
-  Max: 150
-
-Style/MethodLength:
+Metrics/ClassLength:
   CountComments: false  # count full line comments?
-  Max: 50
+  Max: 200
+
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 100
+
+Metrics/LineLength:
+  Max: 150
 
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
+
+Style/AlignHash:
+  Enabled: false
 
 Documentation:
   Enabled: false
@@ -27,4 +34,7 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 
 Style/NumericLiterals:
+  Enabled: false
+
+Style/RegexpLiteral:
   Enabled: false

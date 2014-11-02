@@ -16,10 +16,12 @@
     %form.navbar-form.navbar-right{ role: 'search', method: 'GET', action: '/' }
       .form-group
         %label.sr-only{ for: 'search' } Search
-        %input#search.form-control{ name: 'q', value: search_query, placeholder: 'Search Panlexicon', type: 'text' }
+        %input#search.form-control{ name: 'q', value: search_query, placeholder: 'Search Panlexicon', type: 'text', autocapitalize: 'off' }
         %button.btn.btn-default.hidden-xs{ type: 'submit' } Search
 
     .collapse.navbar-collapse.navbar-left
-      %ul.nav.navbar-nav
-        %li
-          %a{ href: '#' } About
+      %p
+        .row
+          .col-xs-12.visible-xs-block
+            <strong>Panlexicon</strong> is a unique thesaurus that provides a quicker
+            and more intuitive process for finding the words you want.
