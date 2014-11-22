@@ -9,7 +9,24 @@
 
 [![PullReview stats](https://www.pullreview.com/github/bensheldon/panlexicon-rails/badges/master.svg?type=full)](https://www.pullreview.com/github/bensheldon/panlexicon-rails/reviews/master)
 
-# Importing Moby Thesaurus
+Developing
+----------
 
-1. Download it: http://www.gutenberg.org/ebooks/3202
-2. Import it: `$ rake import[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
+Start Server | Test / Watch
+-------------|-----------
+`$ bundle exec rails s`   | `$ bundle exec guard`
+
+Installation and Setup
+----------------------
+
+Dependencies:
+- postgres (use [Postgres.app](http://postgresapp.com/))
+- phantomjs (`$ brew install phantomjs`)
+
+1. Install the ruby gem dependencies: `$ bundle install`
+2. Setup the database: `$ bundle exec rake db:setup`
+3. Populate the Moby Thesaurus:
+  1. Download it: http://www.gutenberg.org/ebooks/3202
+  2. Import it: `$ rake import[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
+4. Start the server: `$ bundle exec rails s`
+5. Visit it in your web browser: `http://localhost:4000
