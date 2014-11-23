@@ -1,9 +1,13 @@
 !!!
+
+- title = content_for?(:search_query) ? 'Panlexicon: ' + yield(:search_query) : 'Panlexicon'
+- description = content_for?(:description) ? yield(:description) : 'Panlexicon'
+
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Panlexicon'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Panlexicon'}"}
+    %title= title
+    %meta{:name => "description", :content => "#{description}"}
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = favicon_link_tag '/favicon.ico'
