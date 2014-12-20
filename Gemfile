@@ -7,6 +7,7 @@ gem 'thin'
 # Databases
 gem 'pg'
 
+gem 'haml', '~>4.0.6' # Remove when 4.1.0 is released; currently in beta
 gem 'haml-rails'
 gem 'redcarpet'
 
@@ -17,10 +18,10 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -34,7 +35,7 @@ gem 'draper'
 # gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.1.1'
+gem 'jbuilder'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -76,7 +77,7 @@ group :test do
   gem 'webmock'
   gem 'timecop'
 
-  gem 'simplecov', '0.7.1' # see https://github.com/colszowka/simplecov/issues/281
+  gem 'simplecov'
   gem 'coveralls', require: false
 end
 
