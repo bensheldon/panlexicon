@@ -20,7 +20,7 @@ Panlexicon::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Enable Rails's static asset server for Heroku.
-  config.serve_static_assets = true
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
