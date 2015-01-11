@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.0"
+ruby '2.2.0'
 
 gem 'rails', '4.2.0'
 gem 'puma'
@@ -10,13 +10,13 @@ gem 'pg'
 
 gem 'skylight'
 
-gem 'haml', '~>4.0.6' # Remove when 4.1.0 is released; currently in beta
+gem 'haml'
 gem 'haml-rails'
 gem 'redcarpet'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
-gem 'bourbon', '~> 3.2.3'
+gem 'bourbon'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 
