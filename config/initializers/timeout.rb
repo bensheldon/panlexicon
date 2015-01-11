@@ -8,3 +8,8 @@
 # running requests and locate their source.
 
 Rack::Timeout.timeout = 20 # seconds
+
+if Rails.env.development?
+  # Disable logging
+  Rack::Timeout.unregister_state_change_observer(:logger)
+end
