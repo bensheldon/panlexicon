@@ -43,7 +43,7 @@ Panlexicon::Application.configure do
   # config.force_ssl = true
 
   # Set to :debug to see everything in the log.
-  # config.log_level = :info
+  config.log_level = :warn
   config.lograge.enabled = true
 
   # Prepend all log lines with the following tags.
