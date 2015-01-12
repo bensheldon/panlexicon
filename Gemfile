@@ -8,6 +8,8 @@ gem 'rack-timeout'
 # Databases
 gem 'pg'
 
+gem 'skylight'
+
 gem 'haml', '~>4.0.6' # Remove when 4.1.0 is released; currently in beta
 gem 'haml-rails'
 gem 'redcarpet'
