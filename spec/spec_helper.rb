@@ -34,7 +34,7 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-  config.before(:all) do
+  config.before(:suite) do
     FactoryGirl.reload
   end
 
