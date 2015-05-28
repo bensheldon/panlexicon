@@ -27,6 +27,6 @@ Dependencies:
 2. Setup the database: `$ bundle exec rake db:setup`
 3. Populate the Moby Thesaurus:
   1. Download it: http://www.gutenberg.org/ebooks/3202
-  2. Import it: `$ rake import[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
+  2. Import it: `$ rake import:moby[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
 4. Start the server: `$ bundle exec rails s`
 5. Visit it in your web browser: `http://localhost:3000`
