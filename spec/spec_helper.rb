@@ -27,6 +27,11 @@ RSpec.configure do |config|
     type: :features,
     file_path: /spec\/features/
 
+  unless ENV['CI']
+    config.run_all_when_everything_filtered = true
+    config.filter_run focus: true
+  end
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -34,7 +39,7 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-  config.before(:all) do
+  config.before(:suite) do
     FactoryGirl.reload
   end
 

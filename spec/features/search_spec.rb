@@ -4,7 +4,7 @@ feature 'Searching words', js: true do
   use_moby_thesaurus
   use_moby_cats
 
-  scenario 'Clicks through a word on front page', focus: true do
+  scenario 'Clicks through a word on front page' do
     visit root_path
     click_link 'wordhoard'
 

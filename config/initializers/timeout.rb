@@ -7,9 +7,11 @@
 # ability we recommend using Rack::Timeout to terminate long
 # running requests and locate their source.
 
-Rack::Timeout.timeout = 20 # seconds
+if defined?(Rack::Timeout)
+  Rack::Timeout.timeout = 20 # seconds
 
-if Rails.env.development?
-  # Disable logging
-  Rack::Timeout.unregister_state_change_observer(:logger)
+  if Rails.env.development?
+    # Disable logging
+    Rack::Timeout.unregister_state_change_observer(:logger)
+  end
 end
