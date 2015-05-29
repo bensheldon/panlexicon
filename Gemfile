@@ -3,7 +3,7 @@ ruby '2.2.0'
 
 gem 'rails', '4.2.1'
 gem 'puma'
-gem 'rack-timeout'
+gem 'rack-timeout', group:  [:development, :production] # breaks poltergeist
 
 # Databases
 gem 'pg'
@@ -56,7 +56,6 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
 
-  gem 'pry-rails'
 
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -71,6 +70,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'pry-rails'
 end
 
 group :test do
