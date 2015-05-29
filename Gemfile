@@ -3,7 +3,9 @@ ruby '2.2.2'
 
 gem 'rails', '4.2.1'
 gem 'puma'
-gem 'rack-timeout', group:  [:development, :production] # breaks poltergeist
+
+# https://github.com/heroku/rack-timeout/issues/55
+gem 'rack-timeout', group:  [:production, :development]
 
 # Databases
 gem 'pg'
