@@ -32,7 +32,7 @@ class MobyImporter
       key_word = words[0]
 
       group = Group.find_or_create_by(key_word: key_word)
-      group.words += words
+      group.words += words.uniq
 
       logger.error("#{group.errors.full_messages}: #{string}") unless group.save
     end
