@@ -8,7 +8,7 @@ class MobyImporter
     @options = options
 
     @logger = Logger.new(STDOUT)
-    @logger.level = Logger::WARN
+    @logger.level = Logger::DEBUG
   end
 
   def import
@@ -23,7 +23,9 @@ class MobyImporter
 
   def import_string(string)
     ActiveRecord::Base.transaction do
-      words = string.split(',').map { |name| Word.find_or_create_by(name: name.strip) }
+      words = string.split(',')
+                    .reject { |name| name.strip.empty? }
+                    .map { |name| Word.find_or_create_by(name: name.strip) }
       return unless words.size > 0
 
       # First word in the group is the keyword

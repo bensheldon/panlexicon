@@ -17,6 +17,11 @@ describe MobyImporter do
     expect { moby_importer.import }.to_not change { Word.count }
   end
 
+  it 'does not import empty characters e.g. ",,"' do
+    moby_importer.import # Do it once first
+    expect(Word.find_by_name '').to eq nil
+  end
+
   describe "moby bug with 'cackle' keyword duplication" do
     # The moby thesaurus has a bug in which "cackle" is
     # keyworkd for two different groups. We'll combine them.

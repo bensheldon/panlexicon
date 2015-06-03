@@ -7,4 +7,4 @@ lynx,puma,leopard,tiger,lion,cat
 bobcat,lynx,puma,leopard,tiger,lion,cat
 Maine Coon,bobcat,lynx,puma,leopard,tiger,lion,cat
 Siamese,Maine Coon,bobcat,lynx,puma,leopard,tiger,lion,cat
-platypus
+platypus,,
