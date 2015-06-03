@@ -15,25 +15,29 @@ ActiveRecord::Schema.define(version: 20140130031003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "citext"
 
-  create_table "groupings", id: false, force: true do |t|
+  create_table "groupings", id: false, force: :cascade do |t|
     t.integer "group_id", null: false
     t.integer "word_id",  null: false
   end
 
-  add_index "groupings", ["group_id"], name: "index_groupings_on_group_id", using: :btree
+  add_index "groupings", ["group_id", "word_id"], name: "index_groupings_on_group_id_and_word_id", unique: true, using: :btree
   add_index "groupings", ["word_id"], name: "index_groupings_on_word_id", using: :btree
 
-  create_table "groups", force: true do |t|
+  create_table "groups", force: :cascade do |t|
     t.integer "key_word_id", null: false
   end
 
   add_index "groups", ["key_word_id"], name: "index_groups_on_key_word_id", unique: true, using: :btree
 
-  create_table "words", force: true do |t|
-    t.string "name", null: false
+  create_table "words", force: :cascade do |t|
+    t.citext "name", null: false
   end
 
   add_index "words", ["name"], name: "index_words_on_name", unique: true, using: :btree
 
+  add_foreign_key "groupings", "groups"
+  add_foreign_key "groupings", "words"
+  add_foreign_key "groups", "words", column: "key_word_id"
 end

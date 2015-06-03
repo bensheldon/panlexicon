@@ -1,16 +1,18 @@
 class CreateGroupsWords < ActiveRecord::Migration
   def change
+    enable_extension 'citext'
+
     create_table :words do |t|
-      t.string :name, null: false
+      t.citext :name, null: false
+
+      t.index :name, unique: true
     end
-    add_index :words, :name, :unique => true
 
     create_table :groups do |t|
       t.integer :key_word_id, null: false
+
+      t.index :key_word_id, unique: true
+      t.foreign_key :words, column: :key_word_id
     end
-    add_index :groups, :key_word_id, :unique => true
   end
 end
-    # create_join_table :words, :groups,
-    # add_index :groups_words, [:word_id, :group_id], :unique => true
-    # add_index :groups_words, [:group_id, :word_id], :unique => true

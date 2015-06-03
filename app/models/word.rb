@@ -3,7 +3,11 @@
 # Table name: words
 #
 #  id   :integer          not null, primary key
-#  name :string(255)      not null
+#  name :citext           not null
+#
+# Indexes
+#
+#  index_words_on_name  (name) UNIQUE
 #
 
 class Word < ActiveRecord::Base

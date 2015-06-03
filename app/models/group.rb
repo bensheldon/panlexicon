@@ -5,6 +5,14 @@
 #  id          :integer          not null, primary key
 #  key_word_id :integer          not null
 #
+# Indexes
+#
+#  index_groups_on_key_word_id  (key_word_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_5a597e9e5c  (key_word_id => words.id)
+#
 
 class Group < ActiveRecord::Base
   belongs_to :key_word, class_name: 'Word'
@@ -12,6 +20,5 @@ class Group < ActiveRecord::Base
   has_many :groupings
   has_many :words, through: :groupings
 
-  validates :key_word_id, presence: true
-  validates :key_word_id, uniqueness: true
+  validates :key_word_id, presence: true, uniqueness: true
 end
