@@ -19,5 +19,4 @@ describe Group do
 
     group.words += [word_1, word_2]
   end
-
 end

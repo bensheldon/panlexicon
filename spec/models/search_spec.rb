@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Search do
-
   use_moby_cats
 
   let(:lion) { Word.find_by(name: 'lion') }
@@ -20,8 +19,10 @@ describe Search do
   end
 
   describe '#results' do
-    it 'returns an array of WeightedWords' do
-      expect(search.results.first).to be_a WeightedWord
+    it 'returns an array of weighted words' do
+      result = search.results.first
+      expect(result).to be_a Word
+      expect(result.weight).to be_an Integer
     end
 
     it 'returns the correct number of results' do

@@ -8,8 +8,7 @@
     **<a href="mailto:hello@panlexicon.com"><i class="fa fa-paper-plane"></i> hello@panlexicon.com</a>**
 
 %ul.search-results
-  - @search.results.each do |weighted_word|
-    - if weighted_word.name == 'palaver'
+  - @search.results.each do |word|
+    - if word.name == 'palaver'
       %li.word.word-panlexicon panlexicon
-    = render 'weighted_word', word: WeightedWordDecorator.new(weighted_word,
-        context: { search: @search, is_panlexicon: true })
+    = render 'word', word: WordDecorator.new(word, context: { search: @search, is_panlexicon: true })

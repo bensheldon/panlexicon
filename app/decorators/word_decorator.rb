@@ -1,4 +1,4 @@
-class WeightedWordDecorator < Draper::Decorator
+class WordDecorator < Draper::Decorator
   delegate_all
 
   def search
@@ -7,6 +7,10 @@ class WeightedWordDecorator < Draper::Decorator
 
   def panlexicon?
     context.fetch(:is_panlexicon, false)
+  end
+
+  def weighted?
+    defined? weight
   end
 
   def searched_words
