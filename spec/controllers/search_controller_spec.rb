@@ -19,10 +19,9 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe SearchController do
+  let(:search_query) { 'lion, tiger' }
 
   describe '#search' do
-    let(:search_query) { 'lion, tiger' }
-
     it 'GET creates a new Search using :query' do
       get :search, query: 'lion, tiger'
       expect(assigns(:search).string).to eq(search_query)
@@ -32,12 +31,13 @@ describe SearchController do
       get :search, q: 'lion, tiger'
       expect(assigns(:search).string).to eq(search_query)
     end
+  end
 
-    it 'POST creates a new Search using :query' do
-      post :search, query: 'lion, tiger'
-      expect(response).to redirect_to(action: 'search', query: 'lion, tiger')
+  describe '#redirect_post' do
+    it 'POST redirects to the search action with query' do
+      post :redirect_post, query: search_query
+      expect(response).to redirect_to(action: 'search', query: search_query)
     end
-
   end
 
   # describe "POST create" do
@@ -135,5 +135,4 @@ describe SearchController do
   #     response.should redirect_to(searches_url)
   #   end
   # end
-
 end

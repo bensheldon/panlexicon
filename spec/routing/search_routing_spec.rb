@@ -2,6 +2,17 @@ require 'spec_helper'
 
 describe SearchController do
   describe 'routing' do
+    it 'ROOT routes to #panlexion' do
+      expect(get: '/').to route_to('search#panlexicon')
+    end
+
+    # This does not work because Rails Advanced Routing Constraints
+    # don't show up in routing tests. This is tested in Integration Specs
+    #
+    # it 'ROOT with query routes to #search' do
+    #   expect(get('/?query=lion,tiger')).to route_to('search#search', q: 'lion,tiger')
+    # end
+
     it 'GET /search routes to #search' do
       expect(get('/search')).to route_to('search#search')
     end
@@ -18,8 +29,8 @@ describe SearchController do
       expect(get('/search/?q=lion,tiger')).to route_to('search#search', q: 'lion,tiger')
     end
 
-    it 'POST /search routes to #search' do
-      expect(post('/search')).to route_to('search#search')
+    it 'POST /search routes to #redirect_post' do
+      expect(post('/search')).to route_to('search#redirect_post')
     end
   end
 end
