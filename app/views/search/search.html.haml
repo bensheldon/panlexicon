@@ -2,9 +2,8 @@
 
 %ul.search-results
   - if @search.valid?
-    - @search.results.each do |weighted_word|
-      = render 'weighted_word', word: WeightedWordDecorator.new(weighted_word,
-          context: { search: @search })
+    - @search.results.each do |word|
+      = render 'word', word: WordDecorator.new(word, context: { search: @search })
   - else
     - if @search.errors[:string].size > 0
       - @search.errors[:string].each do |message|

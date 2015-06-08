@@ -14,10 +14,7 @@ class Search
   end
 
   def searched_words
-    @searched_words ||= split_string.map do |name|
-      # TODO: put an index on this in the database
-      Word.where('LOWER(name) = ?', name.downcase).first
-    end.compact
+    @searched_words ||= Word.where name: split_string
   end
 
   def results
@@ -25,7 +22,25 @@ class Search
   end
 
   def group_ids
-    @group_ids ||= Array(searched_words.map { |t| t.groups.pluck(:id) }.inject(:&))
+    @group_ids ||= begin
+      select_group_ids = searched_words.map do |word|
+        g = Grouping.arel_table
+        word_in_grouping = g[:word_id].eq(word.id)
+
+        g.project(:group_id).where(word_in_grouping)
+      end
+
+      # Intersection should be done in Arel, but currently can't be chained
+      # e.g. select_group_ids.inject(&:intersect) doesn't work
+      # https://github.com/rails/arel/pull/320
+      query = select_group_ids.map(&:to_sql).join ' INTERSECT '
+      result = ActiveRecord::Base.connection.execute query
+      if result.count > 0
+        result.field_values('group_id').map(&:to_i)
+      else
+        []
+      end
+    end
   end
 
   def missing_words
@@ -39,19 +54,18 @@ class Search
   end
 
   def weight_related_words
-    ActiveRecord::Base.connection.execute("
-      SELECT word.id,
-             word.name,
+    Word.find_by_sql(["
+      SELECT word.*,
              grouping.groups_count AS groups_count,
-             ntile(#{ MAX_WEIGHT }) OVER (ORDER BY grouping.groups_count) AS weight
+             ntile(?) OVER (ORDER BY grouping.groups_count) AS weight
         FROM (
           SELECT word_id, COUNT(*) as groups_count FROM groupings
-          WHERE group_id IN (#{ group_ids.join(',') })
-          GROUP BY word_id ORDER BY groups_count DESC LIMIT #{ MAX_WORDS }
+          WHERE group_id IN (?)
+          GROUP BY word_id ORDER BY groups_count DESC LIMIT ?
         ) grouping
         LEFT JOIN words word ON word.id = grouping.word_id
         ORDER BY word.name;
-    ").map { |row| WeightedWord.new(row) }
+    ", MAX_WEIGHT, group_ids, MAX_WORDS])
   end
 
   def words_exist
