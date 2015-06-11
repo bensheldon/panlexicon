@@ -4,9 +4,6 @@ ruby '2.2.2'
 gem 'rails', '4.2.1'
 gem 'puma'
 
-# https://github.com/heroku/rack-timeout/issues/55
-gem 'rack-timeout', group:  [:production, :development]
-
 # Databases
 gem 'pg'
 
@@ -89,6 +86,9 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'heroku-deflater'
+  
+  # https://github.com/heroku/rack-timeout/issues/55
+  gem 'rack-timeout'
 
   # Instrumentation
   gem 'sentry-raven'

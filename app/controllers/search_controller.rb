@@ -1,14 +1,15 @@
 class SearchController < ApplicationController
   def search
-    return panlexicon unless search_query
-    return redirect_to(action: 'search', query: search_query) if request.post?
-
-    @search = Search.new(search_query)
+    @search = Search.new search_query
     render 'search'
   end
 
+  def redirect_post
+    redirect_to action: 'search', query: search_query
+  end
+
   def panlexicon
-    @search = Search.new('thesaurus')
+    @search = Search.new 'thesaurus'
     render 'panlexicon'
   end
 
@@ -20,7 +21,7 @@ class SearchController < ApplicationController
     # First try :query, then try :q
     query = params.fetch(:query, nil)
     query = params.fetch(:q, nil) if query.nil?
-    query = nil if query == ''
+    query = '' if query.nil?
 
     query
   end

@@ -1,10 +1,17 @@
 Panlexicon::Application.routes.draw do
+  get '/', to: 'search#search',
+    as: 'search',
+    constraints: -> (request) {
+      query = request.query_parameters.fetch(:query, nil)
+      query = request.query_parameters.fetch(:q, nil) if query.nil?
+      !query.blank?
+    }
 
-  root 'search#search'
+  root 'search#panlexicon'
 
   get 'search/:query' => 'search#search'
   get 'search' => 'search#search'
-  post 'search' => 'search#search'
+  post 'search' => 'search#redirect_post'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
