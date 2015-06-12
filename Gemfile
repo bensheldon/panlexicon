@@ -39,6 +39,11 @@ gem 'draper'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
+# Profiling
+gem 'rack-mini-profiler', require: false
+gem 'flamegraph'
+gem 'stackprof', require: false
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -86,7 +91,7 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'heroku-deflater'
-  
+
   # https://github.com/heroku/rack-timeout/issues/55
   gem 'rack-timeout'
 
