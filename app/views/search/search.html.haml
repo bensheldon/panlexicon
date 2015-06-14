@@ -1,13 +1,13 @@
 - content_for :search_query, @search.string
 
-%ul.search-results
-  - if @search.valid?
+- if @search.valid?
+  %ul.search-results
     - @search.results.each do |word|
       = render 'word', word: WordDecorator.new(word, context: { search: @search })
+- else
+  - if @search.errors[:string].size > 0
+    - @search.errors[:string].each do |message|
+      .alert.alert-danger= message.html_safe
   - else
-    - if @search.errors[:string].size > 0
-      - @search.errors[:string].each do |message|
-        .alert.alert-danger= message.html_safe
-    - else
-      - @search.errors[:groups].each do |message|
-        .alert.alert-danger= message.html_safe
+    - @search.errors[:groups].each do |message|
+      .alert.alert-danger= message.html_safe
