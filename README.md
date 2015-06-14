@@ -20,13 +20,21 @@ Installation and Setup
 ----------------------
 
 Dependencies:
-- postgres (use [Postgres.app](http://postgresapp.com/))
-- phantomjs (`$ brew install phantomjs`)
+- Ruby 2.2.2
+- bundler gem (`$ gem install bundler`)
+- postgres (on OSX, use [Postgres.app](http://postgresapp.com/))
+- phantomjs (`$ brew install phantomjs` assuming you are using Homebrew on OSX)
 
 1. Install the ruby gem dependencies: `$ bundle install`
 2. Setup the database: `$ bundle exec rake db:setup`
-3. Populate the Moby Thesaurus:
-  1. Download it: http://www.gutenberg.org/ebooks/3202
-  2. Import it: `$ rake import:moby[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
+3. Import thesaurus data from a database dump (see the section on _Manually Importing Thesaurus Data_ as an alternative) `$ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U YOUR_USERNAME -d panlexicon_development http://bensheldon.s3.amazonaws.com/panlexicon/panlexicon_20150606.dump`.
 4. Start the server: `$ bundle exec rails s`
 5. Visit it in your web browser: `http://localhost:3000`
+
+Manually Importing Thesaurus Data
+-------------------------------------
+
+This application uses the public domain [Moby Thesaurus](http://www.gutenberg.org/ebooks/3202) to provide words and relations. If you choose not to use the database dump described in the _Installation and Setup_ section, you can manually import it (it takes an hour or two):
+
+1. Download the Moby Thesaurus textfile: http://www.gutenberg.org/ebooks/3202
+2. Import it: `$ rake import:moby[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
