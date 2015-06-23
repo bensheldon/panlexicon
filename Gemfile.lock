@@ -47,6 +47,7 @@ GEM
     autoprefixer-rails (5.2.0.1)
       execjs
       json
+    benchmark-ips (2.2.0)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -88,6 +89,14 @@ GEM
       safe_yaml (~> 1.0.0)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
+    derailed (0.1.0)
+      derailed_benchmarks
+    derailed_benchmarks (1.0.0)
+      benchmark-ips (~> 2)
+      get_process_mem (~> 0)
+      memory_profiler (~> 0)
+      rack (~> 1)
+      rake (~> 10.4)
     diff-lcs (1.2.5)
     docile (1.1.5)
     domain_name (0.5.24)
@@ -121,6 +130,7 @@ GEM
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    get_process_mem (0.2.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     guard (2.12.6)
@@ -185,6 +195,7 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    memory_profiler (0.9.4)
     meta_request (0.3.4)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
@@ -379,6 +390,7 @@ DEPENDENCIES
   coffee-rails
   coveralls
   database_cleaner
+  derailed
   draper
   factory_girl_rails
   faker
@@ -393,6 +405,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   lograge
+  memory_profiler
   meta_request
   newrelic_rpm
   pg

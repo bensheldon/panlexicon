@@ -42,7 +42,10 @@ gem 'jbuilder'
 # Profiling
 gem 'rack-mini-profiler', require: false
 gem 'flamegraph'
+gem 'memory_profiler'
 gem 'stackprof', require: false
+
+gem 'pry-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -60,6 +63,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
 
+  gem 'derailed'
 
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -74,7 +78,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'pry-rails'
 end
 
 group :test do
