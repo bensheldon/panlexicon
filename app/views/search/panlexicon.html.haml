@@ -12,6 +12,6 @@
     - @search.results.each do |word|
       - if word.name == 'palaver'
         %li.word.word-panlexicon panlexicon
-      = render 'word', word: WordDecorator.new(word, context: { search: @search, is_panlexicon: true })
+      = render 'word', word: word
 - else
   .alert.alert-danger Thesaurus data has not been imported yet.
