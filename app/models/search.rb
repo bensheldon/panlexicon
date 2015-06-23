@@ -6,7 +6,7 @@ class Search
   validate :words_exist
   validate :words_have_intersecting_groups
 
-  MAX_WORDS = 80
+  MAX_RELATED_WORDS = 80
   MAX_WEIGHT = 8
 
   def initialize(string)
@@ -54,18 +54,44 @@ class Search
   end
 
   def weight_related_words
-    Word.find_by_sql(["
-      SELECT word.*,
-             grouping.groups_count AS groups_count,
-             ntile(?) OVER (ORDER BY grouping.groups_count) AS weight
-        FROM (
-          SELECT word_id, COUNT(*) as groups_count FROM groupings
-          WHERE group_id IN (?)
-          GROUP BY word_id ORDER BY groups_count DESC LIMIT ?
-        ) grouping
-        LEFT JOIN words word ON word.id = grouping.word_id
-        ORDER BY word.name;
-    ", MAX_WEIGHT, group_ids, MAX_WORDS])
+    # Selects the searched words and sets the weight and groups_count
+    # to be the maximum
+    select_and_weight_words = """
+      SELECT
+        words.*,
+        :groups_count AS groups_count,
+        :max_weight AS weight
+      FROM words
+      WHERE words.id IN (:searched_word_ids)
+    """
+
+    # Selects the related words but NOT the searched words, calculating the
+    # proper weight from the groups_count
+    select_and_weight_related_words = """
+      SELECT
+        words.*,
+        grouping.groups_count AS groups_count,
+        ntile(:max_weight) OVER (ORDER BY grouping.groups_count) AS weight
+      FROM (
+        SELECT word_id, COUNT(*) as groups_count FROM groupings
+        WHERE group_id IN (:group_ids)
+          AND word_id NOT IN (:searched_word_ids)
+        GROUP BY word_id ORDER BY groups_count DESC LIMIT :MAX_RELATED_WORDS
+      ) grouping
+      LEFT JOIN words ON words.id = grouping.word_id
+    """
+
+    # Union the two select statements and fetch a collection of words
+    Word.find_by_sql ["
+      (#{select_and_weight_words}) UNION (#{select_and_weight_related_words})
+      ORDER BY name ASC;
+    ", {
+      MAX_RELATED_WORDS: MAX_RELATED_WORDS,
+      max_weight: MAX_WEIGHT,
+      group_ids: group_ids,
+      groups_count: group_ids.size,
+      searched_word_ids: searched_words.pluck(:id)
+    }]
   end
 
   def words_exist
