@@ -35,6 +35,13 @@ describe Search do
       expect(results.min_by(&:weight).weight).to eq 1
       expect(results.max_by(&:weight).weight).to eq Search::MAX_WEIGHT
     end
+
+    it 'always includes the searched terms, regardless of MAX_RELATED_WORDS' do
+      stub_const('Search::MAX_RELATED_WORDS', 1)
+
+      result_names = search.results.map(&:name)
+      expect(result_names).to include('lion', 'tiger')
+    end
   end
 
   describe 'validations' do
