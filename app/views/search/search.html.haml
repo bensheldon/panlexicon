@@ -2,8 +2,7 @@
 
 - if @search.valid?
   %ul.search-results
-    - @search.results.each do |word|
-      = render 'word', word: WordDecorator.new(word, context: { search: @search })
+    = render partial: 'word', collection: @search.results, as: :word
 - else
   - if @search.errors[:string].size > 0
     - @search.errors[:string].each do |message|

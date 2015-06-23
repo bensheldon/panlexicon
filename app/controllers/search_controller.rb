@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
   def search
-    @search = Search.new search_query
+    search = Search.new search_query
+    @search = SearchDecorator.new search
     render 'search'
   end
 
@@ -9,7 +10,8 @@ class SearchController < ApplicationController
   end
 
   def panlexicon
-    @search = Search.new 'thesaurus'
+    search = Search.new 'thesaurus'
+    @search = SearchDecorator.new search, context: { is_panlexicon: true }
     render 'panlexicon'
   end
 

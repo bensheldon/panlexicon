@@ -20,14 +20,14 @@ class WordDecorator < Draper::Decorator
 
   def in_search?
     return false if panlexicon?
-    searched_words.map { |w| w.id }.include? object.id
+    searched_words.map(&:id).include? object.id
   end
 
   def add_to_search_param
-    (searched_words + [object]).map { |w| w.name }.join(', ')
+    (searched_words + [object]).map(&:name).join(', ')
   end
 
   def remove_from_search_param
-    searched_words.reject { |w| w.id == object.id }.map { |w| w.name }.join(', ')
+    searched_words.reject { |w| w.id == object.id }.map(&:name).join(', ')
   end
 end
