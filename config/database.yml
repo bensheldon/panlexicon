@@ -2,7 +2,6 @@ defaults: &defaults
   adapter: postgresql
   encoding: unicode
   pool: 20
-  username: <%= ENV['POSTGRES_USERNAME'] || ENV['USER'] %>
 
 development:
   database: panlexicon_development
@@ -18,5 +17,6 @@ staging:
   <<: *defaults
 
 production:
-  database: panlexicon_production
   <<: *defaults
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV["MAX_THREADS"] || 5 %>
