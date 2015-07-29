@@ -1,8 +1,8 @@
 class SearchController < ApplicationController
   def search
     search = Search.new search_query
+    SearchRecord.create_from_search(search) if search.valid?
     @search = SearchDecorator.new search
-    render 'search'
   end
 
   def redirect_post
@@ -12,7 +12,6 @@ class SearchController < ApplicationController
   def panlexicon
     search = Search.new 'thesaurus'
     @search = SearchDecorator.new search, context: { is_panlexicon: true }
-    render 'panlexicon'
   end
 
   private

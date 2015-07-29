@@ -13,6 +13,8 @@ Panlexicon::Application.routes.draw do
   get 'search' => 'search#search'
   post 'search' => 'search#redirect_post'
 
+  get 'history(/:datestring)' => 'history#index', as: :history
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -18,6 +18,16 @@ describe Search do
     end
   end
 
+  describe '#searched_words_in_order' do
+    it 'returns Words in search order' do
+      lion_first = Search.new 'Lion, tiger'
+      tiger_first = Search.new 'Tiger, lion'
+
+      expect(lion_first.searched_words_in_order.first.name).to eq 'lion'
+      expect(tiger_first.searched_words_in_order.first.name).to eq 'tiger'
+    end
+  end
+
   describe '#results' do
     it 'returns an array of weighted words' do
       result = search.results.first
