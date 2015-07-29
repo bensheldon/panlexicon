@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130031003) do
+ActiveRecord::Schema.define(version: 20150729000939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(version: 20140130031003) do
 
   add_index "groups", ["key_word_id"], name: "index_groups_on_key_word_id", unique: true, using: :btree
 
+  create_table "search_records", force: :cascade do |t|
+    t.datetime "created_at", null: false
+  end
+
+  add_index "search_records", ["created_at"], name: "index_search_records_on_created_at", using: :btree
+
+  create_table "search_records_words", id: false, force: :cascade do |t|
+    t.integer "search_record_id", null: false
+    t.integer "word_id",          null: false
+    t.integer "position",         null: false
+  end
+
+  add_index "search_records_words", ["search_record_id", "position"], name: "index_search_records_words_on_search_record_id_and_position", unique: true, using: :btree
+  add_index "search_records_words", ["search_record_id", "word_id"], name: "index_search_records_words_on_search_record_id_and_word_id", unique: true, using: :btree
+  add_index "search_records_words", ["word_id"], name: "index_search_records_words_on_word_id", using: :btree
+
   create_table "words", force: :cascade do |t|
     t.citext "name", null: false
   end
@@ -40,4 +56,6 @@ ActiveRecord::Schema.define(version: 20140130031003) do
   add_foreign_key "groupings", "groups"
   add_foreign_key "groupings", "words"
   add_foreign_key "groups", "words", column: "key_word_id"
+  add_foreign_key "search_records_words", "search_records"
+  add_foreign_key "search_records_words", "words"
 end

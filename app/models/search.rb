@@ -17,6 +17,12 @@ class Search
     @searched_words ||= Word.where name: split_string
   end
 
+  def searched_words_in_order
+    split_string.map do |name|
+      searched_words.detect { |word| word.name.downcase == name.downcase }
+    end
+  end
+
   def results
     @results ||= weight_related_words
   end
