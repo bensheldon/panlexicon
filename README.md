@@ -26,8 +26,19 @@ Dependencies:
 - phantomjs (`$ brew install phantomjs` assuming you are using Homebrew on OSX)
 
 1. Install the ruby gem dependencies: `$ bundle install`
-2. Setup the database: `$ bundle exec rake db:setup`
-3. Import thesaurus data from a database dump (see the section on _Manually Importing Thesaurus Data_ as an alternative) `$ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U YOUR_USERNAME -d panlexicon_development http://bensheldon.s3.amazonaws.com/panlexicon/panlexicon_20150606.dump`.
+2. Create the database: `$ bundle exec rake db:create`
+3. Import thesaurus data from a database dump (see the section on _Manually Importing Thesaurus Data_ as an alternative) 
+  ```bash
+    # Download a database dump
+    curl -O http://bensheldon.s3.amazonaws.com/panlexicon/panlexicon_20150606.dump
+    
+    # Restore it to the database
+    pg_restore --verbose --clean --no-acl --no-owner -h localhost -U YOUR_USERNAME -d panlexicon_development panlexicon_20150606.dump`
+    
+    # Run any newer migrations
+    bin/rails rake db:migrate
+    
+  ```
 4. Start the server: `$ bundle exec rails s`
 5. Visit it in your web browser: `http://localhost:3000`
 
