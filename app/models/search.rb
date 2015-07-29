@@ -7,7 +7,7 @@ class Search
   validate :words_have_intersecting_groups
 
   MAX_RELATED_WORDS = 80
-  MAX_WEIGHT = 8
+  MAX_WEIGHT = 6
 
   def initialize(string)
     @string = string
@@ -76,7 +76,7 @@ class Search
         SELECT word_id, COUNT(*) as groups_count FROM groupings
         WHERE group_id IN (:group_ids)
           AND word_id NOT IN (:searched_word_ids)
-        GROUP BY word_id ORDER BY groups_count DESC LIMIT :MAX_RELATED_WORDS
+        GROUP BY word_id ORDER BY groups_count DESC LIMIT :max_related_words
       ) grouping
       LEFT JOIN words ON words.id = grouping.word_id
     """
@@ -86,7 +86,7 @@ class Search
       (#{select_and_weight_words}) UNION (#{select_and_weight_related_words})
       ORDER BY name ASC;
     ", {
-      MAX_RELATED_WORDS: MAX_RELATED_WORDS,
+      max_related_words: MAX_RELATED_WORDS,
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
       groups_count: group_ids.size,
