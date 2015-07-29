@@ -1,7 +1,7 @@
 class SearchRecordsByDate
   include ActiveModel::Model
 
-  MAX_WORDS = 80
+  MAX_WORDS = 500
   MAX_WEIGHT = 6
 
   attr_reader :date
@@ -35,6 +35,7 @@ class SearchRecordsByDate
         GROUP BY word_id ORDER BY groups_count DESC LIMIT :max_words
       ) grouping
       LEFT JOIN words ON words.id = grouping.word_id
+      ORDER BY words.name ASC
     """
 
     # Union the two select statements and fetch a collection of words
