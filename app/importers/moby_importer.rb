@@ -9,6 +9,10 @@ class MobyImporter
 
     @logger = Logger.new(STDOUT)
     @logger.level = Logger::DEBUG
+
+    if options.fetch(:hide_log) { false }
+      @logger.level = Logger::WARN
+    end
   end
 
   def import

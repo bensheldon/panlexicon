@@ -32,6 +32,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 
 gem 'draper'
+gem 'twitter'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'

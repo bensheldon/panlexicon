@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MobyImporter do
   let(:txt) { Pathname('spec/fixtures/moby_cats.txt') }
-  let(:moby_importer) { MobyImporter.new(txt, print_log: false) }
+  let(:moby_importer) { MobyImporter.new(txt, hide_log: true) }
 
   it 'has a valid fixture' do
     expect(txt.exist?).to be true
