@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :search_record do
+  factory :word_of_the_day do
 
   end
 end

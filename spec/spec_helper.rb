@@ -67,7 +67,7 @@ RSpec.configure do |config|
   # Allow local connections for Poltergeist; disable for Sauce Labs
   WebMock.disable_net_connect! allow_localhost: true
 
-  Capybara.default_wait_time = 2
+  Capybara.default_max_wait_time = 2
   poltergist_timeout = 30
 
   # Configure Poltergeist

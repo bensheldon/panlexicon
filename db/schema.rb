@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729000939) do
+ActiveRecord::Schema.define(version: 20150809183842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20150729000939) do
   add_index "search_records_words", ["search_record_id", "word_id"], name: "index_search_records_words_on_search_record_id_and_word_id", unique: true, using: :btree
   add_index "search_records_words", ["word_id"], name: "index_search_records_words_on_word_id", using: :btree
 
+  create_table "word_of_the_days", force: :cascade do |t|
+    t.date     "date",       null: false
+    t.integer  "word_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "word_of_the_days", ["date"], name: "index_word_of_the_days_on_date", unique: true, using: :btree
+  add_index "word_of_the_days", ["word_id"], name: "index_word_of_the_days_on_word_id", unique: true, using: :btree
+
   create_table "words", force: :cascade do |t|
     t.citext "name", null: false
   end
@@ -58,4 +68,5 @@ ActiveRecord::Schema.define(version: 20150729000939) do
   add_foreign_key "groups", "words", column: "key_word_id"
   add_foreign_key "search_records_words", "search_records"
   add_foreign_key "search_records_words", "words"
+  add_foreign_key "word_of_the_days", "words"
 end
