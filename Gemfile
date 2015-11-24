@@ -60,6 +60,10 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'guard-livereload', require: false
   gem 'guard-rubocop', require: false
+  gem 'guard-shell', require: false
+
+  gem 'rubocop-rspec', require: false
+  gem 'haml_lint', require: false
 
   gem 'spring'
   gem 'spring-commands-rspec'
