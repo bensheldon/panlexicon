@@ -11,8 +11,25 @@ RSpec.describe SearchParser do
       expect(lion_first.fragments.first.string).to eq 'Lion'
       expect(tiger_first.fragments.first.string).to eq 'Tiger'
     end
+
+    it 'parses out words and operations' do
+      parser = SearchParser.new('lion, -tiger, +cat').tap(&:execute)
+
+      lion_fragment = parser.fragments.find { |f| f.string == 'lion' }
+      tiger_fragment = parser.fragments.find { |f| f.string == '-tiger' }
+      cat_fragment = parser.fragments.find { |f| f.string == '+cat' }
+
+      expect(lion_fragment.operation).to eq :add
+      expect(lion_fragment.word).to be_present
+
+      expect(tiger_fragment.operation).to eq :subtract
+      expect(tiger_fragment.word).to be_present
+
+      expect(cat_fragment.operation).to eq :add
+      expect(cat_fragment.word).to be_present
+    end
   end
-  
+
   describe '#words' do
     it 'returns Words' do
       parser = SearchParser.new('Lion, wumpus, unicorn').tap(&:execute)

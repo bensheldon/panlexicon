@@ -22,6 +22,14 @@ feature 'Searching words', js: true do
     expect(page).to have_link 'cat'
   end
 
+  scenario 'Subtracting words from dictionary' do
+    visit root_path
+    search_for 'cat, -leopard'
+
+    expect(page).to have_link 'leopard'
+    expect(page).to_not have_link 'puma'
+  end
+
   scenario 'Searching with improper capitalizations' do
     visit root_path
     search_for 'Bobcat'

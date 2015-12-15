@@ -28,24 +28,10 @@ class Search
 
   def group_ids
     @group_ids ||= begin
-      select_group_ids = fragments_with_word.map do |fragment|
-        word = fragment.word
-        g = Grouping.arel_table
-        word_in_grouping = g[:word_id].eq(word.id)
+      additive_groups = group_ids_for_fragments additive_fragments
+      subtractive_groups = group_ids_for_fragments subtractive_fragments
 
-        g.project(:group_id).where(word_in_grouping)
-      end
-
-      # Intersection should be done in Arel, but currently can't be chained
-      # e.g. select_group_ids.inject(&:intersect) doesn't work
-      # https://github.com/rails/arel/pull/320
-      query = select_group_ids.map(&:to_sql).join ' INTERSECT '
-      result = ActiveRecord::Base.connection.execute query
-      if result.count > 0
-        result.field_values('group_id').map(&:to_i)
-      else
-        []
-      end
+      additive_groups - subtractive_groups
     end
   end
 
@@ -57,6 +43,14 @@ class Search
 
   def fragments_with_word
     fragments.select { |fragment| fragment.word.present? }
+  end
+
+  def additive_fragments
+    fragments_with_word.select { |fragment| fragment.operation == :add }
+  end
+
+  def subtractive_fragments
+    fragments_with_word.select { |fragment| fragment.operation == :subtract }
   end
 
   def weight_related_words
@@ -107,6 +101,27 @@ class Search
                         "The #{ 'word'.pluralize(missing_words.size) } "\
                         "<strong>#{ missing_words.join(', ') }</strong> "\
                         "#{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary."
+  end
+
+  def group_ids_for_fragments(fragments)
+    select_group_ids = fragments.map do |fragment|
+      word = fragment.word
+      g = Grouping.arel_table
+      word_in_grouping = g[:word_id].eq(word.id)
+
+      g.project(:group_id).where(word_in_grouping)
+    end
+
+    # Intersection should be done in Arel, but currently can't be chained
+    # e.g. select_group_ids.inject(&:intersect) doesn't work
+    # https://github.com/rails/arel/pull/320
+    query = select_group_ids.map(&:to_sql).join ' INTERSECT '
+    result = ActiveRecord::Base.connection.execute query
+    if result.count > 0
+      result.field_values('group_id').map(&:to_i)
+    else
+      []
+    end
   end
 
   def words_have_intersecting_groups

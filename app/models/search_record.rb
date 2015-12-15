@@ -17,7 +17,9 @@ class SearchRecord < ActiveRecord::Base
   def self.create_from_search(search)
     search_record = create
     search.fragments.each do |fragment|
-      search_record.search_records_words.create word: fragment.word, position: fragment.position
+      search_record.search_records_words.create word: fragment.word,
+        position: fragment.position,
+        operation: fragment.operation
     end
 
     search_record
