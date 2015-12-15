@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
   def search
     search = Search.new search_query
+    search.execute
     SearchRecord.create_from_search(search) if search.valid?
     @search = SearchDecorator.new search
   end
@@ -11,6 +12,7 @@ class SearchController < ApplicationController
 
   def panlexicon
     search = Search.new 'thesaurus'
+    search.execute
     @search = SearchDecorator.new search, context: { is_panlexicon: true }
   end
 

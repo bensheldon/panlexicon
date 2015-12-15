@@ -1,6 +1,6 @@
 class Search
   include ActiveModel::Model
-  attr_reader :string, :words
+  attr_reader :string, :words, :parser
 
   validates :string, presence: true
   validate :words_exist
@@ -11,16 +11,15 @@ class Search
 
   def initialize(string)
     @string = string
+    @parser = SearchParser.new string
+  end
+
+  def execute
+    parser.execute
   end
 
   def searched_words
-    @searched_words ||= Word.where name: split_string
-  end
-
-  def searched_words_in_order
-    split_string.map do |name|
-      searched_words.detect { |word| word.name.downcase == name.downcase }
-    end
+    parser.words
   end
 
   def results
@@ -50,7 +49,7 @@ class Search
   end
 
   def missing_words
-    @mising_words ||= split_string.map(&:downcase) - searched_words.map(&:name).map(&:downcase)
+    parser.missing_words
   end
 
   private
@@ -96,7 +95,7 @@ class Search
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
       groups_count: group_ids.size,
-      searched_word_ids: searched_words.pluck(:id)
+      searched_word_ids: searched_words.map(&:id)
     }]
   end
 

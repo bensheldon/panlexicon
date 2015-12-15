@@ -6,7 +6,7 @@ describe Search do
   let(:lion) { Word.find_by(name: 'lion') }
   let(:tiger) { Word.find_by(name: 'tiger') }
   let(:tiger_group) { Group.find_by(key_word: tiger) }
-  let(:search) { Search.new 'lion, tiger' }
+  let(:search) { Search.new('lion, tiger').tap(&:execute) }
 
   describe '#group_ids' do
     it 'returns an array of integers' do
@@ -18,13 +18,22 @@ describe Search do
     end
   end
 
-  describe '#searched_words_in_order' do
+  describe '#searched_words' do
     it 'returns Words in search order' do
-      lion_first = Search.new 'Lion, tiger'
-      tiger_first = Search.new 'Tiger, lion'
+      lion_first = Search.new('Lion, tiger').tap(&:execute)
+      tiger_first = Search.new('Tiger, lion').tap(&:execute)
 
-      expect(lion_first.searched_words_in_order.first.name).to eq 'lion'
-      expect(tiger_first.searched_words_in_order.first.name).to eq 'tiger'
+      expect(lion_first.searched_words.first.name).to eq 'lion'
+      expect(tiger_first.searched_words.first.name).to eq 'tiger'
+    end
+  end
+
+  describe '#missing_words' do
+    it 'returns missing words in order' do
+      search = Search.new('lion, wumpus, unicorn').tap(&:execute)
+      expect(search.missing_words.size).to eq 2
+      expect(search.missing_words.first).to eq 'wumpus'
+      expect(search.missing_words.second).to eq 'unicorn'
     end
   end
 
@@ -57,37 +66,37 @@ describe Search do
   describe 'validations' do
     describe 'presence_of :string' do
       it 'valid in presence of string' do
-        search = Search.new('lion')
-        expect(search.valid?).to be true
+        search = Search.new('lion').tap(&:execute)
+        expect(search).to be_valid
       end
 
       it 'invalid when string is empty' do
-        search = Search.new('')
-        expect(search.valid?).to be false
+        search = Search.new('').tap(&:execute)
+        expect(search).to_not be_valid
       end
     end
 
     describe ':words_exist' do
       it 'valid if words are in dictionary' do
-        search = Search.new('cat, lion')
-        expect(search.valid?).to be true
+        search = Search.new('cat, lion').tap(&:execute)
+        expect(search).to be_valid
       end
 
       it 'invalid when words are not in dictionary' do
-        search = Search.new('cat, numberwang')
-        expect(search.valid?).to be false
+        search = Search.new('cat, numberwang').tap(&:execute)
+        expect(search).to_not be_valid
       end
     end
 
     describe ':words_have_intersecting_groups' do
       it 'valid if groups intersect' do
-        search = Search.new('lion, tiger')
-        expect(search.valid?).to be true
+        search = Search.new('lion, tiger').tap(&:execute)
+        expect(search).to be_valid
       end
 
       it 'invalid if groups do not intersect' do
-        search = Search.new('cat, platypus')
-        expect(search.valid?).to be false
+        search = Search.new('cat, platypus').tap(&:execute)
+        expect(search).to_not be_valid
       end
     end
   end
