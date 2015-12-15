@@ -15,8 +15,8 @@ RSpec.describe WordOfTheDayGenerator do
       before :each do
         temp_wod = WordOfTheDay.new(date: Date.today)
         Timecop.travel(temp_wod.records_start_at + 1.hour) do
-          SearchRecord.create_from_search Search.new 'lion'
-          SearchRecord.create_from_search Search.new 'lion, tiger'
+          SearchRecord.create_from_search Search.new('lion').tap(&:execute)
+          SearchRecord.create_from_search Search.new('lion, tiger').tap(&:execute)
         end
       end
 

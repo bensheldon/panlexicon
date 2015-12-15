@@ -13,21 +13,31 @@ class WordDecorator < Draper::Decorator
     defined? weight
   end
 
-  def searched_words
+  def fragments
     return [] if panlexicon?
-    search.searched_words
+    search.fragments
   end
 
   def in_search?
     return false if panlexicon?
-    searched_words.map(&:id).include? object.id
+    fragments.find { |f| f.word.id == object.id }.present?
+  end
+
+  def subtracted_from_search?
+    fragments.find { |f| f.word.id == object.id && f.operation == :subtract }.present?
   end
 
   def add_to_search_param
-    (searched_words + [object]).map(&:name).join(', ')
+    (fragments + [SearchFragment.new(word: self, operation: :add)]).map do |fragment|
+      if fragment.operation == :add
+        fragment.word.name
+      else
+        "-#{fragment.word.name}"
+      end
+    end.join(', ')
   end
 
   def remove_from_search_param
-    searched_words.reject { |w| w.id == object.id }.map(&:name).join(', ')
+    fragments.map(&:word).reject { |w| w.id == object.id }.map(&:name).join(', ')
   end
 end

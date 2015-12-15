@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe SearchRecordsByDate, type: :model do
   use_moby_cats
 
-  let(:search) { Search.new 'lion, tiger' }
+  let(:search) { Search.new('lion, tiger').tap(&:execute) }
   let!(:search_record) { SearchRecord.create_from_search search }
   let(:records) { SearchRecordsByDate.new Time.now.utc.to_date }
 

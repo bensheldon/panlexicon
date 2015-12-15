@@ -1,6 +1,6 @@
 class Search
   include ActiveModel::Model
-  attr_reader :string, :words
+  attr_reader :string, :words, :parser
 
   validates :string, presence: true
   validate :words_exist
@@ -11,16 +11,15 @@ class Search
 
   def initialize(string)
     @string = string
+    @parser = SearchParser.new string
   end
 
-  def searched_words
-    @searched_words ||= Word.where name: split_string
+  def execute
+    parser.execute
   end
 
-  def searched_words_in_order
-    split_string.map do |name|
-      searched_words.detect { |word| word.name.downcase == name.downcase }
-    end
+  def fragments
+    parser.fragments
   end
 
   def results
@@ -29,34 +28,29 @@ class Search
 
   def group_ids
     @group_ids ||= begin
-      select_group_ids = searched_words.map do |word|
-        g = Grouping.arel_table
-        word_in_grouping = g[:word_id].eq(word.id)
+      additive_groups = group_ids_for_fragments additive_fragments
+      subtractive_groups = group_ids_for_fragments subtractive_fragments
 
-        g.project(:group_id).where(word_in_grouping)
-      end
-
-      # Intersection should be done in Arel, but currently can't be chained
-      # e.g. select_group_ids.inject(&:intersect) doesn't work
-      # https://github.com/rails/arel/pull/320
-      query = select_group_ids.map(&:to_sql).join ' INTERSECT '
-      result = ActiveRecord::Base.connection.execute query
-      if result.count > 0
-        result.field_values('group_id').map(&:to_i)
-      else
-        []
-      end
+      additive_groups - subtractive_groups
     end
   end
 
   def missing_words
-    @mising_words ||= split_string.map(&:downcase) - searched_words.map(&:name).map(&:downcase)
+    parser.missing_words
   end
 
   private
 
-  def split_string
-    string.split(',').map(&:strip)
+  def fragments_with_word
+    fragments.select { |fragment| fragment.word.present? }
+  end
+
+  def additive_fragments
+    fragments_with_word.select { |fragment| fragment.operation == :add }
+  end
+
+  def subtractive_fragments
+    fragments_with_word.select { |fragment| fragment.operation == :subtract }
   end
 
   def weight_related_words
@@ -88,6 +82,7 @@ class Search
     """
 
     # Union the two select statements and fetch a collection of words
+    searched_word_ids = fragments_with_word.map { |fragment| fragment.word.id }
     Word.find_by_sql ["
       (#{select_and_weight_words}) UNION (#{select_and_weight_related_words})
       ORDER BY name ASC;
@@ -96,7 +91,7 @@ class Search
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
       groups_count: group_ids.size,
-      searched_word_ids: searched_words.pluck(:id)
+      searched_word_ids: searched_word_ids
     }]
   end
 
@@ -106,6 +101,27 @@ class Search
                         "The #{ 'word'.pluralize(missing_words.size) } "\
                         "<strong>#{ missing_words.join(', ') }</strong> "\
                         "#{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary."
+  end
+
+  def group_ids_for_fragments(fragments)
+    select_group_ids = fragments.map do |fragment|
+      word = fragment.word
+      g = Grouping.arel_table
+      word_in_grouping = g[:word_id].eq(word.id)
+
+      g.project(:group_id).where(word_in_grouping)
+    end
+
+    # Intersection should be done in Arel, but currently can't be chained
+    # e.g. select_group_ids.inject(&:intersect) doesn't work
+    # https://github.com/rails/arel/pull/320
+    query = select_group_ids.map(&:to_sql).join ' INTERSECT '
+    result = ActiveRecord::Base.connection.execute query
+    if result.count > 0
+      result.field_values('group_id').map(&:to_i)
+    else
+      []
+    end
   end
 
   def words_have_intersecting_groups
