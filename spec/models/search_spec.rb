@@ -18,16 +18,6 @@ describe Search do
     end
   end
 
-  describe '#searched_words' do
-    it 'returns Words in search order' do
-      lion_first = Search.new('Lion, tiger').tap(&:execute)
-      tiger_first = Search.new('Tiger, lion').tap(&:execute)
-
-      expect(lion_first.searched_words.first.name).to eq 'lion'
-      expect(tiger_first.searched_words.first.name).to eq 'tiger'
-    end
-  end
-
   describe '#missing_words' do
     it 'returns missing words in order' do
       search = Search.new('lion, wumpus, unicorn').tap(&:execute)

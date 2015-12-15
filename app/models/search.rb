@@ -18,8 +18,8 @@ class Search
     parser.execute
   end
 
-  def searched_words
-    parser.words
+  def fragments
+    parser.fragments
   end
 
   def results
@@ -28,7 +28,8 @@ class Search
 
   def group_ids
     @group_ids ||= begin
-      select_group_ids = searched_words.map do |word|
+      select_group_ids = fragments_with_word.map do |fragment|
+        word = fragment.word
         g = Grouping.arel_table
         word_in_grouping = g[:word_id].eq(word.id)
 
@@ -54,8 +55,8 @@ class Search
 
   private
 
-  def split_string
-    string.split(',').map(&:strip)
+  def fragments_with_word
+    fragments.select { |fragment| fragment.word.present? }
   end
 
   def weight_related_words
@@ -87,6 +88,7 @@ class Search
     """
 
     # Union the two select statements and fetch a collection of words
+    searched_word_ids = fragments_with_word.map { |fragment| fragment.word.id }
     Word.find_by_sql ["
       (#{select_and_weight_words}) UNION (#{select_and_weight_related_words})
       ORDER BY name ASC;
@@ -95,7 +97,7 @@ class Search
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
       groups_count: group_ids.size,
-      searched_word_ids: searched_words.map(&:id)
+      searched_word_ids: searched_word_ids
     }]
   end
 

@@ -12,6 +12,7 @@ RSpec.describe SearchParser do
       expect(tiger_first.fragments.first.string).to eq 'Tiger'
     end
   end
+  
   describe '#words' do
     it 'returns Words' do
       parser = SearchParser.new('Lion, wumpus, unicorn').tap(&:execute)
