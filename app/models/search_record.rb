@@ -11,7 +11,7 @@
 #
 
 class SearchRecord < ActiveRecord::Base
-  has_many :search_records_words
+  has_many :search_records_words, dependent: :destroy
   has_many :words, -> { order('search_records_words.position') }, through: :search_records_words
 
   def self.create_from_search(search)
