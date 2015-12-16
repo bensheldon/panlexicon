@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215194407) do
+ActiveRecord::Schema.define(version: 20151216002443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20151215194407) do
 
   add_index "search_records", ["created_at"], name: "index_search_records_on_created_at", using: :btree
 
-  create_table "search_records_words", id: false, force: :cascade do |t|
+  create_table "search_records_words", force: :cascade do |t|
     t.integer "search_record_id",             null: false
     t.integer "word_id",                      null: false
     t.integer "position",                     null: false
