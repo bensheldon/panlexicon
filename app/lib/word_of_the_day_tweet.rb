@@ -30,6 +30,7 @@ class WordOfTheDayTweet
     introduction = "#{word_of_the_day.word.name.upcase} is today's word. Related to"
 
     search = Search.new word_of_the_day.word.name
+    search.execute
     related_words = search.results
                           .reject { |word| word.name == word_of_the_day.word.name }
                           .shuffle random: Random.new(1) # for repeatable result
