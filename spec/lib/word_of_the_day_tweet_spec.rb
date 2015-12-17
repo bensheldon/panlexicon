@@ -32,6 +32,10 @@ RSpec.describe WordOfTheDayTweet do
         expect(tweet).to include word_of_the_day.word.name
       end
 
+      it "includes related words", :focus do
+        expect(tweet).to include *%w[bobcat lynx puma leopard tiger]
+      end
+
       it "includes the https protocol" do
         expect(tweet).to include 'https://'
       end
