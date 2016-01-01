@@ -1,6 +1,6 @@
 class Search
   include ActiveModel::Model
-  attr_reader :string, :words, :parser
+  attr_reader :string, :words, :parser, :additive_group_ids, :subtractive_group_ids
 
   validates :string, presence: true
   validate :words_exist
@@ -28,11 +28,19 @@ class Search
 
   def group_ids
     @group_ids ||= begin
-      additive_groups = group_ids_for_fragments additive_fragments
-      subtractive_groups = group_ids_for_fragments subtractive_fragments
+      @additive_group_ids = group_ids_for_fragments additive_fragments
+      @subtractive_group_ids = group_ids_for_fragments subtractive_fragments
 
-      additive_groups - subtractive_groups
+      additive_group_ids - subtractive_group_ids
     end
+  end
+
+  def additive_groups
+    @additive_groups ||= Group.where id: additive_group_ids
+  end
+
+  def subtractive_groups
+    @subtractive_groups ||= Group.where id: subtractive_group_ids
   end
 
   def missing_words
@@ -59,24 +67,24 @@ class Search
     select_and_weight_words = """
       SELECT
         words.*,
-        :groups_count AS groups_count,
+        :searched_groups_count AS searched_groups_count,
         :max_weight AS weight
       FROM words
       WHERE words.id IN (:searched_word_ids)
     """
 
     # Selects the related words but NOT the searched words, calculating the
-    # proper weight from the groups_count
+    # proper weight from the searched_groups_count
     select_and_weight_related_words = """
       SELECT
         words.*,
-        grouping.groups_count AS groups_count,
-        ntile(:max_weight) OVER (ORDER BY grouping.groups_count) AS weight
+        grouping.searched_groups_count AS searched_groups_count,
+        ntile(:max_weight) OVER (ORDER BY grouping.searched_groups_count) AS weight
       FROM (
-        SELECT word_id, COUNT(*) as groups_count FROM groupings
+        SELECT word_id, COUNT(*) as searched_groups_count FROM groupings
         WHERE group_id IN (:group_ids)
           AND word_id NOT IN (:searched_word_ids)
-        GROUP BY word_id ORDER BY groups_count DESC LIMIT :max_related_words
+        GROUP BY word_id ORDER BY searched_groups_count DESC LIMIT :max_related_words
       ) grouping
       LEFT JOIN words ON words.id = grouping.word_id
     """
@@ -90,7 +98,7 @@ class Search
       max_related_words: MAX_RELATED_WORDS,
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
-      groups_count: group_ids.size,
+      searched_groups_count: group_ids.size,
       searched_word_ids: searched_word_ids
     }]
   end

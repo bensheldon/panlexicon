@@ -21,10 +21,10 @@ class SearchRecordsByDate
     weighted_records_words = """
       SELECT
         words.*,
-        grouping.groups_count AS groups_count,
-        ntile(:max_weight) OVER (ORDER BY grouping.groups_count) AS weight
+        grouping.searched_groups_count AS searched_groups_count,
+        ntile(:max_weight) OVER (ORDER BY grouping.searched_groups_count) AS weight
       FROM (
-        SELECT word_id, COUNT(*) as groups_count FROM search_records_words
+        SELECT word_id, COUNT(*) as searched_groups_count FROM search_records_words
         WHERE search_record_id IN (
           SELECT id
           FROM search_records
@@ -32,7 +32,7 @@ class SearchRecordsByDate
             created_at >= :start_date AND
             created_at <= :end_date
         )
-        GROUP BY word_id ORDER BY groups_count DESC LIMIT :max_words
+        GROUP BY word_id ORDER BY searched_groups_count DESC LIMIT :max_words
       ) grouping
       LEFT JOIN words ON words.id = grouping.word_id
       ORDER BY words.name ASC
