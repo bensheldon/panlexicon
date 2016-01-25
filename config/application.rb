@@ -18,13 +18,9 @@ module Panlexicon
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be loaded
-    custom_paths = %W[
-      #{config.root}/lib
-      #{config.root}/lib/**
-      #{config.root}/app/decorators/collections
-    ]
-    config.autoload_paths += custom_paths
-    config.eager_load_paths += custom_paths
+    # http://blog.arkency.com/2014/11/dont-forget-about-eager-load-when-extending-autoload/
+    paths.add 'app/decorators/collections', eager_load: true
+    paths.add 'lib', glob: '*', eager_load: true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
