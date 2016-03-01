@@ -45,11 +45,6 @@ class WordOfTheDayTweet
   end
 
   def anded_list(list)
-    if list.size > 2
-      # oxford comma
-      list.to_sentence words_connector: ', ', last_word_connector: ', & '
-    else
-      list.to_sentence last_word_connector: ' & '
-    end
+    list.to_sentence words_connector: ', ', two_words_connector: ' & ', last_word_connector: ', & '
   end
 end
