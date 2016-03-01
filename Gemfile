@@ -9,8 +9,7 @@ gem 'pg'
 
 gem 'skylight'
 
-gem 'haml'
-gem 'haml-rails'
+gem 'slim-rails'
 gem 'redcarpet'
 
 # Use SCSS for stylesheets
@@ -63,7 +62,7 @@ group :development do
   gem 'guard-shell', require: false
 
   gem 'rubocop-rspec', require: false
-  gem 'haml_lint', require: false
+  gem 'slim_lint', require: false
 
   gem 'spring'
   gem 'spring-commands-rspec'
