@@ -38,7 +38,7 @@ group :spec,
   end
 
   guard :shell do
-    watch(/.*\.haml/) { |m| `haml-lint --color #{m[0]}` }
+    watch(/.*\.slim/) { |m| `slim-lint --color #{m[0]}` }
   end
 end
 

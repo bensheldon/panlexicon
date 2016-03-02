@@ -1,7 +1,7 @@
 - content_for :search_query, @search.string
 
 - if @search.valid?
-  %ul.search-results
+  ul.search-results
     = render partial: 'word', collection: @search.results, as: :word
 - else
   - if @search.errors[:string].size > 0
