@@ -11,7 +11,7 @@
   ul.search-results
     - @search.results.each do |word|
       - if word.name == 'palaver'
-        li.word.word-panlexicon panlexicon
+        li.word.word-panlexicon> panlexicon
       = render 'word', word: word
 - else
   .alert.alert-danger Thesaurus data has not been imported yet.
