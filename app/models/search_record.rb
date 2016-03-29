@@ -11,7 +11,7 @@
 #
 
 class SearchRecord < ActiveRecord::Base
-  STORAGE_LIFETIME = 90.days
+  STORAGE_LIFETIME = 30.days
 
   has_many :search_records_words, dependent: :destroy
   has_many :words, -> { order('search_records_words.position') }, through: :search_records_words
