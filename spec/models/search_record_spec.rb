@@ -4,12 +4,27 @@ RSpec.describe SearchRecord, type: :model do
   use_moby_cats
 
   let(:search) { Search.new('lion, tiger').tap(&:execute) }
-  let(:search_record) { SearchRecord.create_from_search search }
+  let(:search_record) { described_class.create_from_search search }
 
-  describe 'self#create_from_search' do
+  describe '::create_from_search' do
     it 'returns a new SearchRecord object' do
       search_record = SearchRecord.create_from_search search
       expect(search_record).to be_a SearchRecord
+    end
+  end
+
+  describe '::destroy_expired' do
+    before(:each) do
+      Timecop.travel((SearchRecord::STORAGE_LIFETIME + 1.day).ago) do
+        SearchRecord.create_from_search Search.new('lion').tap(&:execute)
+      end
+      SearchRecord.create_from_search Search.new('lion, tiger').tap(&:execute)
+    end
+
+    it 'deletes SearchRecords past their lifetime expiration' do
+      expect(SearchRecord.count).to eq 2
+      SearchRecord.delete_expired
+      expect(SearchRecord.count).to eq 1
     end
   end
 

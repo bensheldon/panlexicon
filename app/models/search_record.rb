@@ -28,4 +28,13 @@ class SearchRecord < ActiveRecord::Base
 
     search_record
   end
+
+  # Optimized for speed; will not call any after_* hooks
+  def self.delete_expired
+    transaction do
+      sr_ids = lifetime_expired.pluck(:id)
+      SearchRecordsWord.where(search_record_id: sr_ids).delete_all
+      where(id: sr_ids).delete_all
+    end
+  end
 end
