@@ -23,9 +23,8 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 RSpec.configure do |config|
   config.extend(MobyMacros)
 
-  config.include SearchSteps,
-    type: :features,
-    file_path: /spec\/features/
+  config.include SearchSteps, type: :feature
+  config.include Features::SessionHelpers, type: :feature
 
   unless ENV['CI']
     config.run_all_when_everything_filtered = true
@@ -80,6 +79,5 @@ RSpec.configure do |config|
     Capybara::Poltergeist::Driver.new(app, timeout: poltergist_timeout.seconds, inspector: true)
   end
 
-  Capybara.default_driver = :poltergeist_debug
   Capybara.javascript_driver = :poltergeist_debug
 end

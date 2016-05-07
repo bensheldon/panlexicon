@@ -1,4 +1,6 @@
 Panlexicon::Application.routes.draw do
+  get 'sessions/new'
+
   get '/', to: 'search#search',
     as: 'search',
     constraints: -> (request) {
@@ -8,6 +10,14 @@ Panlexicon::Application.routes.draw do
     }
 
   root 'search#panlexicon'
+
+  get 'account/sign_in', to: 'sessions#new', as: 'sign_in'
+  post 'account/sign_in', to: 'sessions#create'
+  get 'account/sign_out', to: 'sessions#destroy', as: 'sign_out'
+
+  get 'account/confirmation/new', to: 'confirmations#new'
+  post 'account/confirmation/new', to: 'confirmations#create'
+  get 'account/confirmation', to: 'confirmations#show'
 
   get 'search/:query' => 'search#search'
   get 'search' => 'search#search'

@@ -27,17 +27,17 @@ Dependencies:
 
 1. Install the ruby gem dependencies: `$ bundle install`
 2. Create the database: `$ bundle exec rake db:create`
-3. Import thesaurus data from a database dump (see the section on _Manually Importing Thesaurus Data_ as an alternative) 
+3. Import thesaurus data from a database dump (see the section on _Manually Importing Thesaurus Data_ as an alternative)
   ```bash
     # Download a database dump
     curl -O http://bensheldon.s3.amazonaws.com/panlexicon/panlexicon_20150606.dump
-    
+
     # Restore it to the database
     pg_restore --verbose --clean --no-acl --no-owner -h localhost -U YOUR_USERNAME -d panlexicon_development panlexicon_20150606.dump`
-    
+
     # Run any newer migrations
     bin/rails rake db:migrate
-    
+
   ```
 4. Start the server: `$ bundle exec rails s`
 5. Visit it in your web browser: `http://localhost:3000`
@@ -49,3 +49,11 @@ This application uses the public domain [Moby Thesaurus](http://www.gutenberg.or
 
 1. Download the Moby Thesaurus textfile: http://www.gutenberg.org/ebooks/3202
 2. Import it: `$ rake import:moby[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
+
+Running Tests
+-------------
+
+- All tests can be run with `bundle exec rspec`
+- File watching can be started with `bundle exec guard`
+- Individual tests can be isolated by adding `:focus` to declaration, e.g. `it 'runs a test', :focus do`
+- Within feature specs, the page can be inspected by adding `save_and_open_page`

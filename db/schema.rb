@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216002443) do
+ActiveRecord::Schema.define(version: 20160504151059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,24 @@ ActiveRecord::Schema.define(version: 20151216002443) do
   add_index "search_records_words", ["search_record_id", "position"], name: "index_search_records_words_on_search_record_id_and_position", unique: true, using: :btree
   add_index "search_records_words", ["search_record_id", "word_id"], name: "index_search_records_words_on_search_record_id_and_word_id", unique: true, using: :btree
   add_index "search_records_words", ["word_id"], name: "index_search_records_words_on_word_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.citext   "email",                                  null: false
+    t.string   "password_digest"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "confirmation_digest"
+    t.datetime "confirmed_at"
+    t.string   "unconfirmed_email"
+    t.string   "reset_password_digest"
+    t.datetime "reset_password_sent_at"
+    t.string   "session_token"
+    t.boolean  "is_admin",               default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "word_of_the_days", force: :cascade do |t|
     t.date     "date",       null: false

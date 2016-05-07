@@ -12,6 +12,19 @@ nav.navbar.navbar-default.navbar-fixed
 
       = link_to 'Panlexicon', root_path, class: 'navbar-brand hidden-xs'
 
+    - if current_user.present?
+      ul.nav.navbar-nav
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+            i.fa.fa-user
+            span.caret
+          ul.dropdown-menu
+            li
+              a href="#"  Action
+            li.divider role="separator"
+            li
+              a href=sign_out_path Sign out
+
     form.navbar-form.navbar-right role='search' method='GET' action='/'
       .form-group
         label.sr-only for='search' Search
