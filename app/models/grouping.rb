@@ -16,7 +16,7 @@
 #  fk_rails_f4b13e40fd  (word_id => words.id)
 #
 
-class Grouping < ActiveRecord::Base
+class Grouping < ApplicationRecord
   belongs_to :group
   belongs_to :word
 end

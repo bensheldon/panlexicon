@@ -10,7 +10,7 @@
 #  index_search_records_on_created_at  (created_at)
 #
 
-class SearchRecord < ActiveRecord::Base
+class SearchRecord < ApplicationRecord
   STORAGE_LIFETIME = 14.days
 
   has_many :search_records_words, dependent: :destroy

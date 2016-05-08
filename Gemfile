@@ -61,7 +61,7 @@ group :development do
   gem 'terminal-notifier-guard', require: false
 
   gem 'rack-livereload'
-  gem 'guard-rspec', require: false
+  gem 'guard-rspec', '4.6.5'
   gem 'guard-livereload', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-shell', require: false
@@ -84,7 +84,9 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  # gem "rails-controller-testing", git: "https://github.com/rails/rails-controller-testing"
+  gem 'rspec', '3.5.0.beta3'
+  gem 'rspec-rails', '3.5.0.beta3'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'launchy'

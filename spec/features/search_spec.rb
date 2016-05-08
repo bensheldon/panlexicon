@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-feature 'Searching words', js: true do
+RSpec.feature 'Searching words', js: true do
   use_moby_thesaurus
   use_moby_cats
 

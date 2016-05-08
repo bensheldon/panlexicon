@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-feature 'Search History', js: true do
+RSpec.feature 'Search History', js: true do
   use_moby_cats
 
   scenario 'Displays searched words' do

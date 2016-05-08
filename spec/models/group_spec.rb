@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Group do
+RSpec.describe Group do
   let(:group) { FactoryGirl.build :group }
 
   it 'has a valid factory' do

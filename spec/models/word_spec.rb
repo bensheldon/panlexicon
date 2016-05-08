@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Word do
+RSpec.describe Word do
   it 'has a valid factory' do
     group = FactoryGirl.build :word
     expect(group).to be_valid

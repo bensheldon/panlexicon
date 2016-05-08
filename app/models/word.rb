@@ -10,7 +10,7 @@
 #  index_words_on_name  (name) UNIQUE
 #
 
-class Word < ActiveRecord::Base
+class Word < ApplicationRecord
   has_many :groupings
   has_many :groups, through: :groupings
 end

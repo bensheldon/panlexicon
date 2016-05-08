@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe SearchRecordsByDate, type: :model do
   use_moby_cats

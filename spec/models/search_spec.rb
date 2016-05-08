@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Search do
+RSpec.describe Search do
   use_moby_cats
 
   let(:lion) { Word.find_by(name: 'lion') }
