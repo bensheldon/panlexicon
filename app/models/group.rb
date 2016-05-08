@@ -4,10 +4,15 @@
 #
 #  id          :integer          not null, primary key
 #  key_word_id :integer          not null
+#  words_count :integer          default(0), not null
 #
 # Indexes
 #
 #  index_groups_on_key_word_id  (key_word_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_5a597e9e5c  (key_word_id => words.id)
 #
 
 class Group < ActiveRecord::Base

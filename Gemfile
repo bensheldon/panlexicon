@@ -33,6 +33,11 @@ gem 'jquery-rails'
 gem 'draper'
 gem 'twitter'
 
+# Use ActiveModel has_secure_password
+gem 'bcrypt'
+gem 'has_secure_token'
+gem 'naught'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 
@@ -81,7 +86,8 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'faker'
+  gem 'ffaker'
+  gem 'launchy'
 end
 
 group :test do
@@ -107,9 +113,6 @@ group :production do
   gem 'lograge'
   gem 'newrelic_rpm'
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'

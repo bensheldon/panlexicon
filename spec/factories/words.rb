@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :word do
-    sequence(:name) { |n| "#{Faker::Lorem.word}#{n}" }
+    sequence(:name) { |n| "#{FFaker::Lorem.word}#{n}" }
   end
 end

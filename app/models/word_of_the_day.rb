@@ -13,6 +13,10 @@
 #  index_word_of_the_days_on_date     (date) UNIQUE
 #  index_word_of_the_days_on_word_id  (word_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_44546d1245  (word_id => words.id)
+#
 
 class WordOfTheDay < ActiveRecord::Base
   GMT_BREAK_HOUR = 4 # Midnight EST is 4 GMT
