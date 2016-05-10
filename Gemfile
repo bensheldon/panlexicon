@@ -89,6 +89,7 @@ group :development, :test do
   # gem "rails-controller-testing", git: "https://github.com/rails/rails-controller-testing"
   gem 'rspec', '3.5.0.beta3'
   gem 'rspec-rails', '3.5.0.beta3'
+  gem 'rails-controller-testing'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'launchy'
