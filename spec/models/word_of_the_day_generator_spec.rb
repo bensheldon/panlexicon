@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe WordOfTheDayGenerator do
   let(:generator) { WordOfTheDayGenerator.new }
@@ -13,7 +13,7 @@ RSpec.describe WordOfTheDayGenerator do
 
     describe 'when search records exist' do
       before :each do
-        temp_wod = WordOfTheDay.new(date: Date.today)
+        temp_wod = WordOfTheDay.new(date: Time.zone.today)
         Timecop.travel(temp_wod.records_start_at + 1.hour) do
           SearchRecord.create_from_search Search.new('lion').tap(&:execute)
           SearchRecord.create_from_search Search.new('lion, tiger').tap(&:execute)

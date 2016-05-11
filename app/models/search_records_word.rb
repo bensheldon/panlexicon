@@ -20,7 +20,7 @@
 #  fk_rails_cc9d7f698f  (word_id => words.id)
 #
 
-class SearchRecordsWord < ActiveRecord::Base
+class SearchRecordsWord < ApplicationRecord
   belongs_to :search_record
   belongs_to :word
 

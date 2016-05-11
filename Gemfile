@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0.rc1'
 gem 'puma'
 
 # Databases
 gem 'pg'
 
-gem 'skylight'
+gem 'skylight', '1.0.0.beta4' #Rails 5
 
 gem 'slim-rails'
 gem 'redcarpet'
@@ -30,8 +30,10 @@ gem 'coffee-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-gem 'draper'
 gem 'twitter'
+
+gem 'draper', github: 'Mehonoshin/draper', branch: 'rails-5'
+gem 'activemodel-serializers-xml' # Rails 5 extracted into gem
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
@@ -61,7 +63,7 @@ group :development do
   gem 'terminal-notifier-guard', require: false
 
   gem 'rack-livereload'
-  gem 'guard-rspec', require: false
+  gem 'guard-rspec', '4.6.5'
   gem 'guard-livereload', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-shell', require: false
@@ -84,7 +86,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  # gem "rails-controller-testing", git: "https://github.com/rails/rails-controller-testing"
+  gem 'rspec', '3.5.0.beta3'
+  gem 'rspec-rails', '3.5.0.beta3'
+  gem 'rails-controller-testing'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'launchy'

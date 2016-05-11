@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe SearchController do
+RSpec.describe SearchController do
   describe 'routing' do
     it 'ROOT routes to #panlexion' do
       expect(get: '/').to route_to('search#panlexicon')

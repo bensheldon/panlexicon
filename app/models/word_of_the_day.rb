@@ -18,7 +18,7 @@
 #  fk_rails_44546d1245  (word_id => words.id)
 #
 
-class WordOfTheDay < ActiveRecord::Base
+class WordOfTheDay < ApplicationRecord
   GMT_BREAK_HOUR = 4 # Midnight EST is 4 GMT
 
   belongs_to :word

@@ -15,7 +15,7 @@
 #  fk_rails_5a597e9e5c  (key_word_id => words.id)
 #
 
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   belongs_to :key_word, class_name: 'Word'
 
   has_many :groupings

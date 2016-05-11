@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe MobyImporter do
+RSpec.describe MobyImporter do
   let(:txt) { Pathname('spec/fixtures/moby_cats.txt') }
   let(:moby_importer) { MobyImporter.new(txt, hide_log: true) }
 
