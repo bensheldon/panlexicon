@@ -7,7 +7,7 @@ gem 'puma'
 # Databases
 gem 'pg'
 
-# gem 'skylight', '1.0.0.beta4' #Rails 5
+gem 'skylight', '1.0.0.beta4' #Rails 5
 
 gem 'slim-rails'
 gem 'redcarpet'
