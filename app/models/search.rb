@@ -62,7 +62,7 @@ class Search
   end
 
   def weight_related_words
-    # Selects the searched words and sets the weight and groups_count
+    # Selects the searched words and sets the weight and searched_groups_count
     # to be the maximum
     select_and_weight_words = """
       SELECT

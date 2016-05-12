@@ -13,22 +13,17 @@ class WordDecorator < Draper::Decorator
     defined? weight
   end
 
-  def fragments
-    return [] if panlexicon?
-    search.fragments
-  end
-
   def in_search?
     return false if panlexicon?
-    fragments.find { |f| f.word.id == object.id }.present?
+    search_fragments.find { |f| f.word.id == object.id }.present?
   end
 
   def subtracted_from_search?
-    fragments.find { |f| f.word.id == object.id && f.operation == :subtract }.present?
+    search_fragments.find { |f| f.word.id == object.id && f.operation == :subtract }.present?
   end
 
-  def add_to_search_param
-    (fragments + [SearchFragment.new(word: self, operation: :add)]).map do |fragment|
+  def add_to_search_query
+    (search_fragments + [SearchFragment.new(word: self, operation: :add)]).map do |fragment|
       if fragment.operation == :add
         fragment.word.name
       else
@@ -37,7 +32,18 @@ class WordDecorator < Draper::Decorator
     end.join(', ')
   end
 
-  def remove_from_search_param
-    fragments.map(&:word).reject { |w| w.id == object.id }.map(&:name).join(', ')
+  def remove_from_search_query
+    search_fragments.map(&:word).reject { |w| w.id == object.id }.map(&:name).join(', ')
+  end
+
+  def search_explanation
+    "Weight: #{word.respond_to?(:weight) ? weight : 'nil'}; Searched Groups Count: #{word.respond_to?(:searched_groups_count) ? searched_groups_count : 'nil'}; Groups Count: #{groups_count} "
+  end
+
+  private
+
+  def search_fragments
+    return [] if panlexicon?
+    search.fragments
   end
 end

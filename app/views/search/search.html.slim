@@ -3,6 +3,10 @@
 - if @search.valid?
   ul.search-results
     = render partial: 'word', collection: @search.results, as: :word
+
+  - if current_user.is_admin?
+    = render 'debug', search: @search
+
 - else
   - if @search.errors[:string].size > 0
     - @search.errors[:string].each do |message|
