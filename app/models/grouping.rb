@@ -17,6 +17,6 @@
 #
 
 class Grouping < ApplicationRecord
-  belongs_to :group
-  belongs_to :word
+  belongs_to :group, counter_cache: :words_count
+  belongs_to :word, counter_cache: :groups_count
 end

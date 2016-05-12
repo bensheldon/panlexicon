@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504151059) do
+ActiveRecord::Schema.define(version: 20160512174421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,33 +20,30 @@ ActiveRecord::Schema.define(version: 20160504151059) do
   create_table "groupings", id: false, force: :cascade do |t|
     t.integer "group_id", null: false
     t.integer "word_id",  null: false
+    t.index ["group_id", "word_id"], name: "index_groupings_on_group_id_and_word_id", unique: true, using: :btree
+    t.index ["word_id"], name: "index_groupings_on_word_id", using: :btree
   end
-
-  add_index "groupings", ["group_id", "word_id"], name: "index_groupings_on_group_id_and_word_id", unique: true, using: :btree
-  add_index "groupings", ["word_id"], name: "index_groupings_on_word_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.integer "key_word_id", null: false
+    t.integer "key_word_id",             null: false
+    t.integer "words_count", default: 0, null: false
+    t.index ["key_word_id"], name: "index_groups_on_key_word_id", unique: true, using: :btree
   end
-
-  add_index "groups", ["key_word_id"], name: "index_groups_on_key_word_id", unique: true, using: :btree
 
   create_table "search_records", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_search_records_on_created_at", using: :btree
   end
-
-  add_index "search_records", ["created_at"], name: "index_search_records_on_created_at", using: :btree
 
   create_table "search_records_words", force: :cascade do |t|
     t.integer "search_record_id",             null: false
     t.integer "word_id",                      null: false
     t.integer "position",                     null: false
     t.integer "operation",        default: 0, null: false
+    t.index ["search_record_id", "position"], name: "index_search_records_words_on_search_record_id_and_position", unique: true, using: :btree
+    t.index ["search_record_id", "word_id"], name: "index_search_records_words_on_search_record_id_and_word_id", unique: true, using: :btree
+    t.index ["word_id"], name: "index_search_records_words_on_word_id", using: :btree
   end
-
-  add_index "search_records_words", ["search_record_id", "position"], name: "index_search_records_words_on_search_record_id_and_position", unique: true, using: :btree
-  add_index "search_records_words", ["search_record_id", "word_id"], name: "index_search_records_words_on_search_record_id_and_word_id", unique: true, using: :btree
-  add_index "search_records_words", ["word_id"], name: "index_search_records_words_on_word_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.citext   "email",                                  null: false
@@ -62,25 +59,23 @@ ActiveRecord::Schema.define(version: 20160504151059) do
     t.boolean  "is_admin",               default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "word_of_the_days", force: :cascade do |t|
     t.date     "date",       null: false
     t.integer  "word_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_word_of_the_days_on_date", unique: true, using: :btree
+    t.index ["word_id"], name: "index_word_of_the_days_on_word_id", unique: true, using: :btree
   end
-
-  add_index "word_of_the_days", ["date"], name: "index_word_of_the_days_on_date", unique: true, using: :btree
-  add_index "word_of_the_days", ["word_id"], name: "index_word_of_the_days_on_word_id", unique: true, using: :btree
 
   create_table "words", force: :cascade do |t|
-    t.citext "name", null: false
+    t.citext  "name",                     null: false
+    t.integer "groups_count", default: 0, null: false
+    t.index ["name"], name: "index_words_on_name", unique: true, using: :btree
   end
-
-  add_index "words", ["name"], name: "index_words_on_name", unique: true, using: :btree
 
   add_foreign_key "groupings", "groups"
   add_foreign_key "groupings", "words"

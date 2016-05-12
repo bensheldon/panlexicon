@@ -5,7 +5,7 @@
 #  search_record_id :integer          not null
 #  word_id          :integer          not null
 #  position         :integer          not null
-#  operation        :integer          default(0), not null
+#  operation        :integer          default("add"), not null
 #  id               :integer          not null, primary key
 #
 # Indexes

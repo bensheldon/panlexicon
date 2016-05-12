@@ -16,7 +16,7 @@
 #
 
 class Group < ApplicationRecord
-  belongs_to :key_word, class_name: 'Word'
+  belongs_to :key_word, class_name: Word
 
   has_many :groupings
   has_many :words, through: :groupings
