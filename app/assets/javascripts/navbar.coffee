@@ -4,8 +4,6 @@ $(window).scroll ->
 
   $navbar = $('.navbar.navbar-fixed-top')
   if top > 50
-    $navbar.addClass 'navbar-default'
     $navbar.removeClass 'navbar-transparent'
   else
     $navbar.addClass 'navbar-transparent'
-    $navbar.removeClass 'navbar-default'
