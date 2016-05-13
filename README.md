@@ -57,3 +57,9 @@ Running Tests
 - File watching can be started with `bundle exec guard`
 - Individual tests can be isolated by adding `:focus` to declaration, e.g. `it 'runs a test', :focus do`
 - Within feature specs, the page can be inspected by adding `save_and_open_page`
+
+Interesting Searches
+--------------------
+
+- `eggshell, fleet`: 1 group
+- `eggshell, van`: 2 groups

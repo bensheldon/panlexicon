@@ -1,0 +1,18 @@
+p Groups in Search: #{search.additive_groups.size}
+p Words in Search: #{search.results.size}
+table.table
+  thead
+    tr
+      th Group ID
+      th Key Word
+      th Words in Group
+  - search.additive_groups.each do |group|
+    - key_word = group.key_word
+    tr
+      td= group.id
+      td
+        - if key_word.in_search?
+          = link_to key_word.name.strip, search_path(q: key_word.remove_from_search_query), title: key_word.search_explanation
+        - else
+          = link_to key_word.name.strip, search_path(q: key_word.add_to_search_query), title: key_word.search_explanation
+      td= group.words_count

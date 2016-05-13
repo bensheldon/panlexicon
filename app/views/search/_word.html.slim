@@ -1,9 +1,10 @@
 li> class="word weight-#{word.weight}"
+  - title = current_user.is_admin? ? word.search_explanation : nil
   - if word.in_search?
-    - link = link_to word.name.strip, "/?q=#{ word.remove_from_search_param }", class: 'active'
+    - link = link_to word.name.strip, search_path(q: word.remove_from_search_query), class: 'active', title: title
     - if word.subtracted_from_search?
       s= link
     - else
       = link
   - else
-    = link_to word.name.strip, "/?q=#{ word.add_to_search_param }"
+    = link_to word.name.strip, search_path(q: word.add_to_search_query), title: title
