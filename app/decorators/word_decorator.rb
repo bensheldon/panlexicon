@@ -10,7 +10,7 @@ class WordDecorator < Draper::Decorator
   end
 
   def weight
-    word.respond_to?(:rank_width_bucket) ? word.rank_width_bucket : 0
+    word.respond_to?(:weight) ? word.weight : 0
   end
 
   def searched_groups_count

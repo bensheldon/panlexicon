@@ -69,7 +69,7 @@ class Search
         words.*,
         :searched_groups_count AS searched_groups_count,
         :max_weight AS groups_count_width_bucket,
-        :max_weight AS rank_width_bucket,
+        :max_weight AS weight,
         :max_weight AS ntile_bucket
       FROM words
       WHERE words.id IN (:searched_word_ids)
@@ -102,11 +102,6 @@ class Search
     SELECT
         words.*,
         grouping_with_rank.searched_groups_count,
-        -- grouping_with_rank.dense_rank,
-        -- group_stats.min_groups_count,
-        -- group_stats.max_groups_count,
-        -- group_stats.count_distinct_groups,
-        -- group_stats.max_dense_rank,
         width_bucket(
             grouping_with_rank.searched_groups_count,
             min_groups_count - 0.001,
@@ -118,11 +113,12 @@ class Search
             0.999,
             group_stats.max_dense_rank + 0.001,
             :max_weight
-        ) AS rank_width_bucket,
+        ) AS weight,
         ntile(:max_weight) OVER (ORDER BY grouping_with_rank.searched_groups_count) AS ntile_bucket
       FROM
         grouping_with_rank LEFT JOIN words ON words.id = grouping_with_rank.word_id,
         group_stats
+      WHERE words.id NOT IN (:searched_word_ids)
       ORDER BY name ASC
     """
 
