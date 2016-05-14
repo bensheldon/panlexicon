@@ -36,7 +36,7 @@ class Search
   end
 
   def additive_groups
-    @additive_groups ||= Group.where id: additive_group_ids
+    @additive_groups ||= Group.where(id: additive_group_ids).includes(:key_word)
   end
 
   def subtractive_groups
@@ -76,17 +76,41 @@ class Search
     # Selects the related words but NOT the searched words, calculating the
     # proper weight from the searched_groups_count
     select_and_weight_related_words = """
+      WITH
+        grouping as (
+          SELECT
+            word_id,
+            COUNT(*) AS searched_groups_count
+          FROM groupings
+          WHERE group_id IN (:group_ids)
+          GROUP BY word_id ORDER BY searched_groups_count DESC LIMIT :max_related_words
+        ),
+        grouping_with_rank AS (
+          SELECT
+            *,
+            DENSE_RANK() OVER (ORDER BY searched_groups_count ASC) AS dense_rank
+          FROM grouping
+        ),
+        group_stats as (
+          SELECT
+            max(dense_rank) AS max_dense_rank
+          FROM grouping_with_rank
+        )
+
       SELECT
         words.*,
-        grouping.searched_groups_count AS searched_groups_count,
-        ntile(:max_weight) OVER (ORDER BY grouping.searched_groups_count) AS weight
-      FROM (
-        SELECT word_id, COUNT(*) as searched_groups_count FROM groupings
-        WHERE group_id IN (:group_ids)
-          AND word_id NOT IN (:searched_word_ids)
-        GROUP BY word_id ORDER BY searched_groups_count DESC LIMIT :max_related_words
-      ) grouping
-      LEFT JOIN words ON words.id = grouping.word_id
+        grouping_with_rank.searched_groups_count,
+        width_bucket(
+          grouping_with_rank.dense_rank,
+          0.999,
+          group_stats.max_dense_rank + 0.001,
+          :max_weight
+        ) AS weight
+      FROM
+        grouping_with_rank LEFT JOIN words ON words.id = grouping_with_rank.word_id,
+        group_stats
+      WHERE words.id NOT IN (:searched_word_ids)
+      ORDER BY name ASC
     """
 
     # Union the two select statements and fetch a collection of words

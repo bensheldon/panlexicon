@@ -9,8 +9,12 @@ class WordDecorator < Draper::Decorator
     context.fetch(:is_panlexicon, false)
   end
 
-  def weighted?
-    defined? weight
+  def weight
+    word.respond_to?(:weight) ? word.weight : 0
+  end
+
+  def searched_groups_count
+    word.respond_to?(:searched_groups_count) ? word.searched_groups_count : 0
   end
 
   def in_search?
@@ -37,7 +41,7 @@ class WordDecorator < Draper::Decorator
   end
 
   def search_explanation
-    "Weight: #{word.respond_to?(:weight) ? weight : 'nil'}; Searched Groups Count: #{word.respond_to?(:searched_groups_count) ? searched_groups_count : 'nil'}; Groups Count: #{groups_count} "
+    "Weight: #{weight}; Searched Groups Count: #{searched_groups_count}; Groups Count: #{groups_count} "
   end
 
   private
