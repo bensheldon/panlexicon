@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :miniprofiler
 
+  # Catch ActionController::RoutingError from route defined in Application.rb
+  def render_404
+    render status: 404, file: Rails.root.join('public/404.html'), layout: false
+  end
+
   private
 
   def miniprofiler

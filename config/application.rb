@@ -30,6 +30,12 @@ module Panlexicon
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # 404 catch all route
+    # https://github.com/rails/rails/issues/671#issuecomment-1780159
+    config.after_initialize do |app|
+      app.routes.append { match '*path', via: [:get, :post], to: 'application#render_404' } unless config.consider_all_requests_local
+    end
+
     default_url_options = {
       protocol: 'https',
       host: Rails.application.secrets.hostname
