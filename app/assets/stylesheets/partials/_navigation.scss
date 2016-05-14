@@ -1,0 +1,41 @@
+nav.top-bar {
+  h1 {
+    text-transform: capitalize;
+  }
+}
+
+.navbar-toggle {
+  float: left;
+  margin-left: 15px;
+}
+
+a.navbar-brand {
+  color: #ff5555 !important;
+  font-family: Georgia, "Times New Roman", Serif;
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 1.30769;
+  word-spacing: 0.1em;
+  &:hover {
+    color: #5e5e5e !important;
+  }
+}
+
+.navbar {
+  form[role=search] {
+    @media (max-width: $screen-xs-max) {
+      border: none;
+      display: block;
+      margin: -52px -15px 0 45px;
+      padding-bottom: 0;
+    }
+    @media (min-width: $screen-sm-min) {
+      margin: 8px 0;
+      padding-right: 0;
+      input#search {
+        width: 280px;
+      }
+    }
+  }
+}

@@ -12,12 +12,12 @@ html
     = render 'shared/tracking/google_analytics'
     = render 'shared/tracking/fullstory'
   body
-    #wrap
+    .wrap-body
       header
         = render 'layouts/navigation'
       .main role="main"
         .container
           = render 'layouts/messages'
           = yield
-    footer#footer
+    footer.page-footer.wrap-footer
       = render 'layouts/footer'

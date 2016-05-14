@@ -1,0 +1,73 @@
+// Place all the styles related to the searches controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+ul.search-results {
+  clear: both;
+  font-family: Georgia, "Times New Roman", Serif;
+  font-size: 18px;
+  line-height: 2.125;
+  margin: 0;
+  padding: 0;
+  text-align: justify;
+  vertical-align: center;
+  word-spacing: 0.1em;
+  a {
+    color: #555555;
+    &:hover {
+      color: #ff5555;
+      text-decoration: underline;
+    }
+    &.active {
+      color: #ff006f;
+      &:hover {
+        color: #5100ff;
+      }
+    }
+  }
+  li.word {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    text-decoration: none;
+    &.weight-6 {
+      font-size: 1.5em;
+      line-height: 1.30769;
+      font-weight: bold;
+      color: #555555;
+    }
+    &.weight-5 {
+      font-size: 1.5em;
+      line-height: 1.30769;
+      color: #555555;
+    }
+    &.weight-4 {
+      font-size: 1.22222em;
+      line-height: 1.54545;
+      font-weight: bold;
+      color: #444444;
+    }
+    &.weight-3 {
+      font-size: 1.22222em;
+      line-height: 1.54545;
+      color: #555555;
+    }
+    &.weight-2 {
+      font-size: 1em;
+      font-weight: bold;
+      color: #444444;
+    }
+    &.weight-1 {
+      font-size: 1em;
+      color: #444444;
+    }
+    &.word-panlexicon {
+      color: #ff5555;
+      font-size: 1.5em;
+      font-weight: bold;
+      line-height: 1.30769;
+      font-style: italic;
+    }
+  }
+}
