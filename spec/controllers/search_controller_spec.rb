@@ -23,19 +23,19 @@ RSpec.describe SearchController do
 
   describe '#search' do
     it 'GET creates a new Search using :query' do
-      get :search, query: 'lion, tiger'
+      get :search, params: { query: 'lion, tiger' }
       expect(assigns(:search).string).to eq(search_query)
     end
 
     it 'GET creates a new Search using :q' do
-      get :search, q: 'lion, tiger'
+      get :search, params: { q: 'lion, tiger' }
       expect(assigns(:search).string).to eq(search_query)
     end
   end
 
   describe '#redirect_post' do
     it 'POST redirects to the search action with query' do
-      post :redirect_post, query: search_query
+      post :redirect_post, params: { query: search_query }
       expect(response).to redirect_to(action: 'search', query: search_query)
     end
   end
