@@ -21,6 +21,7 @@ module Panlexicon
     # http://blog.arkency.com/2014/11/dont-forget-about-eager-load-when-extending-autoload/
     paths.add 'app/decorators/collections', eager_load: true
     paths.add 'lib', glob: '*', eager_load: true
+    config.watchable_dirs['app/models/sql'] = [:sql]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
