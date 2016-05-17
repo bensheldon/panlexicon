@@ -9,6 +9,8 @@ class Search
   MAX_RELATED_WORDS = 80
   MAX_WEIGHT = 6
 
+  WEIGHTED_SEARCH_SQL = File.read Rails.root.join('app/models/sql/weighted_search.sql')
+
   def initialize(string)
     @string = string
     @parser = SearchParser.new string
@@ -62,63 +64,9 @@ class Search
   end
 
   def weight_related_words
-    # Selects the searched words and sets the weight and searched_groups_count
-    # to be the maximum
-    select_and_weight_words = """
-      SELECT
-        words.*,
-        :searched_groups_count AS searched_groups_count,
-        :max_weight AS weight
-      FROM words
-      WHERE words.id IN (:searched_word_ids)
-    """
-
-    # Selects the related words but NOT the searched words, calculating the
-    # proper weight from the searched_groups_count
-    select_and_weight_related_words = """
-      WITH
-        grouping as (
-          SELECT
-            word_id,
-            COUNT(*) AS searched_groups_count
-          FROM groupings
-          WHERE group_id IN (:group_ids)
-          GROUP BY word_id ORDER BY searched_groups_count DESC LIMIT :max_related_words
-        ),
-        grouping_with_rank AS (
-          SELECT
-            *,
-            DENSE_RANK() OVER (ORDER BY searched_groups_count ASC) AS dense_rank
-          FROM grouping
-        ),
-        group_stats as (
-          SELECT
-            max(dense_rank) AS max_dense_rank
-          FROM grouping_with_rank
-        )
-
-      SELECT
-        words.*,
-        grouping_with_rank.searched_groups_count,
-        width_bucket(
-          grouping_with_rank.dense_rank,
-          0.999,
-          group_stats.max_dense_rank + 0.001,
-          :max_weight
-        ) AS weight
-      FROM
-        grouping_with_rank LEFT JOIN words ON words.id = grouping_with_rank.word_id,
-        group_stats
-      WHERE words.id NOT IN (:searched_word_ids)
-      ORDER BY name ASC
-    """
-
     # Union the two select statements and fetch a collection of words
     searched_word_ids = fragments_with_word.map { |fragment| fragment.word.id }
-    Word.find_by_sql ["
-      (#{select_and_weight_words}) UNION (#{select_and_weight_related_words})
-      ORDER BY name ASC;
-    ", {
+    Word.find_by_sql [ WEIGHTED_SEARCH_SQL, {
       max_related_words: MAX_RELATED_WORDS,
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
