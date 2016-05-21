@@ -28,7 +28,7 @@ nav.navbar.navbar-default.navbar-fixed
     form.navbar-form.navbar-right role='search' method='GET' action='/'
       .form-group
         label.sr-only for='search' Search
-        input#search.form-control name='q' value=search_query placeholder='Search Panlexicon' type='text' autocapitalize='none' autofocus=true
+        input#search.form-control name='q' value=search_query placeholder='Search Panlexicon' type='text' autocapitalize='none' autofocus=true onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"
         button.btn.btn-default.hidden-xs< type='submit' Search
 
     .collapse.navbar-collapse.navbar-left
