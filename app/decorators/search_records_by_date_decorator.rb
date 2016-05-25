@@ -1,6 +1,6 @@
-class SearchRecordsByDateDecorator < Draper::Decorator
+class SearchRecordsByDateDecorator < ApplicationDecorator
   alias_method :search, :object
-  delegate_all
+  delegate :url_helpers, to: 'Rails.application.routes'
 
   def results
     WordDecorator.decorate_collection search.results
@@ -10,7 +10,7 @@ class SearchRecordsByDateDecorator < Draper::Decorator
     today = Time.now.utc.to_date
     next_date = search.date + 1
     if next_date <= today
-      h.history_path datestring: next_date.strftime(HistoryController::DATE_FORMAT)
+      url_helpers.history_path datestring: next_date.strftime(HistoryController::DATE_FORMAT)
     else
       nil
     end
@@ -20,9 +20,9 @@ class SearchRecordsByDateDecorator < Draper::Decorator
     today = Time.now.utc.to_date
     prev_date = search.date - 1
     if prev_date < today
-      h.history_path datestring: prev_date.strftime(HistoryController::DATE_FORMAT)
+      url_helpers.history_path datestring: prev_date.strftime(HistoryController::DATE_FORMAT)
     else
-      h.history_path datestring: today.strftime(HistoryController::DATE_FORMAT)
+      url_helpers.history_path datestring: today.strftime(HistoryController::DATE_FORMAT)
     end
   end
 end

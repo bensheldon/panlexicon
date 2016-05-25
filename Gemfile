@@ -32,9 +32,6 @@ gem 'jquery-rails'
 
 gem 'twitter'
 
-gem 'draper', github: 'Mehonoshin/draper', branch: 'rails-5'
-gem 'activemodel-serializers-xml' # Rails 5 extracted into gem
-
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 gem 'has_secure_token'
