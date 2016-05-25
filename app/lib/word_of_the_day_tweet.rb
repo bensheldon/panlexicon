@@ -4,6 +4,7 @@ class WordOfTheDayTweet
 
   attr_reader :word_of_the_day
   delegate :url_helpers, to: 'Rails.application.routes'
+  delegate :default_url_options, to: 'Rails.configuration.action_mailer'
 
   def self.generate!(word_of_the_day)
     new(word_of_the_day).generate!
@@ -40,7 +41,7 @@ class WordOfTheDayTweet
       names.push(name) if (proposed_sentence.size + URL_SIZE) < MAX_SIZE
     end
 
-    url = url_helpers.search_url q: word_of_the_day.word.name
+    url = url_helpers.search_url default_url_options.merge(q: word_of_the_day.word.name)
     "#{introduction} #{anded_list(fitted_names)}. #{url}"
   end
 

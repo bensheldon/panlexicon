@@ -37,11 +37,8 @@ module Panlexicon
       app.routes.append { match '*path', via: [:get, :post], to: 'application#render_404' } unless config.consider_all_requests_local
     end
 
-    default_url_options = {
-      protocol: 'https',
+    config.action_mailer.default_url_options = {
       host: Rails.application.secrets.hostname
     }
-    Rails.application.routes.default_url_options = default_url_options
-    config.action_mailer.default_url_options = default_url_options
   end
 end
