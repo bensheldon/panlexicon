@@ -1,5 +1,5 @@
 class SearchRecordsByDateDecorator < ApplicationDecorator
-  alias_method :search, :object
+  alias :search :object
   delegate :url_helpers, to: 'Rails.application.routes'
 
   def results

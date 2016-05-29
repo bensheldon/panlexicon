@@ -13,7 +13,7 @@ class SearchController < ApplicationController
   def panlexicon
     search = Search.new 'thesaurus'
     search.execute
-    @search = SearchDecorator.new search, context: { is_panlexicon: true }
+    @search = SearchDecorator.new search, is_panlexicon: true
   end
 
   private

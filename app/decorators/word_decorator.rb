@@ -1,5 +1,5 @@
 class WordDecorator < ApplicationDecorator
-  alias_method :word, :object
+  alias :word :object
 
   def search
     context[:search]
