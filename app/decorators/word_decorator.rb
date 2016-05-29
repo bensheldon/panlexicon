@@ -1,5 +1,5 @@
-class WordDecorator < Draper::Decorator
-  delegate_all
+class WordDecorator < ApplicationDecorator
+  alias_method :word, :object
 
   def search
     context[:search]
@@ -47,7 +47,7 @@ class WordDecorator < Draper::Decorator
   private
 
   def search_fragments
-    return [] if panlexicon?
+    return [] if panlexicon? # || search.blank?
     search.fragments
   end
 end

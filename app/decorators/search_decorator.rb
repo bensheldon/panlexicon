@@ -1,13 +1,11 @@
-class SearchDecorator < Draper::Decorator
+class SearchDecorator < ApplicationDecorator
   alias_method :search, :object
 
-  delegate_all
-
   def results
-    WordDecorator.decorate_collection search.results, context: context.merge(search: self)
+    WordDecorator.decorate_collection search.results, context.merge(search: self)
   end
 
   def additive_groups
-    GroupDecorator.decorate_collection search.additive_groups, context: context.merge(search: self)
+    GroupDecorator.decorate_collection search.additive_groups, context.merge(search: self)
   end
 end
