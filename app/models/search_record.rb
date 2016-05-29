@@ -4,37 +4,47 @@
 #
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
+#  user_id    :integer
 #
 # Indexes
 #
 #  index_search_records_on_created_at  (created_at)
+#  index_search_records_on_user_id     (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_93d3a5851b  (user_id => users.id) ON DELETE => nullify
 #
 
 class SearchRecord < ApplicationRecord
   STORAGE_LIFETIME = 14.days
 
-  has_many :search_records_words, dependent: :destroy
-  has_many :words, -> { order('search_records_words.position') }, through: :search_records_words
+  belongs_to :user, optional: true
+  has_many :search_records_words, -> { order(position: :asc) } # cascade: delete
+  has_many :words, through: :search_records_words
 
   scope :lifetime_expired, -> { where 'created_at < ?', STORAGE_LIFETIME.ago }
 
-  def self.create_from_search(search)
-    search_record = create
-    search.fragments.each do |fragment|
-      search_record.search_records_words.create word: fragment.word,
+  def self.create_from_search(search, user: nil)
+    searched_words = search.fragments.map do |fragment|
+      {
+        word: fragment.word,
         position: fragment.position,
         operation: fragment.operation
+      }
     end
 
-    search_record
+    transaction do
+      create(user: user).tap do |search_record|
+        search_record.search_records_words.create(searched_words)
+      end
+    end
   end
 
   # Optimized for speed; will not call any after_* hooks
   def self.delete_expired
     transaction do
-      sr_ids = lifetime_expired.pluck(:id)
-      SearchRecordsWord.where(search_record_id: sr_ids).delete_all
-      where(id: sr_ids).delete_all
+      lifetime_expired.delete_all
     end
   end
 end

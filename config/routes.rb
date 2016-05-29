@@ -19,6 +19,8 @@ Panlexicon::Application.routes.draw do
   post 'account/confirmation/new', to: 'confirmations#create'
   get 'account/confirmation', to: 'confirmations#show'
 
+  resources :user_search_records
+
   get 'search/:query' => 'search#search'
   get 'search' => 'search#search'
   post 'search' => 'search#redirect_post'

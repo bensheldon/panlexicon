@@ -16,7 +16,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_843033de1d  (search_record_id => search_records.id)
+#  fk_rails_843033de1d  (search_record_id => search_records.id) ON DELETE => cascade
 #  fk_rails_cc9d7f698f  (word_id => words.id)
 #
 

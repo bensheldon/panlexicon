@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512174421) do
+ActiveRecord::Schema.define(version: 20160527150747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,9 @@ ActiveRecord::Schema.define(version: 20160512174421) do
 
   create_table "search_records", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer  "user_id"
     t.index ["created_at"], name: "index_search_records_on_created_at", using: :btree
+    t.index ["user_id"], name: "index_search_records_on_user_id", using: :btree
   end
 
   create_table "search_records_words", force: :cascade do |t|
@@ -80,7 +82,8 @@ ActiveRecord::Schema.define(version: 20160512174421) do
   add_foreign_key "groupings", "groups"
   add_foreign_key "groupings", "words"
   add_foreign_key "groups", "words", column: "key_word_id"
-  add_foreign_key "search_records_words", "search_records"
+  add_foreign_key "search_records", "users", on_delete: :nullify
+  add_foreign_key "search_records_words", "search_records", on_delete: :cascade
   add_foreign_key "search_records_words", "words"
   add_foreign_key "word_of_the_days", "words"
 end

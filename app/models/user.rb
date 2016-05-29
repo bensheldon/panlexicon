@@ -23,7 +23,9 @@
 #
 
 class User < ActiveRecord::Base
+  extend ActiveNull
   include SecureDigest
+
   # https://github.com/plataformatec/devise/blob/a2498074f19a047d422222e82257db15eaba9759/lib/devise.rb#L108
   EMAIL_REGEX = /\A[^@\s]+@[^@\s]+\z/
 

@@ -24,6 +24,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_null (1.0.0)
+      naught (~> 1.0)
     activejob (5.0.0.rc1)
       activesupport (= 5.0.0.rc1)
       globalid (>= 0.3.6)
@@ -233,6 +235,8 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (3.4.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (2.0.0.rc1)
@@ -412,6 +416,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_null
   annotate
   bcrypt
   better_errors
@@ -439,12 +444,12 @@ DEPENDENCIES
   lograge
   memory_profiler
   meta_request
-  naught
   newrelic_rpm
   pg
   poltergeist
   pry-rails
   puma
+  pundit
   quiet_assets
   rack-livereload
   rack-mini-profiler
