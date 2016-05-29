@@ -1,5 +1,5 @@
 class GroupDecorator < ApplicationDecorator
-  alias_method :group, :object
+  alias :group :object
 
   def search
     context[:search]

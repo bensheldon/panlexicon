@@ -6,12 +6,18 @@ RSpec.feature 'Searching words', js: true do
 
   scenario 'Clicks through a word on front page' do
     visit root_path
-    click_link 'wordhoard'
+    # Ensure link does not include Thesuarus because this is Panlexicon search
+    expect(page).to have_link 'wordhoard', href: '/?q=wordhoard'
 
-    expect(page).to have_link 'wordhoard'
+    click_link 'wordhoard'
+    # Expect Bobcat to be active
+    expect(page).to have_selector 'a.active', text: 'wordhoard'
+    # Expect the link to remove the word from search
+    expect(page).to have_link 'wordhoard', href: '/?q='
+
     # 'work of reference' and 'wordhoard' have separate sets
     # so it should not be visible here
-    expect(page).to_not have_link 'work of reference'
+    expect(page).not_to have_link 'work of reference'
   end
 
   scenario 'Entering a word in searchbar' do
@@ -27,7 +33,7 @@ RSpec.feature 'Searching words', js: true do
     search_for 'cat, -leopard'
 
     expect(page).to have_link 'leopard'
-    expect(page).to_not have_link 'puma'
+    expect(page).not_to have_link 'puma'
   end
 
   scenario 'Searching with improper capitalizations' do
@@ -43,7 +49,7 @@ RSpec.feature 'Searching words', js: true do
     search_for 'wordhoard, dictionary'
 
     expect(page).to have_link 'wordhoard'
-    expect(page).to_not have_link 'work of reference'
+    expect(page).not_to have_link 'work of reference'
   end
 
   scenario 'Unselecting a word returns the user to front page' do

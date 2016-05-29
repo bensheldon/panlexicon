@@ -1,5 +1,5 @@
 class SearchDecorator < ApplicationDecorator
-  alias_method :search, :object
+  alias :search :object
 
   def results
     WordDecorator.decorate_collection search.results, context.merge(search: self)
