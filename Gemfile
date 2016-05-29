@@ -35,7 +35,8 @@ gem 'twitter'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 gem 'has_secure_token'
-gem 'naught'
+gem 'active_null'
+gem 'pundit'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'

@@ -1,0 +1,6 @@
+h1 Search Records for #{current_user.first_name}
+table.table
+  - @search_records.each do |search_record|
+    tr
+      td= search_record.created_at
+      td= link_to search_record.to_s, search_path(q: search_record.to_s)
