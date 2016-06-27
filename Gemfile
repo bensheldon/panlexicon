@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 
-gem 'rails', '5.0.0.rc1'
+gem 'rails', '5.0.0.rc2'
 gem 'puma'
 
 # Databases
@@ -84,8 +84,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec', '3.5.0.beta3'
-  gem 'rspec-rails', '3.5.0.beta3'
+  gem 'rspec', '3.5.0.beta4'
+  gem 'rspec-rails', '3.5.0.beta4'
   gem 'rails-controller-testing'
   gem 'factory_girl_rails'
   gem 'ffaker'
