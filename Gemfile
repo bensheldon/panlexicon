@@ -46,6 +46,7 @@ gem 'jbuilder'
 
 # Profiling
 gem 'rack-mini-profiler', require: false
+gem 'redis'
 gem 'flamegraph'
 gem 'memory_profiler'
 gem 'stackprof', require: false

@@ -287,6 +287,7 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     redcarpet (3.3.4)
+    redis (3.3.0)
     rspec (3.5.0.beta4)
       rspec-core (= 3.5.0.beta4)
       rspec-expectations (= 3.5.0.beta4)
@@ -449,6 +450,7 @@ DEPENDENCIES
   rails_12factor
   rails_layout
   redcarpet
+  redis
   rspec (= 3.5.0.beta4)
   rspec-rails (= 3.5.0.beta4)
   rubocop-rspec
