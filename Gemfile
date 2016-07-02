@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 
-gem 'rails', '5.0.0.rc2'
+gem 'rails', '5.0.0'
 gem 'puma'
 
 # Databases
@@ -77,7 +77,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request' # for use with RailsPanel Chrome Extension
-  gem 'quiet_assets'
 
   gem 'annotate'
   gem 'rails_layout'

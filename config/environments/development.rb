@@ -26,4 +26,7 @@ Panlexicon::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # suppresses output of asset requests
+  config.assets.quiet = true
 end
