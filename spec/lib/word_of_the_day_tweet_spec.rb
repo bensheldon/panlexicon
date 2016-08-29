@@ -4,13 +4,13 @@ RSpec.describe WordOfTheDayTweet do
   use_moby_cats
 
   let(:word_of_the_day) { WordOfTheDay.create word: Word.find_by_name('lion') }
-  let(:tweeter) { WordOfTheDayTweet.new word_of_the_day }
-  let(:twitter_client) {
+  let(:tweeter) { described_class.new word_of_the_day }
+  let(:twitter_client) do
     # stub out the twitter_client
-    double('twitter_client').tap { |twitter_client|
+    double('twitter_client').tap do |twitter_client|
       allow(tweeter).to receive(:twitter_client) { twitter_client }
-    }
-  }
+    end
+  end
 
   describe '#generate!' do
     it 'invokes twitter_client#update' do
@@ -28,16 +28,17 @@ RSpec.describe WordOfTheDayTweet do
         tweet
       end
 
-      it "includes the word of the day name" do
+      it 'includes the word of the day name' do
         expect(tweet).to include word_of_the_day.word.name
       end
 
-      it "includes related words" do
-        expect(tweet).to include *%w[bobcat lynx puma leopard tiger]
+      it 'includes related words' do
+        expect(tweet).to include(*%w(bobcat lynx puma leopard tiger))
       end
 
-      it "includes the https protocol" do
-        expect(tweet).to include 'https://'
+      it 'includes link to the website' do
+        link = tweet.split.last
+        expect(link).to match URI.regexp %w(http https)
       end
     end
   end
