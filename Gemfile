@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 
-gem 'rails', '5.0.0'
+gem 'rails', '5.0.0.1'
 gem 'puma'
 
 # Databases
 gem 'pg'
 
-gem 'skylight', '1.0.0.beta4' #Rails 5
+gem 'skylight', '1.0.0.beta5' #Rails 5
 
 gem 'slim-rails'
 gem 'redcarpet'
@@ -62,7 +62,7 @@ group :development do
   gem 'terminal-notifier-guard', require: false
 
   gem 'rack-livereload'
-  gem 'guard-rspec', '4.6.5'
+  gem 'guard-rspec'
   gem 'guard-livereload', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-shell', require: false
@@ -84,8 +84,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec', '3.5.0.beta4'
-  gem 'rspec-rails', '3.5.0.beta4'
+  gem 'rspec'
+  gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'factory_girl_rails'
   gem 'ffaker'
