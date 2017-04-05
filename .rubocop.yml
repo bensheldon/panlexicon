@@ -3,6 +3,9 @@
 #
 require: rubocop-rspec
 AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  DisplayStyleGuide: true
   Include:
     - Rakefile
     - config.ru
