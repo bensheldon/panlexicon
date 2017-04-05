@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
-ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
+ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
+ruby ruby_version
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.0.2'
 gem 'puma'
 
 # Databases
 gem 'pg'
 
-gem 'skylight', '1.0.0.beta5' #Rails 5
+gem 'skylight'
 
 gem 'slim-rails'
 gem 'redcarpet'
@@ -34,7 +35,6 @@ gem 'twitter'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
-gem 'has_secure_token'
 gem 'active_null'
 gem 'pundit'
 
@@ -52,11 +52,6 @@ gem 'memory_profiler'
 gem 'stackprof', require: false
 
 gem 'pry-rails'
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
 
 group :development do
   gem 'terminal-notifier-guard', require: false
@@ -77,7 +72,6 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request' # for use with RailsPanel Chrome Extension
 
   gem 'annotate'
   gem 'rails_layout'
@@ -115,12 +109,3 @@ group :production do
   gem 'lograge'
   gem 'newrelic_rpm'
 end
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
