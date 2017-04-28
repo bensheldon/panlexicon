@@ -5,8 +5,5 @@ if defined? Raven
       Rack::Timeout::RequestTimeoutError
     ]
   end
-
-  Raven.tags_context({
-    'environment' => Rails.env
-  })
+  config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
 end
