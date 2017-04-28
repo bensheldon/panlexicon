@@ -8,8 +8,6 @@ gem 'puma'
 # Databases
 gem 'pg'
 
-gem 'skylight'
-
 gem 'slim-rails'
 gem 'redcarpet'
 
