@@ -11,6 +11,11 @@ Panlexicon::Application.routes.draw do
 
   root 'search#panlexicon'
 
+  scope controller: 'mailchimp' do
+    get 'after-subscribe', action: 'after_subscribe'
+    get 'after-confirm', action: 'after_confirm'
+  end
+
   get 'account/sign_in', to: 'sessions#new', as: 'sign_in'
   post 'account/sign_in', to: 'sessions#create'
   get 'account/sign_out', to: 'sessions#destroy', as: 'sign_out'

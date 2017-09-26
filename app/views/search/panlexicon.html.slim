@@ -1,11 +1,7 @@
 - content_for :search_query, ''
 
-.alert.alert-info role='alert'
-  markdown:
-    **Things look different!** We've rebuilt _Panlexicon_ from the
-    ground up to be faster and easier to use.
-    We'd love to know how you're using _Panlexicon_. Send us an email at
-    **<a href="mailto:hello@panlexicon.com"><i class="fa fa-paper-plane"></i> hello@panlexicon.com</a>**
+.alert.alert-success role='alert'
+  = render "shared/subscribe_form"
 
 - if @search.valid?
   ul.search-results

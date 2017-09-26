@@ -15,7 +15,7 @@ ul.search-results {
   a {
     color: #555555;
     &:hover {
-      color: #ff5555;
+      color: $brand-color;
       text-decoration: underline;
     }
     &.active {
@@ -63,7 +63,7 @@ ul.search-results {
       color: #444444;
     }
     &.word-panlexicon {
-      color: #ff5555;
+      color: $brand-color;
       font-size: 1.5em;
       font-weight: bold;
       line-height: 1.30769;
