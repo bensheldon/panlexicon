@@ -1,0 +1,13 @@
+.row
+  .col-md-8.col-md-offset-2
+    .well.well-reverse
+
+      h1.heading-top
+        | You've confirmed your email
+        .pull-right.branded= fa_icon "thumbs-up"
+      hr
+      div style="font-size: 16px"
+        markdown:
+          You're now fully subscribed to our email newsletter. That's great!
+
+          You can head #{link_to 'back to our homepage', root_path}.

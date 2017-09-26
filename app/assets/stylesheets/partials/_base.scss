@@ -5,3 +5,12 @@
 a {
   @include transition(all 0.1s ease-in-out);
 }
+
+.branded {
+  color: $brand-color !important;
+}
+
+.branded-text {
+  color: $brand-color !important;
+  font-family: Georgia, "Times New Roman", Serif;
+}
