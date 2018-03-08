@@ -1,4 +1,5 @@
-# Panlexicon
+Panlexicon
+==========
 
 [![Circle CI](https://circleci.com/gh/bensheldon/panlexicon-rails.svg?style=shield)](https://circleci.com/gh/bensheldon/panlexicon-rails)
 [![Coverage Status](https://coveralls.io/repos/bensheldon/panlexicon-rails/badge.png?branch=master)](https://coveralls.io/r/bensheldon/panlexicon-rails?branch=master)
@@ -7,20 +8,18 @@
 [![Panlexicon](http://img.shields.io/badge/words-103,256-blue.svg)](http://panlexicon.com)
 [![Inline docs](http://inch-ci.org/github/bensheldon/panlexicon-rails.svg?branch=master)](http://inch-ci.org/github/bensheldon/panlexicon-rails)
 
-[![PullReview stats](https://www.pullreview.com/github/bensheldon/panlexicon-rails/badges/master.svg?type=full)](https://www.pullreview.com/github/bensheldon/panlexicon-rails/reviews/master)
-
 Developing
 ----------
 
 Start Server | Test / Watch
 -------------|-----------
-`$ bundle exec rails s`   | `$ bundle exec guard`
+`$ bin/rails s` | `$ bin/guard`
 
 Installation and Setup
 ----------------------
 
 Dependencies:
-- Ruby 2.2.2
+- Ruby 2.5.0
 - bundler gem (`$ gem install bundler`)
 - postgres (on OSX, use [Postgres.app](http://postgresapp.com/))
 - phantomjs (`$ brew install phantomjs` assuming you are using Homebrew on OSX)
@@ -43,7 +42,7 @@ Dependencies:
 4. Start the server: `$ bin/rails s`
 5. Visit it in your web browser: `http://localhost:3000`
 
-Exporting Database data
+Exporting Database Data
 -----------------------
 
 ```bash
