@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
-gem 'rails', '5.1.1'
+gem 'rails', '~>5.1.1'
 gem 'puma'
 
 # Databases
