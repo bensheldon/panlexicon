@@ -9,6 +9,7 @@
 
 # Foreman
 .env
+*.dump
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
