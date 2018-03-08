@@ -4,7 +4,7 @@ class WordOfTheDayTweet
 
   attr_reader :word_of_the_day
   delegate :url_helpers, to: 'Rails.application.routes'
-  delegate :default_url_options, to: 'Rails.configuration.action_mailer'
+  delegate :default_url_options, to: 'Rails.application.config.action_mailer'
 
   def self.generate!(word_of_the_day)
     new(word_of_the_day).generate!

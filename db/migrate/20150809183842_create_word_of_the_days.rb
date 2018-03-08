@@ -1,4 +1,4 @@
-class CreateWordOfTheDays < ActiveRecord::Migration
+class CreateWordOfTheDays < ActiveRecord::Migration[4.2]
   def change
     create_table :word_of_the_days do |t|
       t.date :date, null: false

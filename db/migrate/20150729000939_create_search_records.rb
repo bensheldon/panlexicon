@@ -1,4 +1,4 @@
-class CreateSearchRecords < ActiveRecord::Migration
+class CreateSearchRecords < ActiveRecord::Migration[4.2]
   def change
     create_table :search_records do |t|
       t.datetime :created_at, null: false
