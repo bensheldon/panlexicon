@@ -33,13 +33,27 @@ Dependencies:
     curl -O http://bensheldon.s3.amazonaws.com/panlexicon/panlexicon_20150606.dump
 
     # Restore it to the database
-    pg_restore --verbose --clean --no-acl --no-owner -h localhost -U YOUR_USERNAME -d panlexicon_development panlexicon_20150606.dump
+    pg_restore --verbose --clean --no-acl --no-owner \
+      -h localhost -U $(whoami) -d panlexicon_development \
+      panlexicon_20150606.dump
 
     # Run any newer migrations
     bin/rails db:migrate
   ```
 4. Start the server: `$ bin/rails s`
 5. Visit it in your web browser: `http://localhost:3000`
+
+Exporting Database data
+-----------------------
+
+```bash
+pg_dump --data-only --no-acl --no-owner \
+  -h localhost -U $(whoami) -d panlexicon_development \
+  --table words \
+  --table groups \
+  --table groupings \
+  --format tar --file=data.sql.tar
+```
 
 Manually Importing Thesaurus Data
 -------------------------------------
