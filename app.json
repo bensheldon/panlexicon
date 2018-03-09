@@ -1,7 +1,7 @@
 {
   "name": "panlexicon-rails",
   "scripts": {
-    "postdeploy": "bin/setup"
+    "postdeploy": "bin/rails db:schema:load import:thesaurus_db"
   },
   "env": {
     "RACK_ENV": {
