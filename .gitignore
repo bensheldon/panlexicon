@@ -9,7 +9,10 @@
 
 # Foreman
 .env
+
+# Database dumps
 *.dump
+data.sql.tar
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
