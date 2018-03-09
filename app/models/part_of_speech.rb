@@ -2,14 +2,14 @@
 #
 # Table name: parts_of_speech
 #
-#  id      :integer          not null, primary key
-#  word_id :integer
-#  type    :string
+#  id        :integer          not null, primary key
+#  word_id   :integer          not null
+#  type_code :string(1)        not null
 #
 # Indexes
 #
-#  index_parts_of_speech_on_word_id           (word_id)
-#  index_parts_of_speech_on_word_id_and_type  (word_id,type)
+#  index_parts_of_speech_on_word_id                (word_id)
+#  index_parts_of_speech_on_word_id_and_type_code  (word_id,type_code) UNIQUE
 #
 
 class PartOfSpeech < ApplicationRecord
@@ -32,8 +32,8 @@ class PartOfSpeech < ApplicationRecord
   }.freeze
   CODE_MAP = TYPE_MAP.invert.freeze
 
+  self.inheritance_column = :sti_type
+
   belongs_to :word
-  enum type: TYPE_MAP
-  set_inheritance_column :sti_type
-  validates :type, inclusion: { in: CODE_MAP.keys }
+  validates :type_code, inclusion: { in: TYPE_MAP.values }
 end

@@ -1,19 +1,29 @@
 require 'pathname'
 
-namespace :import do
+namespace :moby do
   desc "Import comma-separated values from Moby Thesaurus"
-  task :moby, [:file_path] => :environment do |t, args|
-    args.with_defaults :file_path => 'mthesaur.txt'
+  task :import_thesaurus, [:file_path] => :environment do |t, args|
+    args.with_defaults file_path: 'mthesaur.txt'
 
     filepath = Pathname(args[:file_path])
-    if filepath.exist?
-      importer = MobyImporter.new(filepath)
-      importer.logger.level = Logger::INFO
-
-      importer.import
-    else
+    unless filepath.exist?
       abort "Cannot find file: #{filepath.realpath}"
     end
+
+    importer = MobyImporter.new
+    importer.thesaurus(filepath)
+  end
+
+  task :import_parts_of_speech, [:file_path] => :environment do |t, args|
+    args.with_defaults file_path: 'mobypos.txt'
+
+    filepath = Pathname(args[:file_path])
+    unless filepath.exist?
+      abort "Cannot find file: #{filepath.realpath}"
+    end
+
+    importer = MobyImporter.new
+    importer.parts_of_speech(filepath)
   end
 
   desc "Download cached Thesaurus data"

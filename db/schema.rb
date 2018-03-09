@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(version: 20180309044408) do
   end
 
   create_table "parts_of_speech", force: :cascade do |t|
-    t.bigint "word_id"
-    t.string "type"
-    t.index ["word_id", "type"], name: "index_parts_of_speech_on_word_id_and_type", unique: true
+    t.bigint "word_id", null: false
+    t.string "type_code", limit: 1, null: false
+    t.index ["word_id", "type_code"], name: "index_parts_of_speech_on_word_id_and_type_code", unique: true
     t.index ["word_id"], name: "index_parts_of_speech_on_word_id"
   end
 

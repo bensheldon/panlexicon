@@ -1,7 +1,7 @@
-cat\N
+cat\VtiA
+Cat\V
 lion\r
-tiger\v
-tiger\N
+tiger\Nv
 leopard\N
 puma\N
 lynx\p

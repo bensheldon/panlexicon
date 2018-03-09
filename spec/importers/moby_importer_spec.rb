@@ -42,4 +42,24 @@ RSpec.describe MobyImporter do
       end
     end
   end
+
+  describe '#parts_of_speech' do
+    use_moby_cats
+
+    let(:txt) { Pathname('spec/fixtures/moby_cats_parts_of_speech.txt') }
+
+    it 'has a valid fixture' do
+      expect(txt.exist?).to be true
+    end
+
+    it 'imports parts_of_speech' do
+      expect { moby_importer.parts_of_speech(txt) }.to change { PartOfSpeech.count }.from(0).to(13)
+    end
+
+    it 'imports part_of_speech type' do
+      moby_importer.parts_of_speech(txt)
+
+      expect(Word.find_by(name: 'Cat').parts_of_speech.size).to eq 4
+    end
+  end
 end

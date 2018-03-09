@@ -2,14 +2,31 @@ class MobyImporter
   attr_reader :file, :logger
 
   def thesaurus(file)
-    @file = file
-
     Rails.logger.info("Beginning import of #{file}")
     total_lines = file.readlines.size
 
     file.each_line.with_index do |line, i|
       Rails.logger.info("Importing line #{i + 1}/#{total_lines}") if i % 25 == 0
       thesaurus_string line
+    end
+  end
+
+  def parts_of_speech(file)
+    Rails.logger.info("Beginning import of #{file}")
+    total_lines = file.readlines.size
+
+    file.each_line.with_index do |line, i|
+      Rails.logger.info("Importing line #{i + 1}/#{total_lines}") if i % 25 == 0
+      word_string, _slash, part_codes = line.strip.partition('\\')
+
+      ActiveRecord::Base.transaction do
+        word = Word.find_by name: word_string.strip
+        next if word.blank?
+
+        part_codes.chars.each do |part_code|
+          word.parts_of_speech.find_or_create_by! type_code: part_code
+        end
+      end
     end
   end
 
