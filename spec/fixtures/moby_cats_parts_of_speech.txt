@@ -1,0 +1,10 @@
+cat\N
+lion\r
+tiger\v
+tiger\N
+leopard\N
+puma\N
+lynx\p
+bobcat\!
+Maine Coon\I
+Siamese\p

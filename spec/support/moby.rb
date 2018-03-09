@@ -1,7 +1,7 @@
 module MobyMacros
   def use_moby_cats
     before :each do
-      path = Pathname('spec/fixtures/moby_cats.txt')
+      path = Pathname('spec/fixtures/moby_cats_thesaurus.txt')
       MobyImporter.new(path, hide_log: true).import
     end
   end
