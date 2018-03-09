@@ -2,11 +2,11 @@
 #
 # Table name: search_records_words
 #
+#  id               :integer          not null, primary key
 #  search_record_id :integer          not null
 #  word_id          :integer          not null
 #  position         :integer          not null
 #  operation        :integer          default("add"), not null
-#  id               :integer          not null, primary key
 #
 # Indexes
 #
@@ -16,8 +16,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_843033de1d  (search_record_id => search_records.id) ON DELETE => cascade
-#  fk_rails_cc9d7f698f  (word_id => words.id)
+#  fk_rails_...  (search_record_id => search_records.id) ON DELETE => cascade
+#  fk_rails_...  (word_id => words.id)
 #
 
 class SearchRecordsWord < ApplicationRecord

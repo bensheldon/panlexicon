@@ -12,8 +12,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_21fa437bf8  (group_id => groups.id)
-#  fk_rails_f4b13e40fd  (word_id => words.id)
+#  fk_rails_...  (group_id => groups.id)
+#  fk_rails_...  (word_id => words.id)
 #
 
 class Grouping < ApplicationRecord

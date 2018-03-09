@@ -14,6 +14,7 @@
 class Word < ApplicationRecord
   has_many :groupings
   has_many :groups, through: :groupings
+  has_many :parts_of_speech
   has_many :search_records_words
   has_many :search_records, through: :search_records_words
 end

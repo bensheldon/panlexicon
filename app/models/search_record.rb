@@ -13,7 +13,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_93d3a5851b  (user_id => users.id) ON DELETE => nullify
+#  fk_rails_...  (user_id => users.id) ON DELETE => nullify
 #
 
 class SearchRecord < ApplicationRecord

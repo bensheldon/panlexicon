@@ -15,7 +15,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_44546d1245  (word_id => words.id)
+#  fk_rails_...  (word_id => words.id)
 #
 
 class WordOfTheDay < ApplicationRecord
