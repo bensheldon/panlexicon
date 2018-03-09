@@ -56,6 +56,7 @@ Interesting Searches
     --table words \
     --table groups \
     --table groupings \
+    --table parts_of_speech\
     --format tar --file=data.sql.tar
   ```
 3. Upload the data file to the [Github-hosted release](https://github.com/bensheldon/panlexicon-rails/releases/tag/v1)

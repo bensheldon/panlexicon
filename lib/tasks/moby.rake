@@ -2,7 +2,7 @@ require 'pathname'
 
 namespace :moby do
   desc "Import comma-separated values from Moby Thesaurus"
-  task :import_thesaurus, [:file_path] => :environment do |t, args|
+  task :import_thesaurus, [:file_path] => [:environment, 'log_level:info'] do |t, args|
     args.with_defaults file_path: 'mthesaur.txt'
 
     filepath = Pathname(args[:file_path])
@@ -27,7 +27,7 @@ namespace :moby do
   end
 
   desc "Download cached Thesaurus data"
-  task thesaurus_db: :environment do |t, args|
+  task thesaurus_db: [:environment, 'log_level:info'] do |t, args|
     require 'open-uri'
 
     open('data.sql.tar', 'wb') do |file|

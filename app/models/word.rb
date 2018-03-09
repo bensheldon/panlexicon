@@ -2,9 +2,10 @@
 #
 # Table name: words
 #
-#  id           :integer          not null, primary key
-#  name         :citext           not null
-#  groups_count :integer          default(0), not null
+#  id                    :integer          not null, primary key
+#  name                  :citext           not null
+#  groups_count          :integer          default(0), not null
+#  parts_of_speech_count :integer          default(0), not null
 #
 # Indexes
 #

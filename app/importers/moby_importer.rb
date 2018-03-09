@@ -17,7 +17,8 @@ class MobyImporter
 
     file.each_line.with_index do |line, i|
       Rails.logger.info("Importing line #{i + 1}/#{total_lines}") if i % 25 == 0
-      word_string, _slash, part_codes = line.strip.partition('\\')
+      clean_line = line.force_encoding(Encoding::UTF_8).strip
+      word_string, _slash, part_codes = clean_line.partition('\\')
 
       ActiveRecord::Base.transaction do
         word = Word.find_by name: word_string.strip

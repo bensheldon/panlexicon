@@ -34,6 +34,6 @@ class PartOfSpeech < ApplicationRecord
 
   self.inheritance_column = :sti_type
 
-  belongs_to :word
+  belongs_to :word, counter_cache: :parts_of_speech_count
   validates :type_code, inclusion: { in: TYPE_MAP.values }
 end

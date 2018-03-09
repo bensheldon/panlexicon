@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309044408) do
+ActiveRecord::Schema.define(version: 20180309232238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20180309044408) do
     t.index ["word_id"], name: "index_groupings_on_word_id"
   end
 
-  create_table "groups", id: :serial, force: :cascade do |t|
+  create_table "groups", force: :cascade do |t|
     t.integer "key_word_id", null: false
     t.integer "words_count", default: 0, null: false
     t.index ["key_word_id"], name: "index_groups_on_key_word_id", unique: true
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20180309044408) do
     t.index ["word_id"], name: "index_parts_of_speech_on_word_id"
   end
 
-  create_table "search_records", id: :serial, force: :cascade do |t|
+  create_table "search_records", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "user_id"
     t.index ["created_at"], name: "index_search_records_on_created_at"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20180309044408) do
   end
 
   create_table "search_records_words", force: :cascade do |t|
-    t.bigint "search_record_id", null: false
-    t.bigint "word_id", null: false
+    t.integer "search_record_id", null: false
+    t.integer "word_id", null: false
     t.integer "position", null: false
     t.integer "operation", default: 0, null: false
     t.index ["search_record_id", "position"], name: "index_search_records_words_on_search_record_id_and_position", unique: true
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20180309044408) do
     t.index ["word_id"], name: "index_search_records_words_on_word_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.citext "email", null: false
     t.string "password_digest"
     t.string "first_name"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20180309044408) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table "word_of_the_days", id: :serial, force: :cascade do |t|
+  create_table "word_of_the_days", force: :cascade do |t|
     t.date "date", null: false
     t.integer "word_id", null: false
     t.datetime "created_at", null: false
@@ -79,9 +79,10 @@ ActiveRecord::Schema.define(version: 20180309044408) do
     t.index ["word_id"], name: "index_word_of_the_days_on_word_id", unique: true
   end
 
-  create_table "words", id: :serial, force: :cascade do |t|
+  create_table "words", force: :cascade do |t|
     t.citext "name", null: false
     t.integer "groups_count", default: 0, null: false
+    t.integer "parts_of_speech_count", default: 0, null: false
     t.index ["name"], name: "index_words_on_name", unique: true
   end
 
