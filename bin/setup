@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 require 'pathname'
 require 'fileutils'
-require 'open-uri'
 include FileUtils
 
 # path to your application root.
@@ -32,15 +31,7 @@ chdir APP_ROOT do
   system! 'bin/rails db:setup'
 
   puts "\n== Downloading Thesaurus =="
-  open('data.sql.tar', 'wb') do |file|
-    file << open('https://github.com/bensheldon/panlexicon-rails/releases/download/v1/data.sql.tar').read
-  end
-  system! '
-    pg_restore --verbose --data-only --clean --no-acl --no-owner \
-      -h localhost -U $(whoami) -d panlexicon_development \
-      data.sql.tar \
-    || true
-  '
+  system! 'bin/rails import:thesaurus_db'
 
   puts "\n== Removing old logs and tempfiles =="
   system! 'bin/rails log:clear tmp:clear'
