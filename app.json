@@ -26,11 +26,14 @@
   "formation": {},
   "addons": [
     {
-      "plan": "heroku-postgresql",
+      "plan": "heroku-postgresql:hobby-basic",
       "options": {
         "version": "10"
       }
-    }
+    },
+    {
+      "plan": "heroku-redis:hobby-dev",
+    },
   ],
   "buildpacks": [
     {
