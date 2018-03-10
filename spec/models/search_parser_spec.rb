@@ -46,4 +46,33 @@ RSpec.describe SearchParser do
       expect(parser.missing_words.second).to eq 'unicorn'
     end
   end
+
+  describe '#parts of speech' do
+    let(:parser) { SearchParser.new(search).tap(&:execute) }
+
+    context 'trailing' do
+      let(:search) { 'cat, lion pos:verb' }
+      specify { expect(parser.part_of_speech).to eq 'verb' }
+    end
+
+    context 'leading' do
+      let(:search) { 'pos:verb Maine Coon, lion' }
+      specify { expect(parser.part_of_speech).to eq 'verb' }
+    end
+
+    context 'comma separated' do
+      let(:search) { 'cat, Maine Coon, pos:verb' }
+      specify { expect(parser.part_of_speech).to eq 'verb' }
+    end
+
+    context 'with spaces' do
+      let(:search) { 'cat, lion, Maine Coon pos:verb' }
+      specify { expect(parser.part_of_speech).to eq 'verb' }
+    end
+
+    context 'none' do
+      let(:search) { 'cat, lion, ' }
+      specify { expect(parser.part_of_speech).to eq nil }
+    end
+  end
 end

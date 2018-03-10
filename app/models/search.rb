@@ -10,6 +10,7 @@ class Search
   MAX_WEIGHT = 6
 
   WEIGHTED_SEARCH_SQL = File.read Rails.root.join('app/models/sql/weighted_search.sql')
+  WEIGHTED_SEARCH_WITH_POS_SQL = File.read Rails.root.join('app/models/sql/weighted_search_with_pos.sql')
 
   def initialize(string)
     @string = string
@@ -66,13 +67,21 @@ class Search
   def weight_related_words
     # Union the two select statements and fetch a collection of words
     searched_word_ids = fragments_with_word.map { |fragment| fragment.word.id }
-    Word.find_by_sql [ WEIGHTED_SEARCH_SQL, {
+
+    query_params = {
       max_related_words: MAX_RELATED_WORDS,
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
       searched_groups_count: group_ids.size,
-      searched_word_ids: searched_word_ids
-    }]
+      searched_word_ids: searched_word_ids,
+      pos_codes: Array(@parser.part_of_speech),
+    }
+
+    if query_params[:pos_codes].empty?
+      Word.find_by_sql [WEIGHTED_SEARCH_SQL, query_params]
+    else
+      Word.find_by_sql [WEIGHTED_SEARCH_WITH_POS_SQL, query_params]
+    end
   end
 
   def words_exist

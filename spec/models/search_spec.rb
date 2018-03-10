@@ -6,7 +6,8 @@ RSpec.describe Search do
   let(:lion) { Word.find_by(name: 'lion') }
   let(:tiger) { Word.find_by(name: 'tiger') }
   let(:tiger_group) { Group.find_by(key_word: tiger) }
-  let(:search) { Search.new('lion, tiger').tap(&:execute) }
+  let(:search_query) { 'lion, tiger' }
+  let(:search) { Search.new(search_query).tap(&:execute) }
 
   describe '#group_ids' do
     it 'returns an array of integers' do
@@ -50,6 +51,15 @@ RSpec.describe Search do
 
       result_names = search.results.map(&:name)
       expect(result_names).to include('lion', 'tiger')
+    end
+
+    context 'when part of speech is used' do
+      let(:search_query) { 'lion, tiger pos:!' }
+      
+      it 'only returns the part of speech' do
+        result_names = search.results.map(&:name)
+        expect(result_names).to contain_exactly 'lion', 'tiger', 'bobcat'
+      end
     end
   end
 
