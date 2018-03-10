@@ -28,7 +28,7 @@ WITH
   ),
   weighted_words as (
     SELECT
-      words.*,
+      DISTINCT words.*,
       ranked_words.searched_groups_count,
       width_bucket(
         ranked_words.dense_rank,
@@ -37,9 +37,11 @@ WITH
         :max_weight
       ) AS weight
     FROM
-      ranked_words LEFT JOIN words ON words.id = ranked_words.word_id,
+      ranked_words
+    LEFT JOIN words ON words.id = ranked_words.word_id
+    LEFT JOIN parts_of_speech ON parts_of_speech.word_id = ranked_words.word_id,
       statistics
+    WHERE parts_of_speech.type_code IN (:parts_of_speech_type_code)
   )
-
 (SELECT * FROM searched_words) UNION (SELECT * FROM weighted_words)
 ORDER BY name ASC

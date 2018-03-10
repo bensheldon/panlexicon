@@ -71,7 +71,8 @@ class Search
       max_weight: MAX_WEIGHT,
       group_ids: group_ids,
       searched_groups_count: group_ids.size,
-      searched_word_ids: searched_word_ids
+      searched_word_ids: searched_word_ids,
+      parts_of_speech_type_code: 'ANY'
     }]
   end
 

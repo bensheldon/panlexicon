@@ -5,8 +5,15 @@ class SearchParser
     @string = string
 
     @fragments = split_string.map.with_index do |string_fragment, position|
-      matches = string_fragment.match(/(?<operation_string>[+-]?)(?<word_string>.*)/)
+      matches = string_fragment.match( /(?<pos>pos:\S*)?\s*(?<operation_string>[+-]?)(?<word_string>\S*)\s*(?<pos>pos:\S*)?/)
+
+      if matches['pos']
+        @part_of_speech = matches['pos'].split(':').last
+      end
+
       word_string = matches['word_string'].strip
+      next unless word_string
+
       operation_string = if matches['operation_string'].present?
         matches['operation_string']
       else
@@ -37,6 +44,10 @@ class SearchParser
 
   def missing_words
     fragments.reject { |fragment| fragment.word.present? }.map(&:string)
+  end
+
+  def part_of_speech
+    @part_of_speech
   end
 
   private
