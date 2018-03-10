@@ -44,7 +44,7 @@ RSpec.describe MobyImporter do
   end
 
   describe '#parts_of_speech' do
-    use_moby_cats
+    use_moby_cats_thesuarus
 
     let(:txt) { Pathname('spec/fixtures/moby_cats_parts_of_speech.txt') }
 
