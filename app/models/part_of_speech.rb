@@ -30,6 +30,7 @@ class PartOfSpeech < ApplicationRecord
     indefinite_article: 'I',
     nominative: 'o'
   }.freeze
+  
   CODE_MAP = TYPE_MAP.invert.freeze
 
   self.inheritance_column = :sti_type

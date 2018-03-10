@@ -5,7 +5,7 @@ class SearchParser
     @string = string
 
     @fragments = split_string.map.with_index do |string_fragment, position|
-      matches = string_fragment.match( /(?<pos>pos:\S*)?\s*(?<operation_string>[+-]?)(?<word_string>\S*)\s*(?<pos>pos:\S*)?/)
+      matches = string_fragment.match( /(?<pos>pos:\S*)?\s*(?<operation_string>[+-]?)(?<word_string>.*(?=pos:)|.*)\s*(?<pos>pos:\S*)?/)
 
       if matches['pos']
         @part_of_speech = matches['pos'].split(':').last

@@ -8,12 +8,17 @@ WITH
     WHERE words.id IN (:searched_word_ids)
   ),
   grouped_words as (
-    SELECT
-      word_id,
+    SELECT DISTINCT
+      groupings.word_id,
       COUNT(*) AS searched_groups_count
-    FROM groupings
-    WHERE group_id IN (:group_ids) AND word_id NOT IN (:searched_word_ids)
-    GROUP BY word_id
+    FROM
+      groupings
+        LEFT JOIN parts_of_speech ON parts_of_speech.word_id = groupings.word_id
+    WHERE
+      group_id IN (:group_ids)
+      AND groupings.word_id NOT IN (:searched_word_ids)
+      AND parts_of_speech.type_code IN (:pos_codes)
+    GROUP BY groupings.word_id
     ORDER BY searched_groups_count DESC
     LIMIT :max_related_words
   ),
@@ -30,7 +35,7 @@ WITH
   ),
   weighted_words as (
     SELECT
-      words.*,
+      DISTINCT words.*,
       ranked_words.searched_groups_count,
       width_bucket(
         ranked_words.dense_rank,
@@ -39,8 +44,9 @@ WITH
         :max_weight
       ) AS weight
     FROM
-      ranked_words LEFT JOIN words ON words.id = ranked_words.word_id,
-      statistics
+      ranked_words
+        LEFT JOIN words ON words.id = ranked_words.word_id
+      , statistics
   )
 
 (SELECT * FROM searched_words) UNION (SELECT * FROM weighted_words)

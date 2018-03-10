@@ -56,12 +56,17 @@ RSpec.describe SearchParser do
     end
 
     context 'leading' do
-      let(:search) { 'pos:verb cat, lion' }
+      let(:search) { 'pos:verb Maine Coon, lion' }
       specify { expect(parser.part_of_speech).to eq 'verb' }
     end
 
     context 'comma separated' do
-      let(:search) { 'cat, lion, pos:verb' }
+      let(:search) { 'cat, Maine Coon, pos:verb' }
+      specify { expect(parser.part_of_speech).to eq 'verb' }
+    end
+
+    context 'with spaces' do
+      let(:search) { 'cat, lion, Maine Coon pos:verb' }
       specify { expect(parser.part_of_speech).to eq 'verb' }
     end
 
