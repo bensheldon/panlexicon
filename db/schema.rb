@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527150747) do
+ActiveRecord::Schema.define(version: 20180309232238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,64 +18,72 @@ ActiveRecord::Schema.define(version: 20160527150747) do
 
   create_table "groupings", id: false, force: :cascade do |t|
     t.integer "group_id", null: false
-    t.integer "word_id",  null: false
-    t.index ["group_id", "word_id"], name: "index_groupings_on_group_id_and_word_id", unique: true, using: :btree
-    t.index ["word_id"], name: "index_groupings_on_word_id", using: :btree
+    t.integer "word_id", null: false
+    t.index ["group_id", "word_id"], name: "index_groupings_on_group_id_and_word_id", unique: true
+    t.index ["word_id"], name: "index_groupings_on_word_id"
   end
 
   create_table "groups", force: :cascade do |t|
-    t.integer "key_word_id",             null: false
+    t.integer "key_word_id", null: false
     t.integer "words_count", default: 0, null: false
-    t.index ["key_word_id"], name: "index_groups_on_key_word_id", unique: true, using: :btree
+    t.index ["key_word_id"], name: "index_groups_on_key_word_id", unique: true
+  end
+
+  create_table "parts_of_speech", force: :cascade do |t|
+    t.bigint "word_id", null: false
+    t.string "type_code", limit: 1, null: false
+    t.index ["word_id", "type_code"], name: "index_parts_of_speech_on_word_id_and_type_code", unique: true
+    t.index ["word_id"], name: "index_parts_of_speech_on_word_id"
   end
 
   create_table "search_records", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer  "user_id"
-    t.index ["created_at"], name: "index_search_records_on_created_at", using: :btree
-    t.index ["user_id"], name: "index_search_records_on_user_id", using: :btree
+    t.integer "user_id"
+    t.index ["created_at"], name: "index_search_records_on_created_at"
+    t.index ["user_id"], name: "index_search_records_on_user_id"
   end
 
   create_table "search_records_words", force: :cascade do |t|
-    t.integer "search_record_id",             null: false
-    t.integer "word_id",                      null: false
-    t.integer "position",                     null: false
-    t.integer "operation",        default: 0, null: false
-    t.index ["search_record_id", "position"], name: "index_search_records_words_on_search_record_id_and_position", unique: true, using: :btree
-    t.index ["search_record_id", "word_id"], name: "index_search_records_words_on_search_record_id_and_word_id", unique: true, using: :btree
-    t.index ["word_id"], name: "index_search_records_words_on_word_id", using: :btree
+    t.integer "search_record_id", null: false
+    t.integer "word_id", null: false
+    t.integer "position", null: false
+    t.integer "operation", default: 0, null: false
+    t.index ["search_record_id", "position"], name: "index_search_records_words_on_search_record_id_and_position", unique: true
+    t.index ["search_record_id", "word_id"], name: "index_search_records_words_on_search_record_id_and_word_id", unique: true
+    t.index ["word_id"], name: "index_search_records_words_on_word_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.citext   "email",                                  null: false
-    t.string   "password_digest"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "confirmation_digest"
+    t.citext "email", null: false
+    t.string "password_digest"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "confirmation_digest"
     t.datetime "confirmed_at"
-    t.string   "unconfirmed_email"
-    t.string   "reset_password_digest"
+    t.string "unconfirmed_email"
+    t.string "reset_password_digest"
     t.datetime "reset_password_sent_at"
-    t.string   "session_token"
-    t.boolean  "is_admin",               default: false, null: false
+    t.string "session_token"
+    t.boolean "is_admin", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "word_of_the_days", force: :cascade do |t|
-    t.date     "date",       null: false
-    t.integer  "word_id",    null: false
+    t.date "date", null: false
+    t.integer "word_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["date"], name: "index_word_of_the_days_on_date", unique: true, using: :btree
-    t.index ["word_id"], name: "index_word_of_the_days_on_word_id", unique: true, using: :btree
+    t.index ["date"], name: "index_word_of_the_days_on_date", unique: true
+    t.index ["word_id"], name: "index_word_of_the_days_on_word_id", unique: true
   end
 
   create_table "words", force: :cascade do |t|
-    t.citext  "name",                     null: false
+    t.citext "name", null: false
     t.integer "groups_count", default: 0, null: false
-    t.index ["name"], name: "index_words_on_name", unique: true, using: :btree
+    t.integer "parts_of_speech_count", default: 0, null: false
+    t.index ["name"], name: "index_words_on_name", unique: true
   end
 
   add_foreign_key "groupings", "groups"

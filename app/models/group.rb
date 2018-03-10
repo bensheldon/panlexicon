@@ -12,7 +12,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_5a597e9e5c  (key_word_id => words.id)
+#  fk_rails_...  (key_word_id => words.id)
 #
 
 class Group < ApplicationRecord

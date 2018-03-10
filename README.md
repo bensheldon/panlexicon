@@ -56,14 +56,15 @@ Interesting Searches
     --table words \
     --table groups \
     --table groupings \
+    --table parts_of_speech\
     --format tar --file=data.sql.tar
   ```
 3. Upload the data file to the [Github-hosted release](https://github.com/bensheldon/panlexicon-rails/releases/tag/v1)
-4. If the downloadable url/filename changed, update the [`bin/setup`](bin/setup) file  
+4. If the downloadable url/filename changed, update the [`bin/setup`](bin/setup) file
 
 ### Manually Importing Thesaurus Data
 
 This application uses the public domain [Moby Thesaurus](http://www.gutenberg.org/ebooks/3202) to provide words and relations. If you choose not to use the database dump described in the _Installation and Setup_ section, you can manually import it (it takes an hour or two):
 
 1. Download the Moby Thesaurus textfile: http://www.gutenberg.org/ebooks/3202
-2. Import it: `$ rake import:moby[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
+2. Import it: `$ rake moby:import_thesaurus[mthesaur.txt]` (_assuming the unzipped thesaurus file is sitting in your rails root named `mthesaur.txt`_)
