@@ -5,7 +5,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
-require 'factory_girl'
+require 'factory_bot'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 
@@ -36,7 +36,7 @@ RSpec.configure do |config|
   config.include Features::SessionHelpers, type: :feature
 
   config.before(:suite) do
-    FactoryGirl.reload
+    FactoryBot.reload
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
