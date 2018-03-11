@@ -1,5 +1,4 @@
-# spec/support/features/session_helpers.rb
-module Features
+module System
   module SessionHelpers
     def sign_in(user, password = 'password')
       visit sign_in_path
@@ -13,4 +12,8 @@ module Features
       click_link 'Sign out'
     end
   end
+end
+
+RSpec.configure do |config|
+  config.include System::SessionHelpers, type: :system
 end

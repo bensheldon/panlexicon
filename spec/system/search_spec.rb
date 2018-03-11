@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature 'Searching words', js: true do
+RSpec.describe 'Searching words', type: :system, js: true do
   use_moby_thesaurus
   use_moby_cats
 
-  scenario 'Clicks through a word on front page' do
+  it 'Clicks through a word on front page' do
     visit root_path
     # Ensure link does not include Thesuarus because this is Panlexicon search
     expect(page).to have_link 'wordhoard', href: '/?q=wordhoard'
@@ -20,7 +20,7 @@ RSpec.feature 'Searching words', js: true do
     expect(page).not_to have_link 'work of reference'
   end
 
-  scenario 'Entering a word in searchbar' do
+  it 'Entering a word in searchbar' do
     visit root_path
     search_for 'bobcat'
 
@@ -28,7 +28,7 @@ RSpec.feature 'Searching words', js: true do
     expect(page).to have_link 'cat'
   end
 
-  scenario 'Subtracting words from dictionary' do
+  it 'Subtracting words from dictionary' do
     visit root_path
     search_for 'cat, -leopard'
 
@@ -36,7 +36,7 @@ RSpec.feature 'Searching words', js: true do
     expect(page).not_to have_link 'puma'
   end
 
-  scenario 'Searching with improper capitalizations' do
+  it 'Searching with improper capitalizations' do
     visit root_path
     search_for 'Bobcat'
 
@@ -44,7 +44,7 @@ RSpec.feature 'Searching words', js: true do
     expect(page).to have_link 'cat'
   end
 
-  scenario 'Entering 2 comma-separated words in searchbar' do
+  it 'Entering 2 comma-separated words in searchbar' do
     visit root_path
     search_for 'wordhoard, dictionary'
 
@@ -52,7 +52,7 @@ RSpec.feature 'Searching words', js: true do
     expect(page).not_to have_link 'work of reference'
   end
 
-  scenario 'Unselecting a word returns the user to front page' do
+  it 'Unselecting a word returns the user to front page' do
     visit root_path
     search_for 'bobcat'
     click_link 'bobcat'
@@ -60,14 +60,14 @@ RSpec.feature 'Searching words', js: true do
     expect(page).to have_link 'thesaurus'
   end
 
-  scenario 'Searching a non-indexed word' do
+  it 'Searching a non-indexed word' do
     visit root_path
     search_for 'the orm'
 
     expect(page).to have_content 'the orm is not in our dictionary'
   end
 
-  scenario 'Searching words without common synonyms' do
+  it 'Searching words without common synonyms' do
     visit root_path
     search_for 'thesaurus, cat'
 

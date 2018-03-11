@@ -7,7 +7,6 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'factory_bot'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -31,10 +30,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.extend(MobyMacros)
-  config.include SearchSteps, type: :feature
-  config.include Features::SessionHelpers, type: :feature
-
   config.before(:suite) do
     FactoryBot.reload
   end
@@ -45,7 +40,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  # config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = true
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -69,19 +64,4 @@ RSpec.configure do |config|
 
   # Allow local connections for Poltergeist
   WebMock.disable_net_connect! allow_localhost: true
-
-  Capybara.default_max_wait_time = 2
-  poltergist_timeout = 30
-
-  # Configure Poltergeist
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, timeout: poltergist_timeout.seconds)
-  end
-
-  # For debugging call `page.driver.debug` to open a browser
-  Capybara.register_driver :poltergeist_debug do |app|
-    Capybara::Poltergeist::Driver.new(app, timeout: poltergist_timeout.seconds, inspector: true)
-  end
-
-  Capybara.javascript_driver = :poltergeist_debug
 end
