@@ -2,109 +2,73 @@ source 'https://rubygems.org'
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
+gem 'active_null'
+gem 'bcrypt'
 gem 'bootsnap'
-gem 'rails', '~>5.1.1'
-gem 'puma'
-
-# Databases
-gem 'pg'
-
-gem 'slim-rails'
-gem 'redcarpet'
-
-# Use SCSS for stylesheets
-gem 'sass-rails'
-gem 'bourbon'
 gem 'bootstrap-sass'
+gem 'bourbon'
+gem 'coffee-rails'
+gem 'flamegraph'
 gem 'font-awesome-rails'
-
-# Use Uglifier as compressor for JavaScript assets
+gem 'jbuilder'
+gem 'jquery-rails'
+gem 'memory_profiler'
+gem 'pg'
+gem 'pry-rails'
+gem 'puma'
+gem 'pundit'
+gem 'rack-mini-profiler', require: false
+gem 'rails', '~>5.1.1'
+gem 'redcarpet'
+gem 'redis'
+gem 'sass-rails'
+gem 'slim-rails'
+gem 'stackprof', require: false
+gem 'twitter'
 gem 'uglifier'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-
-gem 'twitter'
-
-# Use ActiveModel has_secure_password
-gem 'bcrypt'
-gem 'active_null'
-gem 'pundit'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
-
-# Profiling
-gem 'rack-mini-profiler', require: false
-gem 'redis'
-gem 'flamegraph'
-gem 'memory_profiler'
-gem 'stackprof', require: false
-
-gem 'pry-rails'
-
-group :development do
-  gem 'terminal-notifier-guard', require: false
-
-  gem 'rack-livereload'
-  gem 'guard-rspec'
-  gem 'guard-livereload', require: false
-  gem 'guard-rubocop', require: false
-  gem 'guard-shell', require: false
-
-  gem 'rubocop-rspec', require: false
-  gem 'slim_lint', require: false
-
-  gem 'spring'
-  gem 'spring-commands-rspec'
-
-  gem 'derailed'
-
-  gem 'better_errors'
-  gem 'binding_of_caller'
-
-  gem 'annotate'
-  gem 'rails_layout'
-end
-
-group :development, :test do
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'rails-controller-testing'
-  gem 'factory_bot_rails'
-  gem 'ffaker'
-  gem 'launchy'
+group :production, :staging do
+  gem 'heroku-deflater'
+  gem 'lograge'
+  gem 'newrelic_rpm'
+  gem 'rack-timeout' # https://github.com/heroku/rack-timeout/issues/55
+  gem 'sentry-raven'
 end
 
 group :test do
   gem 'capybara'
+  gem 'coveralls', require: false
   gem 'database_cleaner'
   gem 'poltergeist'
-  gem 'webmock'
-  gem 'timecop'
-
   gem 'simplecov'
-  gem 'coveralls', require: false
+  gem 'timecop'
+  gem 'webmock'
 end
 
-group :production, :staging do
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'ffaker'
+  gem 'launchy'
+  gem 'rails-controller-testing'
+  gem 'rspec'
+  gem 'rspec-rails'
+end
+
+group :development do
+  gem 'annotate'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'derailed'
+  gem 'guard-livereload', require: false
+  gem 'guard-rspec'
+  gem 'guard-rubocop', require: false
+  gem 'guard-shell', require: false
+  gem 'rack-livereload'
   gem 'rails_12factor'
-  gem 'heroku-deflater'
-
-  # https://github.com/heroku/rack-timeout/issues/55
-  gem 'rack-timeout'
-
-  # Instrumentation
-  gem 'sentry-raven'
-  gem 'lograge'
-  gem 'newrelic_rpm'
+  gem 'rails_layout'
+  gem 'rubocop-rspec', require: false
+  gem 'slim_lint', require: false
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'terminal-notifier-guard', require: false
 end
