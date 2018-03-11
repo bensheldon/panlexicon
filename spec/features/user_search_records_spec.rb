@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "User Search Recods" do
   use_moby_cats
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
 
 
   scenario 'Users see searched history' do

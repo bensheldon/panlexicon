@@ -1,7 +1,5 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
-FactoryGirl.define do
+FactoryBot.define do
   factory :group do
-    key_word { FactoryGirl.create :word }
+    key_word { FactoryBot.create :word }
   end
 end

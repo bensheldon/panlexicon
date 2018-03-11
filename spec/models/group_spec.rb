@@ -1,21 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Group do
-  let(:group) { FactoryGirl.build :group }
+  let(:group) { FactoryBot.build :group }
 
   it 'has a valid factory' do
-    group = FactoryGirl.build :group
+    group = FactoryBot.build :group
     expect(group).to be_valid
   end
 
   it 'requires a key_word' do
-    group = FactoryGirl.build :group, key_word: nil
+    group = FactoryBot.build :group, key_word: nil
     expect(group).to_not be_valid
   end
 
   it 'has many words' do
-    word_1 = FactoryGirl.create :word
-    word_2 = FactoryGirl.create :word
+    word_1 = FactoryBot.create :word
+    word_2 = FactoryBot.create :word
 
     group.words += [word_1, word_2]
   end

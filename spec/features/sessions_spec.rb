@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.feature 'Sessions', type: :feature do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
 
   scenario 'Users can sign in and out' do
     sign_in user
