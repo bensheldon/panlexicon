@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature 'Search History', js: true do
+RSpec.describe 'Search History', type: :system, js: true do
   use_moby_cats
 
-  scenario 'Displays searched words' do
+  it 'Displays searched words' do
     visit root_path
     search_for 'bobcat'
 

@@ -38,8 +38,7 @@ end
 group :test do
   gem 'capybara'
   gem 'coveralls', require: false
-  gem 'database_cleaner'
-  gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'simplecov'
   gem 'timecop'
   gem 'webmock'

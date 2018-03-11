@@ -22,7 +22,7 @@ Dependencies:
 - Ruby 2.5.0
 - bundler gem (`$ gem install bundler`)
 - postgres (on OSX, use [Postgres.app](http://postgresapp.com/))
-- phantomjs (`$ brew install phantomjs` assuming you are using Homebrew on OSX)
+- Chrome and Chromedriver (`$ brew install chromedriver` assuming you are using Homebrew on OSX)
 
 Setup:
 1. Run `$ bin/setup`
