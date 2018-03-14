@@ -31,6 +31,11 @@ RSpec.describe SearchController do
       get :search, params: { q: 'lion, tiger' }
       expect(assigns(:search).string).to eq(search_query)
     end
+
+    it 'returns a 404 if the search does not generate results' do
+      get :search, params: { q: 'wumpus' }
+      expect(response).to have_http_status(404)
+    end
   end
 
   describe '#redirect_post' do

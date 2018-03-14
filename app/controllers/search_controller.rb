@@ -5,6 +5,7 @@ class SearchController < ApplicationController
 
     SearchRecord.create_from_search(search, user: current_user) if search.valid?
     @search = SearchDecorator.new search
+    render status: 404
   end
 
   def redirect_post
