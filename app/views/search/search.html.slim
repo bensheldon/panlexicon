@@ -17,6 +17,15 @@
   - if @search.errors[:string].size > 0
     - @search.errors[:string].each do |message|
       .alert.alert-danger= message.html_safe
-  - else
-    - @search.errors[:groups].each do |message|
-      .alert.alert-danger= message.html_safe
+  - elsif @search.errors[:missing_words].present?
+      .alert.alert-danger
+        ' #{ Search.sadness_synonym.titleize}.
+        ' The #{ 'word'.pluralize(@search.missing_words.size) }
+        strong>=  @search.missing_words.join(', ')
+        ' #{ @search.missing_words.size == 1 ? 'is' : 'are' } not in our dictionary.
+  - elsif @search.errors[:groups_not_intersected].present?
+      .alert.alert-danger
+        ' #{ Search.sadness_synonym.titleize }.
+        ' No commonality can be found between
+        strong=@search.string
+        ' .

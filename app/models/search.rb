@@ -4,13 +4,19 @@ class Search
 
   validates :string, presence: true
   validate :words_exist
-  validate :words_have_intersecting_groups
+  validate :groups_intersect
 
   MAX_RELATED_WORDS = 80
   MAX_WEIGHT = 6
 
+  SADNESS_SYNONYMS = %w[sadness despair woe anguish ache distress].freeze
+
   WEIGHTED_SEARCH_SQL = File.read Rails.root.join('app/models/sql/weighted_search.sql')
   WEIGHTED_SEARCH_WITH_POS_SQL = File.read Rails.root.join('app/models/sql/weighted_search_with_pos.sql')
+
+  def self.sadness_synonym
+    SADNESS_SYNONYMS.sample
+  end
 
   def initialize(string)
     @string = string
@@ -86,10 +92,9 @@ class Search
 
   def words_exist
     return unless missing_words.size > 0
-    errors.add :string, "#{ sadness_synonym.titleize }. "\
-                        "The #{ 'word'.pluralize(missing_words.size) } "\
-                        "<strong>#{ missing_words.join(', ') }</strong> "\
-                        "#{ missing_words.size == 1 ? 'is' : 'are' } not in our dictionary."
+    missing_words.each do |missing_word|
+      errors.add :missing_words, missing_word
+    end
   end
 
   def group_ids_for_fragments(fragments)
@@ -113,14 +118,8 @@ class Search
     end
   end
 
-  def words_have_intersecting_groups
+  def groups_intersect
     return unless group_ids.size == 0
-    errors.add :groups, "#{ sadness_synonym.titleize }. "\
-                        'No commonality can be found between '\
-                        "<strong>#{ string }</strong>."\
-  end
-
-  def sadness_synonym
-    %w[sadness despair woe anguish ache distress].sample
+    errors.add :groups_not_intersected, true
   end
 end
