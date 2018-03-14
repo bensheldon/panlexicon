@@ -30,4 +30,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  general:
+    short_description: Panlexicon is a unique thesaurus that provides a quick and intuitive process for finding the words you want.
+    short_description_html: <strong>Panlexicon</strong> is a unique thesaurus that provides a quick and intuitive process for finding the words you want.
