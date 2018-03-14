@@ -26,6 +26,12 @@ RSpec.describe Search do
       expect(search.missing_words.first).to eq 'wumpus'
       expect(search.missing_words.second).to eq 'unicorn'
     end
+
+    it 'adds appropriate errors when words are missing' do
+      search = Search.new('lion, wumpus, unicorn').tap(&:execute)
+      expect(search).not_to be_valid
+      expect(search.errors[:missing_words]).to eq ['wumpus', 'unicorn']
+    end
   end
 
   describe '#results' do
@@ -55,7 +61,7 @@ RSpec.describe Search do
 
     context 'when part of speech is used' do
       let(:search_query) { 'lion, tiger pos:!' }
-      
+
       it 'only returns the part of speech' do
         result_names = search.results.map(&:name)
         expect(result_names).to contain_exactly 'lion', 'tiger', 'bobcat'
@@ -97,6 +103,7 @@ RSpec.describe Search do
       it 'invalid if groups do not intersect' do
         search = Search.new('cat, platypus').tap(&:execute)
         expect(search).to_not be_valid
+        expect(search.errors[:groups_not_intersected]).to be_present
       end
     end
   end
