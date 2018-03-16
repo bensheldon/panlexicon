@@ -1,0 +1,65 @@
+---
+version: 2
+jobs:
+  build:
+    working_directory: ~/panlexicon
+    docker:
+      - image: circleci/ruby:2.5.0-node-browsers
+        environment:
+          PGHOST: localhost
+          PGUSER: panlexicon
+          RAILS_ENV: test
+      - image: postgres:10
+        environment:
+          POSTGRES_USER: panlexicon
+          POSTGRES_DB: panlexicon_test
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+      # Restore Cached Dependencies
+      - type: cache-restore
+        name: Restore bundle cache
+        key: panlexicon-{{ checksum "Gemfile.lock" }}
+      # Bundle install dependencies
+      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+      # Cache Dependencies
+      - type: cache-save
+        name: Store bundle cache
+        key: panlexicon-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+      # Wait for DB
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      # Setup the database
+      - run: bundle exec rake db:test:prepare
+      # Create place to store test results
+      - run: mkdir ~/rspec
+      # Run the tests
+      - run: bundle exec rspec --format documentation --format RspecJunitFormatter -o ~/rspec/rspec.xml
+      - store_test_results:
+          path: ~/rspec
+
+  deploy:
+    machine:
+      enabled: true
+    working_directory: ~/panlexicon
+    steps:
+      - checkout
+      - add_ssh_key:
+          fingerprints:
+            - b6:fe:f4:b8:2f:05:18:57:12:02:e7:e5:1a:91:3d:e3
+      - run: bash .circleci/heroku_setup.sh
+      - run: heroku git:remote -a panlexicon
+      - run: git push heroku panlexicon:master
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
