@@ -45,7 +45,7 @@ jobs:
     working_directory: ~/panlexicon
     steps:
       - checkout
-      - add_ssh_key:
+      - add_ssh_keys:
           fingerprints:
             - b6:fe:f4:b8:2f:05:18:57:12:02:e7:e5:1a:91:3d:e3
       - run: bash .circleci/heroku_setup.sh
