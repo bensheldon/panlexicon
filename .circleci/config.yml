@@ -50,7 +50,7 @@ jobs:
             - b6:fe:f4:b8:2f:05:18:57:12:02:e7:e5:1a:91:3d:e3
       - run: bash .circleci/heroku_setup.sh
       - run: heroku git:remote -a panlexicon
-      - run: git push heroku panlexicon:master
+      - run: git push heroku master
 
 workflows:
   version: 2
