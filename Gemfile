@@ -38,6 +38,7 @@ end
 group :test do
   gem 'capybara'
   gem 'coveralls', require: false
+  gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'simplecov'
   gem 'timecop'
