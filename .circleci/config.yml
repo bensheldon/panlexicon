@@ -17,27 +17,32 @@ jobs:
     steps:
       - checkout
       # Restore Cached Dependencies
-      - type: cache-restore
-        name: Restore bundle cache
-        key: panlexicon-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          name: Restore bundle cache
+          key: v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
       # Bundle install dependencies
-      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 --full-index
       # Cache Dependencies
-      - type: cache-save
-        name: Store bundle cache
-        key: panlexicon-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+      - save_cache:
+          name: Store bundle cache
+          key: v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       # Wait for DB
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       # Setup the database
       - run: bundle exec rake db:test:prepare
+      # Precompile Assets
+      - run: bin/rails assets:precompile
       # Create place to store test results
       - run: mkdir ~/rspec
       # Run the tests
       - run: bundle exec rspec --format documentation --format RspecJunitFormatter -o ~/rspec/rspec.xml
       - store_test_results:
           path: ~/rspec
+      - store_artifacts:
+          path: tmp/screenshots
+          destination: screenshots
 
   deploy:
     machine:
@@ -45,12 +50,22 @@ jobs:
     working_directory: ~/panlexicon
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - b6:fe:f4:b8:2f:05:18:57:12:02:e7:e5:1a:91:3d:e3
-      - run: bash .circleci/heroku_setup.sh
+      - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
+      - run:
+          name: Install Heroku CLI
+          command: |
+            wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
+            sudo mkdir -p /usr/local/lib /usr/local/bin
+            sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
+            sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
+
+            cat > ~/.netrc << EOF
+            machine api.heroku.com
+              login $HEROKU_LOGIN
+              password $HEROKU_API_KEY
+            EOF
       - run: heroku git:remote -a panlexicon
-      - run: git push git@heroku.com:panlexicon.git HEAD:refs/heads/master
+      - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/panlexicon.git $CIRCLE_SHA1:refs/heads/master
 
 workflows:
   version: 2
