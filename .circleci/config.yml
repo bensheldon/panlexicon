@@ -51,10 +51,23 @@ jobs:
     steps:
       - checkout
       - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
+      - restore_cache:
+          name: Restore Heroku CLI archive
+          key: v2-heroku-cli-{{ arch }}
       - run:
-          name: Install Heroku CLI
+          name: Download Heroku CLI archive
           command: |
-            wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
+            if [ ! -f heroku-linux-amd64.tar.gz ]; then
+              wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
+            fi
+      - save_cache:
+          name: Cache Heroku CLI archive
+          key: v2-heroku-cli-{{ arch }}
+          paths:
+            - heroku-linux-amd64.tar.gz
+      - run:
+          name: Set up Heroku CLI
+          command: |
             sudo mkdir -p /usr/local/lib /usr/local/bin
             sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
             sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
