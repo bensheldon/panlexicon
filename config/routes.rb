@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
+  devise_for :users, path: 'account'
 
   get '/', to: 'search#search',
     as: 'search',
@@ -15,10 +15,6 @@ Rails.application.routes.draw do
     get 'after-subscribe', action: 'after_subscribe'
     get 'after-confirm', action: 'after_confirm'
   end
-
-  get 'account/sign_in', to: 'sessions#new', as: 'sign_in'
-  post 'account/sign_in', to: 'sessions#create'
-  get 'account/sign_out', to: 'sessions#destroy', as: 'sign_out'
 
   get 'account/confirmation/new', to: 'confirmations#new'
   post 'account/confirmation/new', to: 'confirmations#create'

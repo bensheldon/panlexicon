@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  include SessionsHelper
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -10,6 +9,12 @@ class ApplicationController < ActionController::Base
   # Catch ActionController::RoutingError from route defined in Application.rb
   def render_404
     render status: 404, file: Rails.root.join('public/404.html'), layout: false
+  end
+
+  alias devise_current_user current_user
+  def current_user
+    return @current_user if instance_variable_defined?(:@current_user)
+    @current_user = devise_current_user || User.null
   end
 
   private
