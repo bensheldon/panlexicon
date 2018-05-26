@@ -26,10 +26,22 @@ nav.navbar.navbar-default.navbar-fixed
               a href=destroy_user_session_path Sign out
 
     form.navbar-form.navbar-right role='search' method='GET' action='/'
-      .form-group
+      .form-group.has-feedback
         label.sr-only for='search' Search
         input#search.form-control name='q' value=search_query placeholder='Search Panlexicon' type='text' autocapitalize='none' autofocus=true onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"
-        button.btn.btn-brand.hidden-xs< type='submit' Search
+
+        - instructions_html = capture do
+          p Search for synonyms and related words: <code>fun</code>
+          p Intersect synonyms with commas: <code>fun, youth</code>
+          p <em>Click on results to intersect additional synonyms.</em>
+          p Remove synonyms with minus: <code>fun, -youth</code>
+
+        span class="form-control-feedback form-control-feedback-clickable"
+          a#search-instructions.btn href="#" title="Search instructions" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-container=".navbar-form.navbar-right" data-html="true" data-content=instructions_html
+            i.fa.fa-info-circle aria-hidden=true
+            .sr-only Show search instructions
+
+      button.btn.btn-brand.hidden-xs< type='submit' Search
 
     .collapse.navbar-collapse.navbar-left
       p
