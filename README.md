@@ -43,12 +43,11 @@ Interesting Searches
 - `eggshell, fleet`: 1 group
 - `eggshell, van`: 2 groups
 
-
 ## Updating setup database process
 
 ### Creating a new Database dump
 
-1. Download the production database locally `$ heroku pg:pull DATABSE_URL panlexicon_production --app panlexicon`
+1. Download the production database locally `$ heroku pg:pull DATABASE_URL panlexicon_production --app panlexicon`
 2. Dump the thesaurus table data:
   ```bash
   pg_dump --data-only --no-acl --no-owner \

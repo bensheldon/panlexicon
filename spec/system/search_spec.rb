@@ -4,6 +4,12 @@ RSpec.describe 'Searching words', type: :system, js: true do
   use_moby_thesaurus
   use_moby_cats
 
+  it 'has instructions' do
+    visit root_path
+    click_on 'Show search instructions'
+    expect(page).to have_content 'Intersect synonyms with commas'
+  end
+
   it 'Clicks through a word on front page' do
     visit root_path
     # Ensure link does not include Thesuarus because this is Panlexicon search
