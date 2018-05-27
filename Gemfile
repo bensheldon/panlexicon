@@ -19,7 +19,7 @@ gem 'pry-rails'
 gem 'puma'
 gem 'pundit'
 gem 'rack-mini-profiler', require: false
-gem 'rails', '~>5.1.1'
+gem 'rails', '~>5.2.0'
 gem 'redcarpet'
 gem 'redis'
 gem 'sass-rails'
