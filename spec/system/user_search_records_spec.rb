@@ -10,7 +10,7 @@ RSpec.describe "User Search Records", type: :system do
     visit root_path
     search_for 'bobcat'
 
-    click_link 'Search Records'
+    click_link 'Search Records', match: :first
     expect(page).to have_link 'bobcat'
   end
 end
