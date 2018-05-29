@@ -19,10 +19,10 @@ Installation and Setup
 ----------------------
 
 Dependencies:
-- Ruby 2.5.0
+- Ruby 2.5.1
 - bundler gem (`$ gem install bundler`)
 - postgres (on OSX, use [Postgres.app](http://postgresapp.com/))
-- Chrome and Chromedriver (`$ brew install chromedriver` assuming you are using Homebrew on OSX)
+- [System dependencies](Brewfile), assuming you are using Homebrew on OSX: `brew bundle`
 
 Setup:
 1. Run `$ bin/setup`
