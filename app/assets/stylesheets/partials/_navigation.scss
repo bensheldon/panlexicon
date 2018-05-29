@@ -1,6 +1,15 @@
-nav.top-bar {
-  h1 {
-    text-transform: capitalize;
+body {
+  padding-top: $navbar-height + $navbar-margin-bottom;
+}
+
+.navbar-fixed-top {
+  @include transition(background-color 0.3s ease-in);
+}
+
+@media (min-width: $screen-sm-min) {
+  .navbar-default.navbar-transparent {
+    background-color: transparent;
+    border-bottom-color: transparent;
   }
 }
 
