@@ -4,26 +4,18 @@
 nav.navbar.navbar-default.navbar-fixed
   .container
     .navbar-header
-      button.navbar-toggle.float-left type='button' data={ target: '.navbar-collapse', toggle: 'collapse' }
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
+      - if current_user.blank?
+        button.navbar-toggle.float-left type='button' data={ target: '.navbar-collapse', toggle: 'collapse' }
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      - else
+        button.navbar-toggle.float-left type='button' style="padding-top: 6px; padding-bottom: 5px" data={ target: '.navbar-collapse', toggle: 'collapse' }
+          span.sr-only Toggle navigation
+          i.fa.fa-user
 
       = link_to 'Panlexicon', root_path, class: 'navbar-brand hidden-xs'
-
-    - if current_user.present?
-      ul.nav.navbar-nav
-        li.dropdown
-          a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
-            i.fa.fa-user
-            span.caret
-          ul.dropdown-menu
-            li
-              a href="user_search_records" Search Records
-            li.divider role="separator"
-            li
-              a href=destroy_user_session_path Sign out
 
     form.navbar-form.navbar-right role='search' method='GET' action='/'
       .form-group.has-feedback
@@ -44,8 +36,28 @@ nav.navbar.navbar-default.navbar-fixed
       button.btn.btn-brand.hidden-xs< type='submit' Search
 
     .collapse.navbar-collapse.navbar-left
-      p
-        .row
-          .col-xs-12.visible-xs-block
-            | <strong>Panlexicon</strong> is a unique thesaurus that provides a quicker
-            | and more intuitive process for finding the words you want.
+      - if current_user.blank?
+        p
+          .row
+            .col-xs-12.visible-xs-block
+              ' <strong>Panlexicon</strong> is a unique thesaurus that provides a quicker
+              ' and more intuitive process for finding the words you want.
+      - else
+        ul.nav.navbar-nav
+          li.dropdown.hidden-xs
+            a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+              i.fa.fa-user
+              '  Settings
+              span.caret
+            ul.dropdown-menu
+              li
+                a href="user_search_records" Search Records
+              li.divider role="separator"
+              li
+                a href=destroy_user_session_path Sign out
+
+          li.visible-xs
+            a href="user_search_records" Search Records
+          li.divider.visible-xs role="separator"
+          li.visible-xs
+            a href=destroy_user_session_path Sign out

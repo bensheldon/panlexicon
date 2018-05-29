@@ -2,8 +2,9 @@
 - content_for :description, t('general.short_description')
 - content_for :search_query, ''
 
-.alert.alert-success role='alert'
-  = render "shared/subscribe_form"
+- if current_user.blank?
+  .alert.alert-success role='alert'
+    = render "shared/subscribe_form"
 
 - if @search.valid?
   ul.search-results

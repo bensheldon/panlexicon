@@ -16,9 +16,16 @@ a.navbar-brand {
   font-style: italic;
   font-weight: bold;
   line-height: 1.30769;
+  margin-top: -4px;
   word-spacing: 0.1em;
   &:hover {
     color: #5e5e5e !important;
+  }
+}
+
+.navbar-collapse {
+  @media (max-width: $screen-xs-max) {
+    clear: both;
   }
 }
 
