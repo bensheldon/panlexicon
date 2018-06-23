@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe SearchRecord, type: :model do
   use_moby_cats
 
+  let(:user) { FactoryBot.create :user }
   let(:search) { Search.new('lion, tiger').tap(&:execute) }
   let(:search_record) { described_class.create_from_search search }
 
@@ -17,14 +18,20 @@ RSpec.describe SearchRecord, type: :model do
     before(:each) do
       Timecop.travel((SearchRecord::STORAGE_LIFETIME + 1.day).ago) do
         SearchRecord.create_from_search Search.new('lion').tap(&:execute)
+        SearchRecord.create_from_search Search.new('bobcat').tap(&:execute), user: user
       end
       SearchRecord.create_from_search Search.new('lion, tiger').tap(&:execute)
     end
 
     it 'deletes SearchRecords past their lifetime expiration' do
-      expect(SearchRecord.count).to eq 2
+      expect(SearchRecord.count).to eq 3
       SearchRecord.delete_expired
-      expect(SearchRecord.count).to eq 1
+      expect(SearchRecord.count).to eq 2
+    end
+
+    it 'does not delete SearchRecords associated with a user' do
+      SearchRecord.delete_expired
+      expect(SearchRecord.where.not(user: nil).count).to eq 1
     end
   end
 

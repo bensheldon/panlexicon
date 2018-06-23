@@ -3,7 +3,10 @@ class SearchController < ApplicationController
     search = Search.new search_query
     search.execute
 
-    SearchRecord.create_from_search(search, user: current_user) if search.valid?
+    if search.valid? && (current_user.present? || human_request?)
+      SearchRecord.create_from_search(search, user: current_user)
+    end
+
     @search = SearchDecorator.new search
 
     if @search.invalid?

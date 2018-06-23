@@ -17,6 +17,15 @@ class ApplicationController < ActionController::Base
     @current_user = devise_current_user || User.null
   end
 
+  def bot_request?
+    return @bot_request if instance_variable_defined?(:@bot_request)
+    @bot_request = DeviceDetector.new(request.user_agent).bot?
+  end
+
+  def human_request?
+    !bot_request?
+  end
+
   private
 
   def miniprofiler
