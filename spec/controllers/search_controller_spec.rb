@@ -22,6 +22,12 @@ RSpec.describe SearchController do
   let(:search_query) { 'lion, tiger' }
 
   describe '#search' do
+    use_moby_cats
+
+    it 'returns a successful response' do
+      get :search, params: { query: 'lion, tiger' }
+      expect(response).to have_http_status(200)
+    end
     it 'GET creates a new Search using :query' do
       get :search, params: { query: 'lion, tiger' }
       expect(assigns(:search).string).to eq(search_query)
