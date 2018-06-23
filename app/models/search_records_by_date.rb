@@ -24,7 +24,8 @@ class SearchRecordsByDate
         grouping.searched_groups_count AS searched_groups_count,
         ntile(:max_weight) OVER (ORDER BY grouping.searched_groups_count) AS weight
       FROM (
-        SELECT word_id, COUNT(*) as searched_groups_count FROM search_records_words
+        SELECT word_id, COUNT(*) as searched_groups_count
+        FROM search_records_words
         WHERE search_record_id IN (
           SELECT id
           FROM search_records

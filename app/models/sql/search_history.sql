@@ -1,0 +1,49 @@
+WITH
+  search_records_word_dates AS (
+    SELECT search_records_words.*, date_trunc('day', search_records.created_at) AS date
+    FROM search_records_words
+      JOIN search_records ON search_records.id = search_records_words.search_record_id
+  ),
+  grouped_words AS (
+    SELECT date, word_id, count(*)
+    FROM search_records_word_dates
+    GROUP BY date, word_id
+    ORDER BY date DESC, count DESC
+  ),
+  ranked_words AS (
+    SELECT
+      *,
+      ROW_NUMBER() OVER (PARTITION BY date ORDER BY count DESC) AS rank
+    FROM grouped_words
+  ),
+  limited_ranked_words AS (
+    SELECT * FROM ranked_words
+    WHERE rank < 10
+  ),
+  statistics as (
+    SELECT DISTINCT
+      date,
+      min(count) OVER (PARTITION BY date) AS count_min,
+      max(count) OVER (PARTITION BY date) AS count_max
+    FROM limited_ranked_words
+  ),
+  weighted_words as (
+    SELECT
+      limited_ranked_words.date,
+      words.*,
+      limited_ranked_words.count,
+      width_bucket(
+          limited_ranked_words.count,
+          statistics.count_min - 0.001,
+          statistics.count_max + 0.001,
+          6
+      ) AS weight
+    FROM
+      limited_ranked_words
+      LEFT JOIN words ON words.id = limited_ranked_words.word_id
+      LEFT JOIN statistics on statistics.date = limited_ranked_words.date
+  )
+
+SELECT *
+FROM weighted_words
+ORDER BY date DESC, weight DESC

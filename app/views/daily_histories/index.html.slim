@@ -1,0 +1,9 @@
+- @daily_histories.each do |daily_history|
+  .panel.panel-default
+    .panel-heading
+      = daily_history.date.strftime '%B %-d, %Y'
+    .panel-body
+      ul.search-results
+        - daily_history.words.each do |word|
+          li> class="word weight-#{word.weight}"
+            = link_to word.name.strip, q: word.name
