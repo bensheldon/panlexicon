@@ -38,7 +38,7 @@ class MobyImporter
       words = string.split(',')
                     .reject { |name| name.strip.empty? }
                     .map { |name| Word.find_or_create_by(name: name.strip) }
-      return unless words.size > 0
+      return if words.size.zero?
 
       # First word in the group is the keyword
       key_word = words[0]
