@@ -42,6 +42,22 @@ RSpec.describe SearchController do
       get :search, params: { q: 'wumpus' }
       expect(response).to have_http_status(404)
     end
+
+    it 'creates a SearchRecord' do
+      expect {
+        get :search, params: { q: 'lion, tiger' }
+      }.to change { SearchRecord.count }.by(1)
+    end
+
+    context 'when a googlebot' do
+      it 'does not create a SearchRecord' do
+        request.env['HTTP_USER_AGENT'] = 'googlebot'
+
+        expect {
+          get :search, params: { q: 'lion, tiger' }
+        }.not_to change { SearchRecord.count }
+      end
+    end
   end
 
   describe '#redirect_post' do

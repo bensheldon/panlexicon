@@ -4,7 +4,6 @@ RSpec.describe "User Search Records", type: :system do
   use_moby_cats
   let(:user) { FactoryBot.create :user }
 
-
   it 'Users see searched history' do
     sign_in user
     visit root_path

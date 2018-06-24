@@ -17,13 +17,13 @@
 #
 
 class SearchRecord < ApplicationRecord
-  STORAGE_LIFETIME = 14.days
+  STORAGE_LIFETIME = 180.days
 
   belongs_to :user, optional: true
   has_many :search_records_words, -> { order(position: :asc) } # cascade: delete
   has_many :words, through: :search_records_words
 
-  scope :lifetime_expired, -> { where 'created_at < ?', STORAGE_LIFETIME.ago }
+  scope :lifetime_expired, -> { where(user: nil).where('created_at < ?', STORAGE_LIFETIME.ago) }
 
   def self.create_from_search(search, user: nil)
     searched_words = search.fragments.map do |fragment|
