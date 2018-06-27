@@ -19,7 +19,7 @@ module Panlexicon
     # http://blog.arkency.com/2014/11/dont-forget-about-eager-load-when-extending-autoload/
     paths.add 'app/decorators/collections', eager_load: true
     paths.add 'lib', glob: '*', eager_load: true
-    config.watchable_dirs['app/models/sql'] = [:sql]
+    config.watchable_dirs['app/models/sql'] = [:sql, :erb]
 
     # 404 catch all route
     # https://github.com/rails/rails/issues/671#issuecomment-1780159
