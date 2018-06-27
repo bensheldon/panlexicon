@@ -6,4 +6,4 @@
       ul.search-results
         - daily_history.words.each do |word|
           li> class="word weight-#{word.weight}"
-            = link_to word.name.strip, q: word.name
+            = link_to word.name.strip, search_path(q: word.name)

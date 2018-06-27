@@ -1,9 +1,0 @@
-h1 Searched words on #{@records.date.strftime '%B %-d, %Y'}
-- if @records.next_day_path
-  = link_to 'Next', @records.next_day_path
-= link_to 'Previous', @records.previous_day_path
-
-hr
-
-ul.search-results
-  = render partial: 'word', collection: @records.results, as: :word

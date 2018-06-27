@@ -26,10 +26,12 @@ Rails.application.routes.draw do
   get 'search' => 'search#search'
   post 'search' => 'search#redirect_post'
 
-  resources :daily_histories
-  get 'history(/:datestring)' => 'history#index', as: :history
+  resources :daily_histories, path: 'history', as: :histories
+  scope 'account' do
+    resources :daily_histories, path: 'history', as: :account_histories, account: true
+  end
 
-  # The priority is based upon order of creation: first created -> highest priority.
+    # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

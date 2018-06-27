@@ -2,7 +2,10 @@ WITH
   search_records_word_dates AS (
     SELECT search_records_words.*, date_trunc('day', search_records.created_at) AS date
     FROM search_records_words
-      JOIN search_records ON search_records.id = search_records_words.search_record_id
+    JOIN search_records ON search_records.id = search_records_words.search_record_id
+    <% if user_id.present? %>
+    WHERE search_records.user_id = :user_id
+    <% end %>
   ),
   grouped_words AS (
     SELECT date, word_id, count(*)
@@ -18,7 +21,7 @@ WITH
   ),
   limited_ranked_words AS (
     SELECT * FROM ranked_words
-    WHERE rank < 10
+    WHERE rank < :max_words_per_day
   ),
   statistics as (
     SELECT DISTINCT
@@ -36,7 +39,7 @@ WITH
           limited_ranked_words.count,
           statistics.count_min - 0.001,
           statistics.count_max + 0.001,
-          6
+          :max_weight
       ) AS weight
     FROM
       limited_ranked_words
@@ -46,4 +49,4 @@ WITH
 
 SELECT *
 FROM weighted_words
-ORDER BY date DESC, weight DESC
+ORDER BY date DESC, name ASC

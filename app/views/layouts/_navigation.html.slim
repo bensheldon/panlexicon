@@ -50,14 +50,10 @@ nav.navbar.navbar-default.navbar-fixed
               '  Settings
               span.caret
             ul.dropdown-menu
-              li
-                a href="user_search_records" Search Records
+              li= link_to 'Search History', account_histories_path
               li.divider role="separator"
-              li
-                a href=destroy_user_session_path Sign out
+              li= link_to 'Sign out', destroy_user_session_path
 
-          li.visible-xs
-            a href="user_search_records" Search Records
+          li.visible-xs= link_to 'Search History', account_histories_path
           li.divider.visible-xs role="separator"
-          li.visible-xs
-            a href=destroy_user_session_path Sign out
+          li.visible-xs= link_to 'Sign out', destroy_user_session_path
