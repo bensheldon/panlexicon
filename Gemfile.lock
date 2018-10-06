@@ -134,7 +134,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
-    ffaker (2.9.0)
+    ffaker (2.10.0)
     ffi (1.9.25)
     flamegraph (0.9.5)
     font-awesome-rails (4.7.0.4)
