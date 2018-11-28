@@ -2,6 +2,10 @@ defaults: &defaults
   adapter: postgresql
   encoding: unicode
   pool: 20
+  connect_timeout: 1
+  checkout_timeout: 1
+  variables:
+    statement_timeout: 2500 # ms
 
 development:
   database: panlexicon_development
