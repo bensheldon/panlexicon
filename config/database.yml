@@ -1,7 +1,8 @@
 defaults: &defaults
   adapter: postgresql
   encoding: unicode
-  pool: 20
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['POSTGRES_USERNAME'] || ENV['USER'] %>
   connect_timeout: 1
   checkout_timeout: 1
   variables:
@@ -21,6 +22,6 @@ staging:
   <<: *defaults
 
 production:
+  database: panlexicon_production
   <<: *defaults
   url:  <%= ENV["DATABASE_URL"] %>
-  pool: <%= ENV["DB_POOL"] || ENV["MAX_THREADS"] || 5 %>
