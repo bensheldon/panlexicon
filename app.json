@@ -1,7 +1,7 @@
 {
   "name": "panlexicon-rails",
   "scripts": {
-    "postdeploy": "bin/rails db:seed moby:thesaurus_db"
+    "postdeploy": "POSTGRES_STATEMENT_TIMEOUT=90s bin/rails heroku:postdeploy"
   },
   "env": {
     "RACK_ENV": {
