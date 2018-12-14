@@ -21,6 +21,7 @@ gem 'puma'
 gem 'pundit'
 gem 'rack-mini-profiler', require: false
 gem 'rails', '~>5.2.1'
+gem 'rack-host-redirect'
 gem 'redcarpet'
 gem 'redis'
 gem 'sass-rails'
