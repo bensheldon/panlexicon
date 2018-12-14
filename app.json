@@ -22,7 +22,6 @@
     "RAILS_MAX_THREADS": "2",
     "WEB_CONCURRENCY": "0"
   },
-  "stack": "heroku-16",
   "formation": {},
   "addons": [
     {
