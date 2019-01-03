@@ -36,15 +36,19 @@ class MobyImporter
   def thesaurus_string(string)
     ActiveRecord::Base.transaction do
       words = string.split(',')
-                    .reject { |name| name.strip.empty? }
-                    .map { |name| Word.find_or_create_by(name: name.strip) }
+                    .map(&:strip)
+                    .reject(&:empty?)
+                    .uniq
+                    .map { |name| Word.find_or_create_by(name: name) }
       return if words.size.zero?
 
-      # First word in the group is the keyword
-      key_word = words[0]
-
+      key_word = words.first
       group = Group.find_or_create_by(key_word: key_word)
-      group.words += words.uniq
+
+      words.each do |word|
+        next if group.words.include?(word)
+        group.words << word
+      end
 
       Rails.logger.error("#{group.errors.full_messages}: #{string}") unless group.save
     end
