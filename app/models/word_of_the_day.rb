@@ -2,7 +2,7 @@
 #
 # Table name: word_of_the_days
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  date       :date             not null
 #  word_id    :integer          not null
 #  created_at :datetime         not null
