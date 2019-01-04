@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522141404) do
+ActiveRecord::Schema.define(version: 2018_05_22_141404) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "citext"
   enable_extension "pgcrypto"
+  enable_extension "plpgsql"
 
   create_table "groupings", id: false, force: :cascade do |t|
     t.integer "group_id", null: false
