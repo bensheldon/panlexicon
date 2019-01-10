@@ -182,7 +182,7 @@ GEM
       domain_name (~> 0.5)
     http-form_data (2.1.1)
     http_parser.rb (0.6.0)
-    i18n (1.4.0)
+    i18n (1.5.1)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.1)
     jbuilder (2.8.0)
