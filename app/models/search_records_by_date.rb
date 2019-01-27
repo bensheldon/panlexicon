@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchRecordsByDate
   include ActiveModel::Model
 
@@ -18,7 +20,7 @@ class SearchRecordsByDate
   end
 
   def weight_search_records
-    weighted_records_words = """
+    weighted_records_words = <<~SQL
       SELECT
         words.*,
         grouping.searched_groups_count AS searched_groups_count,
@@ -37,7 +39,7 @@ class SearchRecordsByDate
       ) grouping
       LEFT JOIN words ON words.id = grouping.word_id
       ORDER BY words.name ASC
-    """
+    SQL
 
     # Union the two select statements and fetch a collection of words
     Word.find_by_sql [weighted_records_words, {

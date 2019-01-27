@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe WordOfTheDayGenerator do
-  let(:generator) { WordOfTheDayGenerator.new }
+  let(:generator) { described_class.new }
 
   describe '#generate!' do
     use_moby_cats
@@ -12,7 +14,7 @@ RSpec.describe WordOfTheDayGenerator do
     end
 
     describe 'when search records exist' do
-      before :each do
+      before do
         temp_wod = WordOfTheDay.new(date: Time.zone.today)
         Timecop.travel(temp_wod.records_start_at + 1.hour) do
           SearchRecord.create_from_search Search.new('lion').tap(&:execute)
@@ -26,7 +28,7 @@ RSpec.describe WordOfTheDayGenerator do
       end
 
       it "returns the most searched word that doesn't match a previous searched word" do
-        WordOfTheDay.create! word: Word.find_by_name('lion'), date: (Date.today - 2.days)
+        WordOfTheDay.create! word: Word.find_by(name: 'lion'), date: (Time.zone.today - 2.days)
 
         word_of_the_day = generator.generate!
         expect(word_of_the_day.word.name).to eq 'tiger'

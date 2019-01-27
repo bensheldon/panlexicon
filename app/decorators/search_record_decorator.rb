@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SearchRecordDecorator < ApplicationDecorator
-  alias :search_record :object
+  alias search_record object
 
   def to_s
     search_record.search_records_words.map do |search_records_word|

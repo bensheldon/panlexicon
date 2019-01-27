@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DailyHistory
   include ActiveModel::Model
 
@@ -15,8 +17,8 @@ class DailyHistory
     query_sql = ERB.new(HISTORY_SQL).result(OpenStruct.new(args).instance_eval { binding })
 
     words = Word.find_by_sql [query_sql, args]
-    words.group_by(&:date).map do |date, words|
-      new(date: date, words: words)
+    words.group_by(&:date).map do |date, group_words|
+      new(date: date, words: group_words)
     end
   end
 end

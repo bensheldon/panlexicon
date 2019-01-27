@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe SearchRecord, type: :model do
@@ -15,7 +17,7 @@ RSpec.describe SearchRecord, type: :model do
   end
 
   describe '::destroy_expired' do
-    before(:each) do
+    before do
       Timecop.travel((SearchRecord::STORAGE_LIFETIME + 1.day).ago) do
         SearchRecord.create_from_search Search.new('lion').tap(&:execute)
         SearchRecord.create_from_search Search.new('bobcat').tap(&:execute), user: user

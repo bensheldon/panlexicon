@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # https://robots.thoughtbot.com/evaluating-alternative-decorator-implementations-in
 class ApplicationDecorator < SimpleDelegator
   attr_reader :context
@@ -11,9 +13,7 @@ class ApplicationDecorator < SimpleDelegator
     @context = context
   end
 
-  def class
-    object.class
-  end
+  delegate :class, to: :object
 
   def object
     __getobj__

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class WordDecorator < ApplicationDecorator
-  alias :word :object
+  alias word object
 
   def search
     context[:search]
@@ -19,6 +21,7 @@ class WordDecorator < ApplicationDecorator
 
   def in_search?
     return false if panlexicon?
+
     search_fragments.find { |f| f.word.id == object.id }.present?
   end
 
@@ -48,6 +51,7 @@ class WordDecorator < ApplicationDecorator
 
   def search_fragments
     return [] if panlexicon? # || search.blank?
+
     search.fragments
   end
 end

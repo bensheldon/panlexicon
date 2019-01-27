@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: parts_of_speech
@@ -28,9 +30,9 @@ class PartOfSpeech < ApplicationRecord
     pronoun: 'r',
     definite_article: 'D',
     indefinite_article: 'I',
-    nominative: 'o'
+    nominative: 'o',
   }.freeze
-  
+
   CODE_MAP = TYPE_MAP.invert.freeze
 
   self.inheritance_column = :sti_type

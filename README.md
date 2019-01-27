@@ -33,8 +33,6 @@ Running Tests
 -------------
 
 - All tests can be run with `bin/rspec`
-- File watching can be started with `bin/guard`
-- Individual tests can be isolated by adding `:focus` to declaration, e.g. `it 'runs a test', :focus do`
 - Within feature specs, the page can be inspected by adding `save_and_open_page`
 
 Interesting Searches

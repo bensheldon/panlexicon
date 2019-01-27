@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Daily History', type: :system do
@@ -17,7 +19,7 @@ RSpec.describe 'Daily History', type: :system do
     expect(page).to have_link('bobcat', count: 10)
   end
 
-  context 'account history' do
+  context 'when account history' do
     let(:user) { FactoryBot.create :user }
 
     it 'Users see searched history' do

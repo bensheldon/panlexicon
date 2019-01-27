@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SearchRecordsByDateDecorator < ApplicationDecorator
-  alias :search :object
+  alias search object
   delegate :url_helpers, to: 'Rails.application.routes'
 
   def results
@@ -9,11 +11,7 @@ class SearchRecordsByDateDecorator < ApplicationDecorator
   def next_day_path
     today = Time.now.utc.to_date
     next_date = search.date + 1
-    if next_date <= today
-      url_helpers.history_path datestring: next_date.strftime(HistoryController::DATE_FORMAT)
-    else
-      nil
-    end
+    url_helpers.history_path datestring: next_date.strftime(HistoryController::DATE_FORMAT) if next_date <= today
   end
 
   def previous_day_path

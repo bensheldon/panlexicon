@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
@@ -19,9 +21,9 @@ gem 'pg'
 gem 'pry-rails'
 gem 'puma'
 gem 'pundit'
+gem 'rack-host-redirect'
 gem 'rack-mini-profiler', require: false
 gem 'rails', '~>5.2.1'
-gem 'rack-host-redirect'
 gem 'redcarpet'
 gem 'redis'
 gem 'sass-rails'
@@ -59,19 +61,14 @@ end
 
 group :development do
   gem 'annotate'
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'derailed'
-  gem 'guard-livereload', require: false
-  gem 'guard-rspec'
-  gem 'guard-rubocop', require: false
-  gem 'guard-shell', require: false
-  gem 'rack-livereload'
-  gem 'rails_12factor'
+  gem 'listen'
   gem 'rails_layout'
+  gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'slim_lint', require: false
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'terminal-notifier-guard', require: false
+  gem 'spring-watcher-listen'
+  gem 'web-console'
 end

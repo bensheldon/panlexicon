@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: groups
@@ -18,7 +20,7 @@
 class Group < ApplicationRecord
   belongs_to :key_word, class_name: 'Word'
 
-  has_many :groupings
+  has_many :groupings, dependent: :destroy
   has_many :words, through: :groupings
 
   validates :key_word_id, presence: true, uniqueness: true

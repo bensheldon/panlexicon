@@ -1,21 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe WordOfTheDayTweet do
   use_moby_cats
 
-  let(:word_of_the_day) { WordOfTheDay.create word: Word.find_by_name('lion') }
+  let(:word_of_the_day) { WordOfTheDay.create word: Word.find_by(name: 'lion') }
   let(:tweeter) { described_class.new word_of_the_day }
-  let(:twitter_client) do
-    # stub out the twitter_client
-    double('twitter_client').tap do |twitter_client|
-      allow(tweeter).to receive(:twitter_client) { twitter_client }
-    end
+  let(:twitter_client) { instance_double(Twitter::REST::Client, update: nil) }
+
+  before do
+    allow(Twitter::REST::Client).to receive(:new).and_return(twitter_client)
   end
 
   describe '#generate!' do
     it 'invokes twitter_client#update' do
-      expect(twitter_client).to receive(:update)
       tweeter.generate!
+      expect(twitter_client).to have_received(:update)
     end
 
     describe 'tweeted message' do
@@ -33,7 +34,7 @@ RSpec.describe WordOfTheDayTweet do
       end
 
       it 'includes related words' do
-        expect(tweet).to include(*%w(bobcat lynx puma leopard tiger))
+        expect(tweet).to include('bobcat', 'lynx', 'puma', 'leopard', 'tiger')
       end
 
       it 'includes link to the website' do

@@ -1,17 +1,15 @@
+# frozen_string_literal: true
+
 class SearchController < ApplicationController
   def search
     search = Search.new search_query
     search.execute
 
-    if search.valid? && (current_user.present? || human_request?)
-      SearchRecord.create_from_search(search, user: current_user)
-    end
+    SearchRecord.create_from_search(search, user: current_user) if search.valid? && (current_user.present? || human_request?)
 
     @search = SearchDecorator.new search
 
-    if @search.invalid?
-      render status: 404
-    end
+    render status: 404 if @search.invalid?
   end
 
   def redirect_post

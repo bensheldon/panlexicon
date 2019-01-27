@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module System
   module SearchSteps
     def search_for(words)

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'benchmark'
 
 namespace :search_records do
   desc "Clean up old/expired search records"
-  task cleanup: [:environment, 'log_level:info'] do |t, args|
+  task cleanup: [:environment, 'log_level:info'] do |_t, _args|
     helpers = ActionController::Base.helpers
 
     search_record_count = SearchRecord.lifetime_expired.count

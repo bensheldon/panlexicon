@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchParser
   attr_reader :string, :fragments
 
@@ -5,26 +7,20 @@ class SearchParser
     @string = string
 
     @fragments = split_string.map.with_index do |string_fragment, position|
-      matches = string_fragment.match( /(?<pos>pos:\S*)?\s*(?<operation_string>[+-]?)(?<word_string>.*(?=pos:)|.*)\s*(?<pos>pos:\S*)?/)
+      matches = string_fragment.match(/(?<pos>pos:\S*)?\s*(?<operation_string>[+-]?)(?<word_string>.*(?=pos:)|.*)\s*(?<pos>pos:\S*)?/)
 
-      if matches['pos']
-        @part_of_speech = matches['pos'].split(':').last
-      end
+      @part_of_speech = matches['pos'].split(':').last if matches['pos']
 
       word_string = matches['word_string'].strip
       next unless word_string
 
-      operation_string = if matches['operation_string'].present?
-        matches['operation_string']
-      else
-        nil
-      end
+      operation_string = matches['operation_string'].presence
 
-      if operation_string == '-'
-        operation = :subtract
-      else
-        operation = :add
-      end
+      operation = if operation_string == '-'
+                    :subtract
+                  else
+                    :add
+                  end
 
       SearchFragment.new string: string_fragment,
         operation_string: operation_string,
@@ -46,9 +42,7 @@ class SearchParser
     fragments.reject { |fragment| fragment.word.present? }.map(&:string)
   end
 
-  def part_of_speech
-    @part_of_speech
-  end
+  attr_reader :part_of_speech
 
   private
 
@@ -58,7 +52,7 @@ class SearchParser
 
   def attach_words_to_fragments
     Word.where(name: fragments.map(&:word_string)).find_each do |word|
-      fragment = fragments.find { |f| f.word_string.downcase == word.name.downcase }
+      fragment = fragments.find { |f| f.word_string.casecmp(word.name).zero? }
       fragment.word = word
     end
   end

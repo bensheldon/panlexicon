@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: search_records
@@ -20,7 +22,7 @@ class SearchRecord < ApplicationRecord
   STORAGE_LIFETIME = 180.days
 
   belongs_to :user, optional: true
-  has_many :search_records_words, -> { order(position: :asc) } # cascade: delete
+  has_many :search_records_words, -> { order(position: :asc) }, inverse_of: :search_record
   has_many :words, through: :search_records_words
 
   scope :lifetime_expired, -> { where(user: nil).where('created_at < ?', STORAGE_LIFETIME.ago) }
@@ -30,7 +32,7 @@ class SearchRecord < ApplicationRecord
       {
         word: fragment.word,
         position: fragment.position,
-        operation: fragment.operation
+        operation: fragment.operation,
       }
     end
 

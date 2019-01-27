@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe SearchParser do
@@ -5,15 +7,15 @@ RSpec.describe SearchParser do
 
   describe '#fragments' do
     it 'returns fragments in search order' do
-      lion_first = SearchParser.new('Lion, tiger').tap(&:execute)
-      tiger_first = SearchParser.new('Tiger, lion').tap(&:execute)
+      lion_first = described_class.new('Lion, tiger').tap(&:execute)
+      tiger_first = described_class.new('Tiger, lion').tap(&:execute)
 
       expect(lion_first.fragments.first.string).to eq 'Lion'
       expect(tiger_first.fragments.first.string).to eq 'Tiger'
     end
 
     it 'parses out words and operations' do
-      parser = SearchParser.new('lion, -tiger, +cat').tap(&:execute)
+      parser = described_class.new('lion, -tiger, +cat').tap(&:execute)
 
       lion_fragment = parser.fragments.find { |f| f.string == 'lion' }
       tiger_fragment = parser.fragments.find { |f| f.string == '-tiger' }
@@ -32,7 +34,7 @@ RSpec.describe SearchParser do
 
   describe '#words' do
     it 'returns Words' do
-      parser = SearchParser.new('Lion, wumpus, unicorn').tap(&:execute)
+      parser = described_class.new('Lion, wumpus, unicorn').tap(&:execute)
       expect(parser.words.first).to be_a Word
       expect(parser.words.first.name).to eq 'lion'
     end
@@ -40,7 +42,7 @@ RSpec.describe SearchParser do
 
   describe '#missing_words' do
     it 'returns missing words in order' do
-      parser = SearchParser.new('lion, wumpus, unicorn').tap(&:execute)
+      parser = described_class.new('lion, wumpus, unicorn').tap(&:execute)
       expect(parser.missing_words.size).to eq 2
       expect(parser.missing_words.first).to eq 'wumpus'
       expect(parser.missing_words.second).to eq 'unicorn'
@@ -48,30 +50,35 @@ RSpec.describe SearchParser do
   end
 
   describe '#parts of speech' do
-    let(:parser) { SearchParser.new(search).tap(&:execute) }
+    let(:parser) { described_class.new(search).tap(&:execute) }
 
-    context 'trailing' do
+    context 'when trailing' do
       let(:search) { 'cat, lion pos:verb' }
+
       specify { expect(parser.part_of_speech).to eq 'verb' }
     end
 
-    context 'leading' do
+    context 'when leading' do
       let(:search) { 'pos:verb Maine Coon, lion' }
+
       specify { expect(parser.part_of_speech).to eq 'verb' }
     end
 
-    context 'comma separated' do
+    context 'when comma separated' do
       let(:search) { 'cat, Maine Coon, pos:verb' }
+
       specify { expect(parser.part_of_speech).to eq 'verb' }
     end
 
     context 'with spaces' do
       let(:search) { 'cat, lion, Maine Coon pos:verb' }
+
       specify { expect(parser.part_of_speech).to eq 'verb' }
     end
 
-    context 'none' do
+    context 'when none' do
       let(:search) { 'cat, lion, ' }
+
       specify { expect(parser.part_of_speech).to eq nil }
     end
   end

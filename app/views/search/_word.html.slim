@@ -1,5 +1,6 @@
+-# rubocop:disable IdenticalConditionalBranches
 li> class="word weight-#{word.weight}"
-  - title = current_user.is_admin? ? word.search_explanation : nil
+  - title = current_user.admin? ? word.search_explanation : nil
   - if word.in_search?
     - link = link_to word.name.strip, search_path(q: word.remove_from_search_query), class: 'active', title: title
     - if word.subtracted_from_search?
@@ -8,3 +9,4 @@ li> class="word weight-#{word.weight}"
       = link
   - else
     = link_to word.name.strip, search_path(q: word.add_to_search_query), title: title
+- # rubocop:enable IdenticalConditionalBranches

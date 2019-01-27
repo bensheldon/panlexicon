@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Search do
@@ -7,7 +9,7 @@ RSpec.describe Search do
   let(:tiger) { Word.find_by(name: 'tiger') }
   let(:tiger_group) { Group.find_by(key_word: tiger) }
   let(:search_query) { 'lion, tiger' }
-  let(:search) { Search.new(search_query).tap(&:execute) }
+  let(:search) { described_class.new(search_query).tap(&:execute) }
 
   describe '#group_ids' do
     it 'returns an array of integers' do
@@ -21,16 +23,16 @@ RSpec.describe Search do
 
   describe '#missing_words' do
     it 'returns missing words in order' do
-      search = Search.new('lion, wumpus, unicorn').tap(&:execute)
+      search = described_class.new('lion, wumpus, unicorn').tap(&:execute)
       expect(search.missing_words.size).to eq 2
       expect(search.missing_words.first).to eq 'wumpus'
       expect(search.missing_words.second).to eq 'unicorn'
     end
 
     it 'adds appropriate errors when words are missing' do
-      search = Search.new('lion, wumpus, unicorn').tap(&:execute)
+      search = described_class.new('lion, wumpus, unicorn').tap(&:execute)
       expect(search).not_to be_valid
-      expect(search.errors[:missing_words]).to eq ['wumpus', 'unicorn']
+      expect(search.errors[:missing_words]).to eq %w[wumpus unicorn]
     end
   end
 
@@ -72,37 +74,37 @@ RSpec.describe Search do
   describe 'validations' do
     describe 'presence_of :string' do
       it 'valid in presence of string' do
-        search = Search.new('lion').tap(&:execute)
+        search = described_class.new('lion').tap(&:execute)
         expect(search).to be_valid
       end
 
       it 'invalid when string is empty' do
-        search = Search.new('').tap(&:execute)
-        expect(search).to_not be_valid
+        search = described_class.new('').tap(&:execute)
+        expect(search).not_to be_valid
       end
     end
 
     describe ':words_exist' do
       it 'valid if words are in dictionary' do
-        search = Search.new('cat, lion').tap(&:execute)
+        search = described_class.new('cat, lion').tap(&:execute)
         expect(search).to be_valid
       end
 
       it 'invalid when words are not in dictionary' do
-        search = Search.new('cat, numberwang').tap(&:execute)
-        expect(search).to_not be_valid
+        search = described_class.new('cat, numberwang').tap(&:execute)
+        expect(search).not_to be_valid
       end
     end
 
     describe ':words_have_intersecting_groups' do
       it 'valid if groups intersect' do
-        search = Search.new('lion, tiger').tap(&:execute)
+        search = described_class.new('lion, tiger').tap(&:execute)
         expect(search).to be_valid
       end
 
       it 'invalid if groups do not intersect' do
-        search = Search.new('cat, platypus').tap(&:execute)
-        expect(search).to_not be_valid
+        search = described_class.new('cat, platypus').tap(&:execute)
+        expect(search).not_to be_valid
         expect(search.errors[:groups_not_intersected]).to be_present
       end
     end
