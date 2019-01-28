@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MobyImporter
   attr_reader :file, :logger
 
@@ -6,7 +8,7 @@ class MobyImporter
     total_lines = file.readlines.size
 
     file.each_line.with_index do |line, i|
-      Rails.logger.info("Importing line #{i + 1}/#{total_lines}") if i % 25 == 0
+      Rails.logger.info("Importing line #{i + 1}/#{total_lines}") if (i % 25).zero?
       thesaurus_string line
     end
   end
@@ -16,7 +18,7 @@ class MobyImporter
     total_lines = file.readlines.size
 
     file.each_line.with_index do |line, i|
-      Rails.logger.info("Importing line #{i + 1}/#{total_lines}") if i % 25 == 0
+      Rails.logger.info("Importing line #{i + 1}/#{total_lines}") if (i % 25).zero?
       clean_line = line.force_encoding(Encoding::UTF_8).strip
       word_string, _slash, part_codes = clean_line.partition('\\')
 
@@ -47,6 +49,7 @@ class MobyImporter
 
       words.each do |word|
         next if group.words.include?(word)
+
         group.words << word
       end
 

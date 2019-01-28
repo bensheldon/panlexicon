@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module MobyMacros
   def use_moby_cats_thesuarus
-    before(:each) { MobyImporter.new.thesaurus Pathname('spec/fixtures/moby_cats_thesaurus.txt') }
+    before { MobyImporter.new.thesaurus Pathname('spec/fixtures/moby_cats_thesaurus.txt') }
   end
 
   def use_moby_cats_parts_of_speech
-    before(:each) { MobyImporter.new.parts_of_speech Pathname('spec/fixtures/moby_cats_parts_of_speech.txt') }
+    before { MobyImporter.new.parts_of_speech Pathname('spec/fixtures/moby_cats_parts_of_speech.txt') }
   end
 
   def use_moby_cats
@@ -13,7 +15,7 @@ module MobyMacros
   end
 
   def use_moby_thesaurus
-    before :each do
+    before do
       path = Pathname('spec/fixtures/moby_thesaurus.txt')
       MobyImporter.new.thesaurus(path)
     end

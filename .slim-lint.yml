@@ -1,0 +1,10 @@
+linters:
+  FileLength:
+    enabled: false
+  LineLength:
+    enabled: false
+  ControlStatementSpacing:
+    enabled: false
+  CommentControlStatement:
+    exclude:
+      - "app/views/search/_word.html.slim"

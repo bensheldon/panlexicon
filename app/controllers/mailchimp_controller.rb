@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MailchimpController < ApplicationController
   def after_subscribe
   end

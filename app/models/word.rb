@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: words
@@ -13,9 +15,9 @@
 #
 
 class Word < ApplicationRecord
-  has_many :groupings
+  has_many :groupings, dependent: :destroy
   has_many :groups, through: :groupings
-  has_many :parts_of_speech
-  has_many :search_records_words
+  has_many :parts_of_speech, dependent: :destroy
+  has_many :search_records_words, dependent: :destroy
   has_many :search_records, through: :search_records_words
 end

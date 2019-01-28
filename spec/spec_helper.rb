@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV.key? 'TRAVIS'
   require 'coveralls'
   Coveralls.wear!('rails')

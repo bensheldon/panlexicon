@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WordOfTheDayTweet
   MAX_SIZE = 130
   URL_SIZE = 28 # hardcoded rather than fetched dynamically from twitter

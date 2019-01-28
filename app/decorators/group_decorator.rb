@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class GroupDecorator < ApplicationDecorator
-  alias :group :object
+  alias group object
 
   def search
     context[:search]

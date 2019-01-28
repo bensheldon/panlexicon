@@ -6,12 +6,16 @@
       ul
         li
           | Follow our <strong>Word of the Day</strong> on
-          =< link_to "#{ fa_icon 'twitter' } Twitter".html_safe, 'http://twitter.com/panlexicon'
+          =< link_to 'http://twitter.com/panlexicon' do
+           => fa_icon 'twitter'
+           | Twitter
         li
           | Help us <strong>improve the code</strong> at
-          =< link_to "#{ fa_icon 'github-alt' } Github".html_safe, 'http://github.com/bensheldon/panlexicon-rails'
+          =< link_to 'http://github.com/bensheldon/panlexicon-rails' do
+           => fa_icon 'github-alt'
+           | Github
         li
           | Send us an <strong>email</strong> at
-          =< link_to "#{ fa_icon 'paper-plane'} hello@panlexicon.com".html_safe, 'mailto:hello@panlexicon.com'
-
-    / = debug(params) if Rails.env.development?
+          =< link_to 'mailto:hello@panlexicon.com'
+            => fa_icon 'paper-plane'
+            | hello@panlexicon.com

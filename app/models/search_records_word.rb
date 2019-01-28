@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: search_records_words
@@ -26,6 +28,6 @@ class SearchRecordsWord < ApplicationRecord
 
   enum operation: {
     add: 0,
-    subtract: 1
+    subtract: 1,
   }
 end

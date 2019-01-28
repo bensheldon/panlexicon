@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Search
   include ActiveModel::Model
   attr_reader :string, :words, :parser, :additive_group_ids, :subtractive_group_ids
@@ -23,13 +25,9 @@ class Search
     @parser = SearchParser.new string
   end
 
-  def execute
-    parser.execute
-  end
+  delegate :execute, to: :parser
 
-  def fragments
-    parser.fragments
-  end
+  delegate :fragments, to: :parser
 
   def results
     @results ||= weight_related_words
@@ -52,9 +50,7 @@ class Search
     @subtractive_groups ||= Group.where id: subtractive_group_ids
   end
 
-  def missing_words
-    parser.missing_words
-  end
+  delegate :missing_words, to: :parser
 
   private
 
@@ -91,7 +87,8 @@ class Search
   end
 
   def words_exist
-    return unless missing_words.size > 0
+    return if missing_words.empty?
+
     missing_words.each do |missing_word|
       errors.add :missing_words, missing_word
     end
@@ -111,7 +108,7 @@ class Search
     # https://github.com/rails/arel/pull/320
     query = select_group_ids.map(&:to_sql).join ' INTERSECT '
     result = ActiveRecord::Base.connection.execute query
-    if result.count > 0
+    if result.count.positive?
       result.field_values('group_id').map(&:to_i)
     else
       []
@@ -119,7 +116,8 @@ class Search
   end
 
   def groups_intersect
-    return unless group_ids.size == 0
+    return unless group_ids.empty?
+
     errors.add :groups_not_intersected, true
   end
 end

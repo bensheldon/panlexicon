@@ -10,7 +10,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system, js: true) do
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
       chromeOptions: {
-        args: %w[no-sandbox headless disable-gpu window-size=1400,900]
+        args: %w[no-sandbox headless disable-gpu window-size=1400,900],
       }
     )
     driven_by :selenium, using: :chrome, options: { desired_capabilities: capabilities }

@@ -55,12 +55,7 @@ GEM
       execjs
     bcrypt (3.1.12)
     benchmark-ips (2.7.2)
-    better_errors (2.5.0)
-      coderay (>= 1.0.0)
-      erubi (>= 1.0.0)
-      rack (>= 0.9.0)
-    binding_of_caller (0.8.0)
-      debug_inspector (>= 0.0.1)
+    bindex (0.5.0)
     bootsnap (1.3.2)
       msgpack (~> 1.0)
     bootstrap-sass (3.4.0)
@@ -99,7 +94,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
-    debug_inspector (0.0.3)
     derailed (0.1.0)
       derailed_benchmarks
     derailed_benchmarks (1.3.5)
@@ -121,12 +115,8 @@ GEM
     docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    em-websocket (0.5.1)
-      eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0.6.0)
     equalizer (0.0.11)
     erubi (1.8.0)
-    eventmachine (1.2.7)
     execjs (2.7.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
@@ -140,35 +130,9 @@ GEM
     flamegraph (0.9.5)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
-    formatador (0.2.5)
     get_process_mem (0.2.3)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    guard (2.15.0)
-      formatador (>= 0.2.4)
-      listen (>= 2.7, < 4.0)
-      lumberjack (>= 1.0.12, < 2.0)
-      nenv (~> 0.1)
-      notiffany (~> 0.0)
-      pry (>= 0.9.12)
-      shellany (~> 0.0)
-      thor (>= 0.18.1)
-    guard-compat (1.2.1)
-    guard-livereload (2.5.2)
-      em-websocket (~> 0.5)
-      guard (~> 2.8)
-      guard-compat (~> 1.0)
-      multi_json (~> 1.8)
-    guard-rspec (4.7.3)
-      guard (~> 2.1)
-      guard-compat (~> 1.1)
-      rspec (>= 2.99.0, < 4.0)
-    guard-rubocop (1.3.0)
-      guard (~> 2.0)
-      rubocop (~> 0.20)
-    guard-shell (0.7.1)
-      guard (>= 2.0.0)
-      guard-compat (~> 1.0)
     hashdiff (0.3.8)
     heapy (0.1.4)
     heroku-deflater (0.6.3)
@@ -184,7 +148,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (1.4.0)
       concurrent-ruby (~> 1.0)
-    jaro_winkler (1.5.1)
+    jaro_winkler (1.5.2)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -207,7 +171,6 @@ GEM
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    lumberjack (1.0.13)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
@@ -224,17 +187,13 @@ GEM
     multi_json (1.13.1)
     multipart-post (2.0.0)
     naught (1.1.0)
-    nenv (0.3.0)
     newrelic_rpm (5.6.0.349)
     nio4r (2.3.1)
     nokogiri (1.9.1)
       mini_portile2 (~> 2.4.0)
-    notiffany (0.1.1)
-      nenv (~> 0.1)
-      shellany (~> 0.0)
     orm_adapter (0.5.0)
-    parallel (1.12.1)
-    parser (2.5.3.0)
+    parallel (1.13.0)
+    parser (2.6.0.0)
       ast (~> 2.4.0)
     pg (1.1.3)
     powerpack (0.1.2)
@@ -249,8 +208,6 @@ GEM
       activesupport (>= 3.0.0)
     rack (2.0.6)
     rack-host-redirect (1.3.0)
-      rack
-    rack-livereload (0.3.17)
       rack
     rack-mini-profiler (1.0.1)
       rack (>= 1.2.0)
@@ -279,12 +236,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
     rails_layout (1.0.42)
-    rails_serve_static_assets (0.0.5)
-    rails_stdout_logging (0.0.5)
     railties (5.2.2)
       actionpack (= 5.2.2)
       activesupport (= 5.2.2)
@@ -327,7 +279,7 @@ GEM
     rspec-support (3.8.0)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (0.62.0)
+    rubocop (0.63.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
@@ -335,7 +287,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
-    rubocop-rspec (1.31.0)
+    rubocop-rspec (1.32.0)
       rubocop (>= 0.60.0)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
@@ -360,7 +312,6 @@ GEM
       rubyzip (~> 1.2, >= 1.2.2)
     sentry-raven (2.7.4)
       faraday (>= 0.7.6, < 1.0)
-    shellany (0.0.1)
     simple_oauth (0.3.1)
     simplecov (0.16.1)
       docile (~> 1.1)
@@ -383,6 +334,9 @@ GEM
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
+    spring-watcher-listen (2.0.1)
+      listen (>= 2.7, < 4.0)
+      spring (>= 1.2, < 3.0)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -395,7 +349,6 @@ GEM
     temple (0.8.0)
     term-ansicolor (1.7.0)
       tins (~> 1.0)
-    terminal-notifier-guard (1.7.0)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -422,6 +375,11 @@ GEM
     unicode-display_width (1.4.1)
     warden (1.2.8)
       rack (>= 2.0.6)
+    web-console (3.7.0)
+      actionview (>= 5.0)
+      activemodel (>= 5.0)
+      bindex (>= 0.4.0)
+      railties (>= 5.0)
     webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -439,8 +397,6 @@ DEPENDENCIES
   active_null
   annotate
   bcrypt
-  better_errors
-  binding_of_caller
   bootsnap
   bootstrap-sass
   bourbon
@@ -454,14 +410,11 @@ DEPENDENCIES
   ffaker
   flamegraph
   font-awesome-rails
-  guard-livereload
-  guard-rspec
-  guard-rubocop
-  guard-shell
   heroku-deflater
   jbuilder
   jquery-rails
   launchy
+  listen
   lograge
   memory_profiler
   newrelic_rpm
@@ -470,18 +423,17 @@ DEPENDENCIES
   puma
   pundit
   rack-host-redirect
-  rack-livereload
   rack-mini-profiler
   rack-timeout
   rails (~> 5.2.1)
   rails-controller-testing
-  rails_12factor
   rails_layout
   redcarpet
   redis
   rspec
   rspec-rails
   rspec_junit_formatter
+  rubocop
   rubocop-rspec
   sass-rails
   selenium-webdriver
@@ -491,11 +443,12 @@ DEPENDENCIES
   slim_lint
   spring
   spring-commands-rspec
+  spring-watcher-listen
   stackprof
-  terminal-notifier-guard
   timecop
   twitter
   uglifier
+  web-console
   webmock
 
 RUBY VERSION

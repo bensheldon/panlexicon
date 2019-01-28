@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :heroku do
   desc 'Heroku release tasks (runs on every code push, before postdeploy task on review app creation)'
   task release: :environment do

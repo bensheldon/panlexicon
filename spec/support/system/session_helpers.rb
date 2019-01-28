@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module System
   module SessionHelpers
     def sign_in(user, password = 'password')

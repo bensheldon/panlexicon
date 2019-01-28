@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include Pundit
 
@@ -14,11 +16,13 @@ class ApplicationController < ActionController::Base
   alias devise_current_user current_user
   def current_user
     return @current_user if instance_variable_defined?(:@current_user)
+
     @current_user = devise_current_user || User.null
   end
 
   def bot_request?
     return @bot_request if instance_variable_defined?(:@bot_request)
+
     @bot_request = DeviceDetector.new(request.user_agent).bot?
   end
 
@@ -29,6 +33,6 @@ class ApplicationController < ActionController::Base
   private
 
   def miniprofiler
-    Rack::MiniProfiler.authorize_request if current_user.is_admin?
+    Rack::MiniProfiler.authorize_request if current_user.admin?
   end
 end

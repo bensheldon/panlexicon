@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SearchDecorator < ApplicationDecorator
-  alias :search :object
+  alias search object
 
   def results
     WordDecorator.decorate_collection search.results, context.merge(search: self)

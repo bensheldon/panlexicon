@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe MobyImporter do
-  let(:moby_importer) { MobyImporter.new }
+  let(:moby_importer) { described_class.new }
 
   describe '#thesaurus' do
     let(:txt) { Pathname('spec/fixtures/moby_cats_thesaurus.txt') }
@@ -11,17 +13,17 @@ RSpec.describe MobyImporter do
     end
 
     it 'imports words' do
-      expect { moby_importer.thesaurus(txt) }.to change { Word.count }.from(0).to(10)
+      expect { moby_importer.thesaurus(txt) }.to change(Word, :count).from(0).to(10)
     end
 
     it 'is idempotent' do
       moby_importer.thesaurus(txt) # Do it once first
-      expect { moby_importer.thesaurus(txt) }.to_not change { Word.count }
+      expect { moby_importer.thesaurus(txt) }.not_to change(Word, :count)
     end
 
     it 'does not import empty characters e.g. ",,"' do
       moby_importer.thesaurus(txt) # Do it once first
-      expect(Word.find_by_name '').to eq nil
+      expect(Word.find_by(name: '')).to eq nil
     end
 
     describe "moby bug with 'cackle' keyword duplication" do
@@ -53,7 +55,7 @@ RSpec.describe MobyImporter do
     end
 
     it 'imports parts_of_speech' do
-      expect { moby_importer.parts_of_speech(txt) }.to change { PartOfSpeech.count }.from(0).to(13)
+      expect { moby_importer.parts_of_speech(txt) }.to change(PartOfSpeech, :count).from(0).to(13)
     end
 
     it 'imports part_of_speech type' do
