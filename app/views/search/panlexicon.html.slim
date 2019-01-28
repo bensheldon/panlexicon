@@ -8,9 +8,16 @@
 
 - if @search.valid?
   ul.search-results
-    - @search.results.each do |word|
-      - if word.name == 'palaver'
-        li.word.word-panlexicon> panlexicon
-      = render 'word', word: word
+    ruby:
+      insertion_passed = false
+      after_words, before_words = @search.results.partition do |word|
+        insertion_passed = true if word.name == 'palaver'
+        insertion_passed
+      end
+
+    = render partial: 'word', collection: before_words, as: :word
+    li.word.word-panlexicon> panlexicon
+    = render partial: 'word', collection: after_words, as: :word
+
 - else
   .alert.alert-danger Thesaurus data has not been imported yet.
