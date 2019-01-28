@@ -19,7 +19,7 @@ Installation and Setup
 ----------------------
 
 Dependencies:
-- Ruby 2.5.1
+- Ruby 2.6.0
 - bundler gem (`$ gem install bundler`)
 - postgres (on OSX, use [Postgres.app](http://postgresapp.com/))
 - [System dependencies](Brewfile), assuming you are using Homebrew on OSX: `brew bundle`
