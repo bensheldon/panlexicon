@@ -18,15 +18,20 @@ Start Server | Test / Watch
 Installation and Setup
 ----------------------
 
+### Local Setup:
 Dependencies:
 - Ruby 2.6.0
 - bundler gem (`$ gem install bundler`)
 - postgres (on OSX, use [Postgres.app](http://postgresapp.com/))
 - [System dependencies](Brewfile), assuming you are using Homebrew on OSX: `brew bundle`
 
-Setup:
 1. Run `$ bin/setup`
 2. Start the server: `$ bin/rails s`
+3. Visit it in your web browser: `http://localhost:3000`
+
+### Docker setup
+1. Run `$ docker-compose run web bin/setup`
+2. Run `$ docker-compose up`
 3. Visit it in your web browser: `http://localhost:3000`
 
 Running Tests

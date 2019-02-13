@@ -41,7 +41,7 @@ namespace :moby do
     else
       system "
         pg_restore --verbose --data-only --no-acl --no-owner \
-          -h localhost -U $(whoami) -d panlexicon_#{ENV.fetch('RAILS_ENV', 'development')} \
+          -U ${PGUSER:-$(whoami)} -d panlexicon_#{ENV.fetch('RAILS_ENV', 'development')} \
           data.sql.tar
       "
     end
