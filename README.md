@@ -3,10 +3,8 @@ Panlexicon
 
 [![Circle CI](https://circleci.com/gh/bensheldon/panlexicon-rails.svg?style=shield)](https://circleci.com/gh/bensheldon/panlexicon-rails)
 [![Coverage Status](https://coveralls.io/repos/bensheldon/panlexicon-rails/badge.png?branch=master)](https://coveralls.io/r/bensheldon/panlexicon-rails?branch=master)
-[![Dependency Status](https://gemnasium.com/bensheldon/panlexicon-rails.png)](https://gemnasium.com/bensheldon/panlexicon-rails)
 [![Code Climate](https://codeclimate.com/github/bensheldon/panlexicon-rails.svg)](https://codeclimate.com/github/bensheldon/panlexicon-rails)
 [![Panlexicon](http://img.shields.io/badge/words-103,256-blue.svg)](http://panlexicon.com)
-[![Inline docs](http://inch-ci.org/github/bensheldon/panlexicon-rails.svg?branch=master)](http://inch-ci.org/github/bensheldon/panlexicon-rails)
 
 Developing
 ----------
