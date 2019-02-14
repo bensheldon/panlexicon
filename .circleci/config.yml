@@ -44,6 +44,21 @@ jobs:
           path: tmp/screenshots
           destination: screenshots
 
+  docker:
+    machine: true
+    working_directory: ~/panlexicon
+    steps:
+      - checkout
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run: docker-compose build
+      - run: docker-compose run web bin/setup
+      - run: docker-compose run web bin/rspec
+
   deploy:
     machine:
       enabled: true
@@ -91,3 +106,18 @@ workflows:
           filters:
             branches:
               only: master
+      - docker:
+          filters:
+            branches:
+              only: /^docker*/
+
+  docker_nightly:
+    jobs:
+      - docker
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
