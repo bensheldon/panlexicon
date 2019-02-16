@@ -5,7 +5,7 @@ class DailyHistoriesController < ApplicationController
 
   def index
     user = account_history? ? current_user : nil
-    @daily_histories = DailyHistory.all(user: user)
+    @daily_histories = DailyHistory.all(user: user, before_date: params[:before_date]&.to_datetime)
   end
 
   private

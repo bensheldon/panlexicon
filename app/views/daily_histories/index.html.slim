@@ -7,3 +7,11 @@
         - daily_history.words.each do |word|
           li> class="word weight-#{word.weight}"
             = link_to word.name.strip, search_path(q: word.name)
+
+- if @daily_histories.present?
+  nav
+    ul.pager
+      li.next
+        = link_to(histories_path(before_date: @daily_histories.last.date.to_date)) do
+          '  Older searches
+          span aria-hidden="true" &rarr;
