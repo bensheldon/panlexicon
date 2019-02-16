@@ -7,10 +7,10 @@ class DailyHistory
 
   attr_accessor :date, :words
 
-  def self.all(user: User.null, after_date: nil)
+  def self.all(user: User.null, before_date: nil)
     args = {
       user_id: user&.id,
-      after_date: after_date,
+      before_date: before_date,
       max_words_per_day: Search::MAX_RELATED_WORDS,
       max_weight: Search::MAX_WEIGHT,
     }

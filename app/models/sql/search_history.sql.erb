@@ -1,10 +1,25 @@
 WITH
+  after_date AS (
+    SELECT MIN(date) as after_date FROM (
+      SELECT DISTINCT(date_trunc('day', search_records.created_at)) AS date
+      FROM search_records
+      <% if before_date.present? %>
+        WHERE search_records.created_at < :before_date
+      <% end %>
+      ORDER BY date DESC
+      LIMIT 10
+    ) days
+  ),
   search_records_word_dates AS (
     SELECT search_records_words.*, date_trunc('day', search_records.created_at) AS date
     FROM search_records_words
     JOIN search_records ON search_records.id = search_records_words.search_record_id
+    WHERE search_records.created_at >= (SELECT * FROM after_date)
     <% if user_id.present? %>
-    WHERE search_records.user_id = :user_id
+      AND search_records.user_id = :user_id
+    <% end %>
+    <% if before_date.present? %>
+      AND search_records.created_at < :before_date
     <% end %>
   ),
   grouped_words AS (
