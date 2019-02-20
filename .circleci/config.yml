@@ -109,7 +109,7 @@ workflows:
       - docker:
           filters:
             branches:
-              only: /^docker*/
+              only: /^docker.*/
 
   docker_nightly:
     jobs:
