@@ -31,6 +31,9 @@ chdir APP_ROOT do
   puts "\n== Importing thesaurus data =="
   system! 'bin/rails moby:thesaurus_db'
 
+  puts "\n== Seeding search records =="
+  system! 'bin/rails db:seed:search_history'
+
   puts "\n== Removing old logs and tempfiles =="
   system! 'bin/rails log:clear tmp:clear'
 
