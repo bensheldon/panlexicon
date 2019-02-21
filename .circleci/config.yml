@@ -1,42 +1,63 @@
 ---
+
+defaults: &defaults
+  working_directory: ~/panlexicon
+  docker:
+    - image: circleci/ruby:2.6.0-node-browsers
+      environment:
+        PGHOST: localhost
+        PGUSER: panlexicon
+        RAILS_ENV: test
+    - image: postgres:10
+      environment:
+        POSTGRES_USER: panlexicon
+        POSTGRES_DB: panlexicon_test
+        POSTGRES_PASSWORD: ""
+
 version: 2
 jobs:
-  build:
-    working_directory: ~/panlexicon
-    docker:
-      - image: circleci/ruby:2.6.0-node-browsers
-        environment:
-          PGHOST: localhost
-          PGUSER: panlexicon
-          RAILS_ENV: test
-      - image: postgres:10
-        environment:
-          POSTGRES_USER: panlexicon
-          POSTGRES_DB: panlexicon_test
-          POSTGRES_PASSWORD: ""
+  install_dependencies:
+    <<: *defaults
     steps:
       - checkout
-      # Restore Cached Dependencies
       - restore_cache:
           name: Restore bundle cache
-          key: v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
-      # Bundle install dependencies
+          keys:
+            - v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - v1-panlexicon-{{ arch }}-
       - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 --full-index
-      # Cache Dependencies
       - save_cache:
           name: Store bundle cache
           key: v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
-      # Wait for DB
+            - ./vendor/bundle
+
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore bundle cache
+          keys:
+            - v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - v1-panlexicon-{{ arch }}-
+      - run: bundle --path vendor/bundle
+      - run: bin/lint
+
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore bundle cache
+          keys:
+            - v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - v1-panlexicon-{{ arch }}-
+      - run: bundle --path vendor/bundle
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      # Setup the database
       - run: bundle exec rake db:test:prepare
-      # Precompile Assets
       - run: bin/rails assets:precompile
-      # Create place to store test results
       - run: mkdir ~/rspec
-      # Run the tests
       - run: bundle exec rspec --format documentation --format RspecJunitFormatter -o ~/rspec/rspec.xml
       - store_test_results:
           path: ~/rspec
@@ -99,7 +120,13 @@ workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build
+      - install_dependencies
+      - lint:
+          requires:
+            - install_dependencies
+      - build:
+          requires:
+            - install_dependencies
       - deploy:
           requires:
             - build
