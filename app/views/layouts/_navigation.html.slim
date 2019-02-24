@@ -19,7 +19,7 @@ nav.navbar.navbar-default.navbar-fixed
 
     form.navbar-form.navbar-right role='search' method='GET' action='/'
       .form-group.has-feedback
-        label.sr-only for='search' Search
+        label.sr-only for='search' Search Panlexicon
         input#search.form-control name='q' value=search_query placeholder='Search Panlexicon' type='text' autocapitalize='none' autofocus=true onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"
 
         - instructions_html = capture do
@@ -30,7 +30,7 @@ nav.navbar.navbar-default.navbar-fixed
 
         span class="form-control-feedback form-control-feedback-clickable"
           a#search-instructions.btn href="#" title="Search instructions" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-container=".navbar-form.navbar-right" data-html="true" data-content=instructions_html
-            i.fa.fa-info-circle aria-hidden=true
+            i.fa.fa-info-circle aria-hidden="true"
             .sr-only Show search instructions
 
       button.btn.btn-brand.hidden-xs< type='submit' Search

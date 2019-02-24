@@ -19,7 +19,7 @@ ul.search-results {
       text-decoration: underline;
     }
     &.active {
-      color: #ff006f;
+      color: $brand-color;
       &:hover {
         color: #5100ff;
       }
