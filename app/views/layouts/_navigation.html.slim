@@ -17,6 +17,11 @@ nav.navbar.navbar-default.navbar-fixed
 
       = link_to 'Panlexicon', root_path, class: 'navbar-brand hidden-xs'
 
+    ul.nav.navbar-nav.hidden-xs
+      li
+        = link_to about_path
+          = fa_icon 'info-circle', 'aria-hidden': true
+          |  About
     form.navbar-form.navbar-right role='search' method='GET' action='/'
       .form-group.has-feedback
         label.sr-only for='search' Search Panlexicon
@@ -29,8 +34,8 @@ nav.navbar.navbar-default.navbar-fixed
           p Remove synonyms with minus: <code>fun, -youth</code>
 
         span class="form-control-feedback form-control-feedback-clickable"
-          a#search-instructions.btn href="#" title="Search instructions" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-container=".navbar-form.navbar-right" data-html="true" data-content=instructions_html
-            i.fa.fa-info-circle aria-hidden="true"
+          button#search-instructions.btn.btn-link title="Search instructions" tabindex="0" role="button" data-toggle="popover-prevent-default" data-trigger="focus" data-placement="bottom" data-container=".navbar-form.navbar-right" data-html="true" data-content=instructions_html
+            i.fa.fa-question-circle aria-hidden="true"
             .sr-only Show search instructions
 
       button.btn.btn-brand.hidden-xs< type='submit' Search
@@ -42,6 +47,7 @@ nav.navbar.navbar-default.navbar-fixed
             .col-xs-12.visible-xs-block
               ' <strong>Panlexicon</strong> is a unique thesaurus that provides a quicker
               ' and more intuitive process for finding the words you want.
+              ' #{link_to "Learn more about Panlexicon", about_path}.
       - else
         ul.nav.navbar-nav
           li.dropdown.hidden-xs
