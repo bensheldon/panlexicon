@@ -1,10 +1,10 @@
-workflow "New workflow" {
+workflow "Add to Project " {
+  resolves = ["Add to Project Board"]
   on = "pull_request"
-  resolves = ["Default PR Project Board"]
 }
 
-action "Default PR Project Board" {
-  uses = "./.github/actions/default_project"
+action "Add to Project Board" {
+  uses = "bensheldon/action-add-to-project@master"
   secrets = ["GITHUB_TOKEN"]
   env = {
     COLUMN_ID = "2360744"
