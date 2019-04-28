@@ -1,4 +1,4 @@
-workflow "Add to Project Board" {
+workflow "Add PRs to Project Board" {
   resolves = ["Add to Project Board"]
   on = "pull_request"
 }
