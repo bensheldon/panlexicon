@@ -13,7 +13,7 @@ action "Add PR to Project Board" {
 
 workflow "On Issue" {
   resolves = ["Add Issue to Project Board"]
-  on = "issue"
+  on = "issues"
 }
 
 action "Add Issue to Project Board" {
