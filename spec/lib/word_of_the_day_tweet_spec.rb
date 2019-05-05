@@ -20,7 +20,7 @@ RSpec.describe WordOfTheDayTweet do
     end
 
     describe 'tweeted message' do
-      let(:tweet) do
+      subject(:tweet) do
         tweet = nil
         allow(twitter_client).to receive(:update) do |msg|
           tweet = msg
@@ -29,12 +29,10 @@ RSpec.describe WordOfTheDayTweet do
         tweet
       end
 
-      it 'includes the word of the day name' do
-        expect(tweet).to include word_of_the_day.word.name
-      end
-
-      it 'includes related words' do
-        expect(tweet).to include('bobcat', 'lynx', 'puma', 'leopard', 'tiger')
+      it 'is correctly formatted' do
+        expect(tweet).to start_with <<~TWEET.strip
+          LION is today's word. Related to tiger, leopard, cat, Siamese, bobcat, Maine Coon, lynx, & puma.
+        TWEET
       end
 
       it 'includes link to the website' do
