@@ -2,7 +2,6 @@ Panlexicon
 ==========
 
 [![Circle CI](https://circleci.com/gh/bensheldon/panlexicon-rails.svg?style=shield)](https://circleci.com/gh/bensheldon/panlexicon-rails)
-[![Coverage Status](https://coveralls.io/repos/bensheldon/panlexicon-rails/badge.png?branch=master)](https://coveralls.io/r/bensheldon/panlexicon-rails?branch=master)
 [![Code Climate](https://codeclimate.com/github/bensheldon/panlexicon-rails.svg)](https://codeclimate.com/github/bensheldon/panlexicon-rails)
 [![Panlexicon](http://img.shields.io/badge/words-103,256-blue.svg)](http://panlexicon.com)
 

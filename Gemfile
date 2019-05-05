@@ -40,7 +40,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'coveralls', require: false
   gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'simplecov'
@@ -50,7 +49,7 @@ end
 
 group :development, :test do
   gem 'factory_bot_rails'
-  gem 'ffaker'
+  gem 'faker'
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'rspec'
@@ -63,6 +62,7 @@ group :development do
   gem 'listen'
   gem 'rails_layout'
   gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rspec', require: false
   gem 'slim_lint', require: false
   gem 'spring'

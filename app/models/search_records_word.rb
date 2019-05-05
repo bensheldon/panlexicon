@@ -4,7 +4,7 @@
 #
 # Table name: search_records_words
 #
-#  id               :bigint(8)        not null, primary key
+#  id               :bigint           not null, primary key
 #  search_record_id :integer          not null
 #  word_id          :integer          not null
 #  position         :integer          not null

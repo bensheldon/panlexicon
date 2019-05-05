@@ -4,7 +4,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint(8)        not null, primary key
+#  id                     :bigint           not null, primary key
 #  uuid                   :uuid             not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -29,7 +29,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, #trackable, and :omniauthable
   devise :database_authenticatable, :confirmable, # :registerable,
-    :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable
   extend ActiveNull
 
   def admin?
