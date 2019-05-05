@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class WordOfTheDayTweet
-  MAX_SIZE = 130
-  URL_SIZE = 28 # hardcoded rather than fetched dynamically from twitter
+  MAX_SIZE = 260
+  URL_SIZE = 28 # twitter_client.configuration.short_url_length_https
 
   attr_reader :word_of_the_day
   delegate :url_helpers, to: 'Rails.application.routes'
