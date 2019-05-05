@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   scope 'account' do
     resources :daily_histories, path: 'history', as: :account_histories, account: true
   end
+
+  resource :about, only: [:show]
 end
 
 # 404 catch all route
