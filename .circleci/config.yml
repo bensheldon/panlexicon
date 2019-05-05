@@ -3,7 +3,7 @@
 defaults: &defaults
   working_directory: ~/panlexicon
   docker:
-    - image: circleci/ruby:2.6.0-node-browsers
+    - image: circleci/ruby:2.6.3-node-browsers
       environment:
         PGHOST: localhost
         PGUSER: panlexicon

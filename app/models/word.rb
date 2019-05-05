@@ -4,7 +4,7 @@
 #
 # Table name: words
 #
-#  id                    :bigint(8)        not null, primary key
+#  id                    :bigint           not null, primary key
 #  name                  :citext           not null
 #  groups_count          :integer          default(0), not null
 #  parts_of_speech_count :integer          default(0), not null

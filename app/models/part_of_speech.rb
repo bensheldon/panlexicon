@@ -4,8 +4,8 @@
 #
 # Table name: parts_of_speech
 #
-#  id        :bigint(8)        not null, primary key
-#  word_id   :bigint(8)        not null
+#  id        :bigint           not null, primary key
+#  word_id   :bigint           not null
 #  type_code :string(1)        not null
 #
 # Indexes
