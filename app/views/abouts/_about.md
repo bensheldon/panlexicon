@@ -31,8 +31,8 @@ Who created it…
 <div class="media">
   <div class="media-left">
     <div class="media-object" style="width: 150px;">
-      <%= image_tag 'ben.jpeg', class: 'img-circle', width: 80, alt: '', style: "border: 2px solid #444" %>
-      <%= image_tag 'bec.jpeg', class: 'img-circle', width: 80, alt: '', style: "margin-left: -20px; border: 2px solid #444" %>
+      <%= image_tag 'ben.jpg', class: 'img-circle', width: 80, alt: '', style: "border: 2px solid #444" %>
+      <%= image_tag 'bec.jpg', class: 'img-circle', width: 80, alt: '', style: "margin-left: -20px; border: 2px solid #444" %>
     </div>
   </div>
   <div class="media-body">
