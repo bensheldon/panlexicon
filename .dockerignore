@@ -1,3 +1,27 @@
+# Ignore all generated assets, logfiles, tempfiles and secrets.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/public/assets/*
+/public/packs/*
 .env
-/tmp
+
+# Ignore node_modules
+/node_modules/*
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore editor/os-generated files
+.DS_Store
+.idea
+tags
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# Ignore .git as it's not needed with the docker built.
 .git
+.cache
+
