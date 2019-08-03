@@ -1,7 +1,5 @@
 FROM ruby:2.6.3
 
-ENV CHROMIUM_DRIVER_VERSION 2.46
-
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 
 # Install Chrome
@@ -11,7 +9,8 @@ RUN wget -q -O /tmp/linux_signing_key.pub https://dl-ssl.google.com/linux/linux_
   && apt-get update && apt-get install google-chrome-stable -y
 
 # Install Chromedriver
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$CHROMIUM_DRIVER_VERSION/chromedriver_linux64.zip \
+RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
+    && wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip \
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ \
     && rm /tmp/chromedriver.zip \
     && chmod ugo+rx /usr/local/bin/chromedriver
