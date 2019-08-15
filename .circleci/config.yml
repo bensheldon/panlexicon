@@ -1,58 +1,96 @@
 ---
+version: 2.1
 
-defaults: &defaults
-  working_directory: ~/panlexicon
-  docker:
-    - image: circleci/ruby:2.6.3-node-browsers
-      environment:
-        PGHOST: localhost
-        PGUSER: panlexicon
-        RAILS_ENV: test
-    - image: postgres:10
-      environment:
-        POSTGRES_USER: panlexicon
-        POSTGRES_DB: panlexicon_test
-        POSTGRES_PASSWORD: ""
+executors:
+  machine_executor:
+    machine: true
+    working_directory: ~/panlexicon
 
-version: 2
-jobs:
-  install_dependencies:
-    <<: *defaults
+  rails_executor:
+    working_directory: ~/panlexicon
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers
+        environment:
+          BUNDLE_JOBS: 4
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: localhost
+          PGUSER: panlexicon
+          RAILS_ENV: test
+      - image: postgres:10
+        environment:
+          POSTGRES_USER: panlexicon
+          POSTGRES_DB: panlexicon_test
+          POSTGRES_PASSWORD: ""
+
+commands:
+  setup_bundler:
+    description: "Set up Bundler dependencies"
     steps:
-      - checkout
+      - run:
+          name: Install bundler with appropriate version
+          command: gem install bundler -v $(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -1 | tr -d " ")
       - restore_cache:
-          name: Restore bundle cache
           keys:
-            - v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - v1-panlexicon-{{ arch }}-
-      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 --full-index
+            - bundler-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - bundler-{{ .Environment.CACHE_VERSION }}-{{ arch }}-
+      - run: bundle install --frozen && bundle clean
       - save_cache:
-          name: Store bundle cache
-          key: v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          key: bundler-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
+            - ~/.bundle
             - ./vendor/bundle
 
-  lint:
-    <<: *defaults
+  setup_heroku_cli:
+    description: "Install the Heroku CLI"
+    steps:
+      - restore_cache:
+          name: Restore Heroku CLI archive
+          key: heroku-cli-{{ .Environment.CACHE_VERSION }}-{{ arch }}
+      - run:
+          name: Download Heroku CLI archive
+          command: |
+            if [ ! -f heroku-linux-amd64.tar.gz ]; then
+              wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
+            fi
+      - save_cache:
+          name: Cache Heroku CLI archive
+          key: heroku-cli-{{ .Environment.CACHE_VERSION }}-{{ arch }}
+          paths:
+            - heroku-linux-amd64.tar.gz
+      - run:
+          name: Set up Heroku CLI
+          command: |
+            sudo mkdir -p /usr/local/lib /usr/local/bin
+            sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
+            sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
+
+            cat > ~/.netrc \<< EOF
+            machine api.heroku.com
+              login $HEROKU_LOGIN
+              password $HEROKU_API_KEY
+            EOF
+
+jobs:
+  install_dependencies:
+    executor: rails_executor
     steps:
       - checkout
-      - restore_cache:
-          name: Restore bundle cache
-          keys:
-            - v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - v1-panlexicon-{{ arch }}-
+      - setup_bundler
+
+  lint:
+    executor: rails_executor
+    steps:
+      - checkout
+      - setup_bundler
       - run: bundle --path vendor/bundle
       - run: bin/lint
 
-  build:
-    <<: *defaults
+  test:
+    executor: rails_executor
     steps:
       - checkout
-      - restore_cache:
-          name: Restore bundle cache
-          keys:
-            - v1-panlexicon-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - v1-panlexicon-{{ arch }}-
+      - setup_bundler
       - run: bundle --path vendor/bundle
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:test:prepare
@@ -65,9 +103,8 @@ jobs:
           path: tmp/screenshots
           destination: screenshots
 
-  docker:
-    machine: true
-    working_directory: ~/panlexicon
+  test_docker:
+    executor: machine_executor
     steps:
       - checkout
       - run:
@@ -81,66 +118,39 @@ jobs:
       - run: docker-compose run web bin/rspec
 
   deploy:
-    machine:
-      enabled: true
-    working_directory: ~/panlexicon
+    executor: machine_executor
     steps:
       - checkout
-      - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
-      - restore_cache:
-          name: Restore Heroku CLI archive
-          key: v2-heroku-cli-{{ arch }}
-      - run:
-          name: Download Heroku CLI archive
-          command: |
-            if [ ! -f heroku-linux-amd64.tar.gz ]; then
-              wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
-            fi
-      - save_cache:
-          name: Cache Heroku CLI archive
-          key: v2-heroku-cli-{{ arch }}
-          paths:
-            - heroku-linux-amd64.tar.gz
-      - run:
-          name: Set up Heroku CLI
-          command: |
-            sudo mkdir -p /usr/local/lib /usr/local/bin
-            sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
-            sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
-
-            cat > ~/.netrc << EOF
-            machine api.heroku.com
-              login $HEROKU_LOGIN
-              password $HEROKU_API_KEY
-            EOF
+      - setup_heroku_cli
       - run: heroku git:remote -a panlexicon
       - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/panlexicon.git $CIRCLE_SHA1:refs/heads/master
 
 workflows:
   version: 2
-  build_and_deploy:
+  setup_test_deploy:
     jobs:
       - install_dependencies
       - lint:
           requires:
             - install_dependencies
-      - build:
+      - test:
           requires:
             - install_dependencies
       - deploy:
           requires:
-            - build
+            - test
+            - lint
           filters:
             branches:
               only: master
-      - docker:
+      - test_docker:
           filters:
             branches:
               only: /^docker.*/
 
   docker_nightly:
     jobs:
-      - docker
+      - test_docker
     triggers:
       - schedule:
           cron: "0 0 * * *"
