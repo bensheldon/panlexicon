@@ -23,10 +23,7 @@ AllCops:
 Rails:
   Enabled: true
 
-Rails/SkipsModelValidations:
-  Enabled: false
-
-Rails/FilePath:
+RSpec/FilePath:
   Enabled: false
 
 Lint/AmbiguousBlockAssociation:

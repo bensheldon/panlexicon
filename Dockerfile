@@ -18,6 +18,7 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
 RUN mkdir /project
 WORKDIR /project
 COPY .ruby-version Gemfile Gemfile.lock /project/
+RUN gem install bundler -v $(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -1 | tr -d " ")
 RUN bundle install --jobs=4 --retry=3 --full-index
 
 ENV PATH /opt/bin/:$PATH

@@ -7,7 +7,7 @@ RSpec.describe SearchRecordsByDate, type: :model do
 
   let(:search) { Search.new('lion, tiger').tap(&:execute) }
   let!(:search_record) { SearchRecord.create_from_search search }
-  let(:records) { SearchRecordsByDate.new Time.now.utc.to_date }
+  let(:records) { described_class.new Time.now.utc.to_date }
 
   describe '#results' do
     it 'includes searched words' do
