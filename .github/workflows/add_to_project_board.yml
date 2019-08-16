@@ -1,0 +1,12 @@
+name: Add to Project Board
+on:
+  - issues
+  - pull_request
+jobs:
+  add_to_project_board:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bensheldon/action-add-to-project@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COLUMN_ID: 2360744
