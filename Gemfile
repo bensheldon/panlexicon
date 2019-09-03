@@ -23,7 +23,7 @@ gem 'puma'
 gem 'pundit'
 gem 'rack-host-redirect'
 gem 'rack-mini-profiler', require: false
-gem 'rails', '~> 6.0.0rc2'
+gem 'rails', '~> 6.0'
 gem 'redis'
 gem 'sass-rails'
 gem 'slim-rails'
