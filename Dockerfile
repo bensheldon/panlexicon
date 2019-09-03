@@ -1,6 +1,9 @@
 FROM ruby:2.6.3
 
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN apt-get update -qq && \
+    apt-get install -y \
+      nodejs \
+      postgresql-client
 
 # Install Chrome
 RUN wget -q -O /tmp/linux_signing_key.pub https://dl-ssl.google.com/linux/linux_signing_key.pub \
@@ -18,8 +21,12 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
 RUN mkdir /project
 WORKDIR /project
 COPY .ruby-version Gemfile Gemfile.lock /project/
+
 RUN gem install bundler -v $(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -1 | tr -d " ")
-RUN bundle install --jobs=4 --retry=3 --full-index
+
+ENV BUNDLE_JOBS 4
+ENV BUNDLE_RETRY 3
+RUN bundle install
 
 ENV PATH /opt/bin/:$PATH
 COPY . /project
