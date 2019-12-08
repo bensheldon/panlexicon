@@ -1,12 +1,13 @@
-name: Add to Project Board
-on:
-  - issues
-  - pull_request
+name: Add to Backlog Project Board in Inbox 
+
+on: [issues, pull_request]
+
 jobs:
-  add_to_project_board:
+  add-to-backlog-project-board:
     runs-on: ubuntu-latest
     steps:
-      - uses: bensheldon/action-add-to-project@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COLUMN_ID: 2360744
+      - uses: alex-page/github-project-automation-plus@v0.1.1
+        with:
+          project: Backlog
+          column: Inbox
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
