@@ -10,4 +10,4 @@ jobs:
         with:
           project: Backlog
           column: Inbox
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
