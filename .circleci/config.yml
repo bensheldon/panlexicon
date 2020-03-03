@@ -21,6 +21,7 @@ executors:
         environment:
           POSTGRES_USER: panlexicon
           POSTGRES_DB: panlexicon_test
+          POSTGRES_HOST_AUTH_METHOD: trust	
           POSTGRES_PASSWORD: ""
 
 commands:
