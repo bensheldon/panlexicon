@@ -129,6 +129,7 @@ GEM
       xpath (~> 3.2)
     childprocess (2.0.0)
       rake (< 13.0)
+    cliver (0.3.2)
     coderay (1.1.2)
     coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
@@ -141,6 +142,9 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
+    cuprite (0.7.0)
+      capybara (>= 2.1, < 4)
+      ferrum (>= 0.2.1)
     derailed (0.1.0)
       derailed_benchmarks
     derailed_benchmarks (1.3.6)
@@ -174,6 +178,11 @@ GEM
       i18n (>= 0.8)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
+    ferrum (0.4)
+      addressable (~> 2.6)
+      cliver (~> 0.3)
+      concurrent-ruby (~> 1.1)
+      websocket-driver (>= 0.6, < 0.8)
     ffi (1.11.1)
     flamegraph (0.9.5)
     font-awesome-rails (4.7.0.5)
@@ -320,7 +329,7 @@ GEM
       rubocop (>= 0.60.0)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
-    rubyzip (1.2.3)
+    rubyzip (1.2.4)
     safe_yaml (1.0.5)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -423,6 +432,7 @@ DEPENDENCIES
   bootstrap-sass
   capybara
   coffee-rails
+  cuprite
   derailed
   device_detector
   devise

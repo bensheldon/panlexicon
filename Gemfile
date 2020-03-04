@@ -42,6 +42,7 @@ group :test do
   gem 'capybara'
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
+  gem 'cuprite'
   gem 'selenium-webdriver'
   gem 'simplecov'
   gem 'timecop'
