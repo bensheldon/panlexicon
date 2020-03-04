@@ -33,17 +33,17 @@ namespace :moby do
     end
 
     if ENV['RAILS_ENV'] == 'staging'
-      system "
+      system <<~BASH
         pg_restore --verbose --data-only --no-acl --no-owner \
           -d $DATABASE_URL \
           data.sql.tar
-      "
+      BASH
     else
-      system "
+      system <<~BASH
         pg_restore --verbose --data-only --no-acl --no-owner \
           -U ${PGUSER:-$(whoami)} -d panlexicon_#{ENV.fetch('RAILS_ENV', 'development')} \
           data.sql.tar
-      "
+      BASH
     end
   end
 end
