@@ -6,4 +6,5 @@ services:
     branch: main
     deploy_on_push: true
     repo: bensheldon/panlexicon-rails
-  
+  run_command: bin/rails server -p $PORT -e ${RAILS_ENV:-production}
+
