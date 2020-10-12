@@ -1,0 +1,9 @@
+name: panlexicon
+services:
+- name: panlexicon
+  environment_slug: ruby-on-rails
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: bensheldon/panlexicon-rails
+  
