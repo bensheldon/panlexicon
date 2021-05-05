@@ -1,0 +1,17 @@
+FROM ruby:2.6.6
+
+ENV BUNDLE_JOBS 4
+ENV BUNDLE_RETRY 3
+
+RUN apt-get update -qq \
+    && apt-get install -y nodejs postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /project
+WORKDIR /project
+
+COPY .ruby-version Gemfile Gemfile.lock /project/
+RUN gem install bundler -v $(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -1 | tr -d " ")
+
+COPY . /project
+RUN bin/rails assets:precompile
