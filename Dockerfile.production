@@ -7,6 +7,9 @@ ENV BUNDLE_DEPLOYMENT="true"
 ENV BUNDLE_WITHOUT="test development"
 ENV RAILS_ENV=production
 
+ARG SECRET_KEY_BASE
+ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+
 RUN apt-get update -qq \
     && apt-get install -y nodejs postgresql-client \
     && rm -rf /var/lib/apt/lists/*
