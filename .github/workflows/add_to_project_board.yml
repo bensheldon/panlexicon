@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: alex-page/github-project-automation-plus@v0.1.1
+        if: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         with:
           project: Backlog
           column: Inbox
