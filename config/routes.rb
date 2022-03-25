@@ -37,5 +37,5 @@ end
 # 404 catch all route
 # https://github.com/rails/rails/issues/671#issuecomment-1780159
 Rails.application.config.after_initialize do |app|
-  app.routes.append { match '*path', via: [:get, :post], to: 'application#render_404' } unless Rails.application.config.consider_all_requests_local
+  app.routes.append { match '*path', via: [:get, :post], to: 'application#render404' } unless Rails.application.config.consider_all_requests_local
 end

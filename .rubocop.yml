@@ -1,7 +1,10 @@
 #
 # https://github.com/bbatsov/rubocop/blob/master/config/default.yml
 #
-require: rubocop-rspec
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
 
 inherit_mode:
   merge:
@@ -9,9 +12,10 @@ inherit_mode:
     - Include
 
 AllCops:
-  TargetRubyVersion: 2.6.6
+  TargetRubyVersion: 3.0.3
   DisplayCopNames: true
   DisplayStyleGuide: true
+  NewCops: enable
   Include:
     - Rakefile
     - config.ru
@@ -32,10 +36,10 @@ Lint/AmbiguousBlockAssociation:
 RSpec/MessageChain:
   Enabled: false
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
 Layout/EmptyLineAfterMagicComment:
@@ -58,13 +62,16 @@ Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 100
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 500
 
 Metrics/PerceivedComplexity:
   Enabled: false
 
-Documentation:
+Naming/VariableNumber:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false
 
 RSpec/DescribeClass:

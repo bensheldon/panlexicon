@@ -5,6 +5,7 @@ class WordOfTheDayTweet
   URL_SIZE = 28 # twitter_client.configuration.short_url_length_https
 
   attr_reader :word_of_the_day
+
   delegate :url_helpers, to: 'Rails.application.routes'
   delegate :default_url_options, to: 'Rails.application.config.action_mailer'
 

@@ -5,19 +5,13 @@
   },
   "env": {
     "RACK_ENV": {
-      "required": true
+      "value": "production"
     },
     "RAILS_ENV": {
       "required": true
     },
     "SECRET_KEY_BASE": {
       "generator": "secret"
-    },
-    "HEROKU_PARENT_APP_NAME": {
-      "required": true
-    },
-    "HEROKU_APP_NAME": {
-      "required": true
     },
     "RAILS_MAX_THREADS": "2",
     "WEB_CONCURRENCY": "0"
@@ -27,7 +21,7 @@
     {
       "plan": "heroku-postgresql:hobby-basic",
       "options": {
-        "version": "10"
+        "version": "14"
       }
     },
     {

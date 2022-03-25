@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SearchParser
-  attr_reader :string, :fragments
+  attr_reader :string, :fragments, :part_of_speech
 
   def initialize(string)
     @string = string
@@ -23,10 +23,10 @@ class SearchParser
                   end
 
       SearchFragment.new string: string_fragment,
-        operation_string: operation_string,
-        word_string: word_string,
-        position: position,
-        operation: operation
+                         operation_string: operation_string,
+                         word_string: word_string,
+                         position: position,
+                         operation: operation
     end
   end
 
@@ -41,8 +41,6 @@ class SearchParser
   def missing_words
     fragments.reject { |fragment| fragment.word.present? }.map(&:string)
   end
-
-  attr_reader :part_of_speech
 
   private
 

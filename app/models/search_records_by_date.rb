@@ -20,7 +20,7 @@ class SearchRecordsByDate
   end
 
   def weight_search_records
-    weighted_records_words = <<~SQL
+    weighted_records_words = <<~SQL.squish
       SELECT
         words.*,
         grouping.searched_groups_count AS searched_groups_count,

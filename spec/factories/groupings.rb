@@ -2,5 +2,6 @@
 
 FactoryBot.define do
   factory :grouping do
+    # none
   end
 end

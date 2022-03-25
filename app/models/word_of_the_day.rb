@@ -26,7 +26,7 @@ class WordOfTheDay < ApplicationRecord
   belongs_to :word
 
   validates :date, presence: true, uniqueness: true
-  validates :word, presence: true, uniqueness: true
+  validates :word, uniqueness: true
   validates :date, presence: true
 
   def records_start_at

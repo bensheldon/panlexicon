@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe SearchRecord, type: :model do
   use_moby_cats
 
-  let(:user) { FactoryBot.create :user }
+  let(:user) { create :user }
   let(:search) { Search.new('lion, tiger').tap(&:execute) }
   let(:search_record) { described_class.create_from_search search }
 

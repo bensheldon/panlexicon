@@ -23,7 +23,7 @@ class WordOfTheDayGenerator
   end
 
   def find_word
-    most_searched_word = <<~SQL
+    most_searched_word = <<~SQL.squish
       SELECT
         words.*,
         counting.search_count AS search_count

@@ -23,7 +23,7 @@ RSpec.describe MobyImporter do
 
     it 'does not import empty characters e.g. ",,"' do
       moby_importer.thesaurus(txt) # Do it once first
-      expect(Word.find_by(name: '')).to eq nil
+      expect(Word.find_by(name: '')).to be_nil
     end
 
     describe "moby bug with 'cackle' keyword duplication" do

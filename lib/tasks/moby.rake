@@ -29,7 +29,7 @@ namespace :moby do
     require 'open-uri'
 
     open('data.sql.tar', 'wb') do |file|
-      file << open('https://github.com/bensheldon/panlexicon-rails/releases/download/v1/data.sql.tar').read
+      file << URI.open('https://github.com/bensheldon/panlexicon-rails/releases/download/v1/data.sql.tar').read
     end
 
     if ENV['RAILS_ENV'] == 'staging'

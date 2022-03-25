@@ -30,6 +30,7 @@ RSpec.describe SearchController do
       get :search, params: { query: 'lion, tiger' }
       expect(response).to have_http_status(:ok)
     end
+
     it 'GET creates a new Search using :query' do
       get :search, params: { query: 'lion, tiger' }
       expect(assigns(:search).string).to eq(search_query)

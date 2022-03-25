@@ -29,7 +29,7 @@ RSpec.describe 'Daily History', type: :system do
   end
 
   context 'when account history' do
-    let(:user) { FactoryBot.create :user }
+    let(:user) { create :user }
 
     it 'Users see searched history' do
       sign_in user

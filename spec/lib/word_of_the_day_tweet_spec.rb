@@ -37,7 +37,7 @@ RSpec.describe WordOfTheDayTweet do
 
       it 'includes link to the website' do
         link = tweet.split.last
-        expect(link).to match URI.regexp %w(http https)
+        expect(link).to match URI::DEFAULT_PARSER.make_regexp(%w(http https))
       end
     end
   end
