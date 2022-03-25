@@ -23,7 +23,7 @@ gem 'puma'
 gem 'pundit'
 gem 'rack-host-redirect'
 gem 'rack-mini-profiler', require: false
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 gem 'redis'
 gem 'sass-rails'
 gem 'slim-rails'
@@ -53,13 +53,7 @@ group :development, :test do
   gem 'faker'
   gem 'launchy'
   gem 'rspec'
-
-  # https://github.com/rspec/rspec-rails/issues/2086
-  gem 'rspec-rails', git: 'https://github.com/rspec/rspec-rails', branch: '4-0-dev'
-  gem 'rspec-core', git: 'https://github.com/rspec/rspec-core'
-  gem 'rspec-mocks', git: 'https://github.com/rspec/rspec-mocks'
-  gem 'rspec-support', git: 'https://github.com/rspec/rspec-support'
-  gem 'rspec-expectations', git: 'https://github.com/rspec/rspec-expectations'
+  gem 'rspec-rails'
 end
 
 group :development do
