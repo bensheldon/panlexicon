@@ -8,7 +8,6 @@ jobs:
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
       BUNDLE_PATH: "vendor/bundle"
-      BUNDLE_BUILD__SASSC: "--disable-march-tune-native"
       BUNDLE_FROZEN: "true"
     steps:
       - name: Checkout code
@@ -30,16 +29,16 @@ jobs:
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
       BUNDLE_PATH: "vendor/bundle"
-      BUNDLE_BUILD__SASSC: "--disable-march-tune-native"
       BUNDLE_FROZEN: "true"
 
     services:
       postgres:
-        image: postgres:10.8
+        image: "postgres:14"
         env:
           POSTGRES_USER: panlexicon
           POSTGRES_DB: panlexicon_test
           POSTGRES_PASSWORD: ""
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 

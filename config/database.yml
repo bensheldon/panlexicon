@@ -2,7 +2,7 @@ defaults: &defaults
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV['POSTGRES_USERNAME'] || ENV['USER'] %>
+  username: <%= ENV['PGUSER'] || ENV['POSTGRES_USERNAME'] || ENV['USER'] %>
   connect_timeout: 1
   checkout_timeout: 1
 
