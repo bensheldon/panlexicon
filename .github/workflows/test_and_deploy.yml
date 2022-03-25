@@ -80,7 +80,7 @@ jobs:
           fetch-depth: 0
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - name: Push to Staging App
+      - name: Push to Heroku
         run: |
           heroku git:remote -a panlexicon
-          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/panlexicon.git $CIRCLE_SHA1:refs/heads/master
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/panlexicon.git main:master
