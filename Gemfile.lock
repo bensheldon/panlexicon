@@ -156,8 +156,6 @@ GEM
     hashdiff (1.0.1)
     heapy (0.2.0)
       thor
-    heroku-deflater (0.6.3)
-      rack (>= 1.4.5)
     http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -434,7 +432,6 @@ DEPENDENCIES
   faker
   flamegraph
   font-awesome-rails
-  heroku-deflater
   jbuilder
   jquery-rails
   kramdown

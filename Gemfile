@@ -32,7 +32,6 @@ gem 'twitter'
 gem 'uglifier'
 
 group :production, :staging do
-  gem 'heroku-deflater'
   gem 'lograge'
   gem 'rack-timeout' # https://github.com/heroku/rack-timeout/issues/55
   gem 'sentry-raven'
