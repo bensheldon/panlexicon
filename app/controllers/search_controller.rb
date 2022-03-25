@@ -9,7 +9,7 @@ class SearchController < ApplicationController
 
     @search = SearchDecorator.new search
 
-    render status: 404 if @search.invalid?
+    render status: :not_found if @search.invalid?
   end
 
   def redirect_post

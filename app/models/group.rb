@@ -23,5 +23,5 @@ class Group < ApplicationRecord
   has_many :groupings, dependent: :destroy
   has_many :words, through: :groupings
 
-  validates :key_word_id, presence: true, uniqueness: true
+  validates :key_word_id, uniqueness: true
 end

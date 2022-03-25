@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :system do
-  let(:user) { FactoryBot.create :user }
+  let(:user) { create :user }
 
   it 'Users can sign in and out' do
     sign_in user

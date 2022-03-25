@@ -79,7 +79,7 @@ RSpec.describe SearchParser do
     context 'when none' do
       let(:search) { 'cat, lion, ' }
 
-      specify { expect(parser.part_of_speech).to eq nil }
+      specify { expect(parser.part_of_speech).to be_nil }
     end
   end
 end
