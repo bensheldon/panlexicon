@@ -42,7 +42,7 @@ class MobyImporter
                     .reject(&:empty?)
                     .uniq
                     .map { |name| Word.find_or_create_by(name: name) }
-      return if words.size.zero?
+      raise ActiveRecord::Rollback if words.size.zero?
 
       key_word = words.first
       group = Group.find_or_create_by(key_word: key_word)

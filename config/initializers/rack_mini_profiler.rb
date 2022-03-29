@@ -20,3 +20,13 @@ if Rails.env.production? && ENV['REDIS_URL']
   }
   Rack::MiniProfiler.config.storage = Rack::MiniProfiler::RedisStore
 end
+
+Rack::MiniProfiler.config.skip_paths.push(
+  "/__rack/",
+  "/__better_errors",
+  "/favicon.ico",
+  "/images/",
+  "/stylesheets/",
+  "/javascripts/",
+  "/packs/",
+)
