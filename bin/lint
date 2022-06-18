@@ -15,7 +15,7 @@ chdir APP_ROOT do
   # Add necessary update steps to this file.
 
   puts '== Rubocop Autofix =='
-  system! 'bundle exec rubocop --safe-auto-correct'
+  system! 'bundle exec rubocop --autocorrect'
 
   puts '== Slim Lint =='
   system! 'bundle exec slim-lint app/views/'
