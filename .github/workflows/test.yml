@@ -64,23 +64,3 @@ jobs:
         with:
           name: screenshots
           path: tmp/screenshots/
-
-  deploy:
-    name: "Deploy to Heroku"
-    if: github.ref == 'refs/heads/main'
-    needs: [test, lint]
-    runs-on: ubuntu-latest
-    env:
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: main
-          fetch-depth: 0
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - name: Push to Heroku
-        run: |
-          heroku git:remote -a panlexicon
-          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/panlexicon.git main:master
