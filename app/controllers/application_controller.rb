@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   # Catch ActionController::RoutingError from route defined in Application.rb
   def render_404
-    render status: :not_found, file: Rails.root.join('public/404.html'), layout: false
+    render status: :not_found, file: Rails.public_path.join('404.html'), layout: false
   end
 
   alias devise_current_user current_user
