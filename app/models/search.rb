@@ -80,9 +80,9 @@ class Search
     }
 
     if query_params[:pos_codes].empty?
-      Word.find_by_sql [WEIGHTED_SEARCH_SQL, query_params]
+      Word.find_by_sql([WEIGHTED_SEARCH_SQL, query_params], preparable: true)
     else
-      Word.find_by_sql [WEIGHTED_SEARCH_WITH_POS_SQL, query_params]
+      Word.find_by_sql([WEIGHTED_SEARCH_WITH_POS_SQL, query_params], preparable: true)
     end
   end
 

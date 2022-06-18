@@ -23,7 +23,7 @@ gem 'puma'
 gem 'pundit'
 gem 'rack-host-redirect'
 gem 'rack-mini-profiler', require: false
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
 gem 'redis'
 gem 'sass-rails'
 gem 'slim-rails'
@@ -65,8 +65,5 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'slim_lint', require: false
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-watcher-listen'
   gem 'web-console'
 end
