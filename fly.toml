@@ -13,7 +13,7 @@ processes = []
   dockerfile = "Dockerfile.fly"
 
 [deploy]
-  release_command = "bin/rails db:release"
+  release_command = "bin/rails db:prepare"
 
 [experimental]
   allowed_public_ports = []
