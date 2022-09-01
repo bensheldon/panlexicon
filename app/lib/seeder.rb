@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class Seeder
+  def word_of_the_days
+    (0..10).to_a.each do |i|
+      WordOfTheDayGenerator.generate!(date: i.days.ago)
+    end
+  end
+
   def users
     User.find_or_initialize_by(email: 'user@example.com') do |user|
       user.password = 'password'

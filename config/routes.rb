@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post 'account/confirmation/new', to: 'confirmations#create'
   get 'account/confirmation', to: 'confirmations#show'
 
+  resources :word_of_the_days, only: [:index]
   resources :user_search_records
 
   get 'search/:query' => 'search#search'

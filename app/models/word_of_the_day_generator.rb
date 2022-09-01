@@ -3,12 +3,16 @@
 class WordOfTheDayGenerator
   attr_reader :word_of_the_day
 
-  def self.generate!
-    new.generate!
+  def self.generate!(date: Date.current)
+    new(date: date).generate!
+  end
+
+  def initialize(date: Date.current)
+    @date = date
   end
 
   def generate!
-    @word_of_the_day = WordOfTheDay.new date: Time.zone.today
+    @word_of_the_day = WordOfTheDay.new(date: @date)
     word_of_the_day.word = find_word_or_random
     word_of_the_day.save!
     word_of_the_day
