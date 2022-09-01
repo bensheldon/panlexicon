@@ -19,7 +19,7 @@ RSpec.describe 'Searching words', type: :system, js: true do
 
     click_link 'wordhoard'
     # Expect Bobcat to be active
-    expect(page).to have_selector 'a.active', text: 'wordhoard'
+    expect(page).to have_link 'wordhoard', class: 'active'
     # Expect the link to remove the word from search
     expect(page).to have_link 'wordhoard', href: '/?q='
 
