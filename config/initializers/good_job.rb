@@ -7,7 +7,7 @@ Rails.application.configure do
 
     config.good_job.cron = {
       search_records_cleanup: {
-        cron: '30 * * * * *', # every hour on the 30min
+        cron: '0 * * * *', # every hour on the 30min
         class: 'SearchRecordsCleanupJob',
         description: "Clean up old Search Records",
       },
