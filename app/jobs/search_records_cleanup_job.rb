@@ -10,7 +10,9 @@ class SearchRecordsCleanupJob < ApplicationJob
     Rails.logger.info "Cleaning up #{helpers.pluralize(search_record_count, 'search records')} that have expired."
 
     time_elapsed = Benchmark.realtime do
-      SearchRecord.delete_expired
+      SearchRecord.set_statement_timeout(120) do
+        SearchRecord.delete_expired
+      end
     end
 
     Rails.logger.info "Cleaned up #{helpers.pluralize(search_record_count, 'expired search records')} in #{helpers.pluralize(time_elapsed.round(2), 'seconds')}."
