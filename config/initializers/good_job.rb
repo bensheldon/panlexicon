@@ -7,12 +7,12 @@ Rails.application.configure do
 
     config.good_job.cron = {
       search_records_cleanup: {
-        cron: '0 * * * * *', # every hour
+        cron: '30 * * * * *', # every hour on the 30min
         class: 'SearchRecordsCleanupJob',
         description: "Clean up old Search Records",
       },
       word_of_the_day: {
-        cron: '30 4 * * *', # 4:30am UTC
+        cron: '0 16 * * *', # 1600 UTC
         class: 'WordOfTheDayJob',
         description: "Create and tweet Word of the Day",
       }
