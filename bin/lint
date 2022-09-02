@@ -17,6 +17,6 @@ chdir APP_ROOT do
   puts '== Rubocop Autofix =='
   system! 'bundle exec rubocop --autocorrect'
 
-  puts '== Slim Lint =='
+  puts "\n== Slim Lint =="
   system! 'bundle exec slim-lint app/views/'
 end

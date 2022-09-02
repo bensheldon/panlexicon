@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   end
 
   resource :about, only: [:show]
+
+  mount GoodJob::Engine => 'good_job'
 end
 
 # 404 catch all route
