@@ -67,3 +67,5 @@ group :development do
   gem 'slim_lint', require: false
   gem 'web-console'
 end
+
+gem "good_job", "~> 3.4"
