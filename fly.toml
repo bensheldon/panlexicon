@@ -13,6 +13,7 @@ processes = []
   dockerfile = "Dockerfile.fly"
 
 [deploy]
+  strategy = "bluegreen"
   release_command = "bin/rails db:prepare"
 
 [experimental]
