@@ -16,6 +16,8 @@ module Panlexicon
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.active_job.queue_adapter = :good_job
+
     # Custom directories with classes and modules you want to be loaded
     # http://blog.arkency.com/2014/11/dont-forget-about-eager-load-when-extending-autoload/
     paths.add 'app/decorators/collections', eager_load: true

@@ -1,6 +1,4 @@
 Rails.application.configure do
-  config.active_job.queue_adapter = :good_job
-
   if Rails.env.production?
     config.good_job.execution_mode = :async
     config.good_job.poll_interval = 30
