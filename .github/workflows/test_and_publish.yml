@@ -1,0 +1,37 @@
+name: Test and Publish
+on: [push]
+permissions:
+  contents: write
+concurrency:
+  group: ${{ github.workflow}}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test_and_publish:
+    name: Test and Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: "Ruby: Install Ruby"
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run RSpec
+        env:
+          JEKYLL_SKIP_BUILD: false
+        run: bundle exec rspec --format documentation
+
+      - name: Jekyll rebuild
+        run: bundle exec jekyll build --trace --profile
+
+      - name: Publish
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          enable_jekyll: false
+
