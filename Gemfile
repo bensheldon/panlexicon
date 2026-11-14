@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "activesupport", "~> 7.0"
+gem "activesupport", "~> 8.0"
 gem "jekyll", "~> 4.3.2"
 
 group :development, :test do
