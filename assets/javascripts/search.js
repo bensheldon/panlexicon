@@ -25,6 +25,36 @@ function bucketSort(numBuckets, arr, func) {
   return result;
 }
 
+function setMeta(selector, attr, value) {
+  const el = document.querySelector(selector);
+  if (el) {
+    el.setAttribute(attr, value);
+  }
+}
+
+function updateSeoForQuery(searchQuery, relatedNames) {
+  const terms = searchQuery.split(',').map(function (word) {
+    return word.trim();
+  }).filter(Boolean).join(', ');
+  if (terms.length == 0) {
+    return;
+  }
+
+  const title = `${terms}: synonyms and related words | Panlexicon`;
+  let description = `Synonyms and related words for "${terms}", shown as a visual word cloud.`;
+  if (relatedNames && relatedNames.length > 0) {
+    description = `Synonyms and related words for "${terms}": ${relatedNames.join(', ')}, and more, shown as a visual word cloud.`;
+  }
+  const url = `${window.location.origin}${window.jekyllSiteBaseUrl}/?q=${encodeURIComponent(terms)}`;
+
+  document.title = title;
+  setMeta('meta[name="description"]', 'content', description);
+  setMeta('meta[property="og:title"]', 'content', title);
+  setMeta('meta[property="og:description"]', 'content', description);
+  setMeta('meta[property="og:url"]', 'content', url);
+  setMeta('link[rel="canonical"]', 'href', url);
+}
+
 window.addEventListener('load', function (event) {
   const urlParams = new URLSearchParams(window.location.search);
   const hasSearch = urlParams.has("q");
@@ -44,6 +74,7 @@ window.addEventListener('load', function (event) {
   }
 
   searchInput.value = searchQuery;
+  updateSeoForQuery(searchQuery);
 
   resultsEl.innerHTML = "<p>Loading...</p>";
 
@@ -178,5 +209,14 @@ window.addEventListener('load', function (event) {
       `
 
     resultsEl.innerHTML = output;
+
+    const relatedNames = searchWordResults.filter(function (word) {
+      return !word.searchWord;
+    }).sort(function (a, b) {
+      return b.count - a.count;
+    }).slice(0, 8).map(function (word) {
+      return word.name;
+    });
+    updateSeoForQuery(searchQuery, relatedNames);
   });
 });

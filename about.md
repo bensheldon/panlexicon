@@ -1,6 +1,7 @@
 ---
 layout: default
 title: About
+description: Learn how Panlexicon, a visual thesaurus built on the Moby Thesaurus, helps you find synonyms and related words faster with an interactive word cloud.
 permalink: /about/
 ---
 
